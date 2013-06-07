@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Administrador - Ingresar posicion</title>
+<link href="style/opgwebadmin.css" rel="stylesheet" type="text/css">
+<link href="imagenes/opg.png" rel="icon" type="image/png" >
+<style type="text/css">
+#apDiv14 {
+	position:absolute;
+	width:250px;
+	height:40px;
+	z-index:1;
+	top: 0px;
+	left: 0px;
+	background-image: url(imagenes/adm-titleingresarposicion.png);
+}
+</style>
+</head>
+
+<body>
+<div id="apDiv1">
+  <div id="apDiv3"></div>
+  <div id="apDiv4">
+    <div id="apDiv5"></div>
+    <div id="apDiv6">
+      <div id="apDiv7" onmouseover="this.style.backgroundPosition='199px 0px'" onmouseout="this.style.backgroundPosition='0px 0px'"></div>
+      <div id="apDiv8" onmouseover="this.style.backgroundPosition='199px 0px'" onmouseout="this.style.backgroundPosition='0px 0px'"></div>
+      <div id="apDiv9" onmouseover="this.style.backgroundPosition='199px 0px'" onmouseout="this.style.backgroundPosition='0px 0px'"></div>
+      <div id="apDiv10" onmouseover="this.style.backgroundPosition='199px 0px'" onmouseout="this.style.backgroundPosition='0px 0px'"></div>
+      <div id="apDiv11" onmouseover="this.style.backgroundPosition='199px 0px'" onmouseout="this.style.backgroundPosition='0px 0px'"></div>
+      <div id="apDiv12" onmouseover="this.style.backgroundPosition='199px 0px'" onmouseout="this.style.backgroundPosition='0px 0px'"></div>
+      <div id="apDiv13" onmouseover="this.style.backgroundPosition='199px 0px'" onmouseout="this.style.backgroundPosition='0px 0px'"></div>
+    </div>
+  </div>
+</div>
+<div id="apDiv2">
+  <div id="apDiv15">
+    <div id="apDiv14"></div>
+    <div id="apDiv16"><form id="form1" name="form1" method="post" action="">
+      <p><strong>Nombre:</strong> 
+        <input type="text" name="nombre" id="nombre" />
+      </p>
+      <p><strong>Bodega Asociada:</strong> 
+        <select name="bodega" id="bodega">
+          <option value="100">100</option>
+          <option value="101">101</option>
+          <option value="102">102</option>
+        </select>
+      <p><strong>Posicion  Padre:</strong>      
+        <label for="ppadre"></label>
+        <select name="ppadre" id="ppadre">
+          <option value="0">No tiene</option>
+          <option value="101">P1</option>
+          <option value="102">P2</option>
+          <option value="201">R1</option>
+          <option value="202">R2</option>
+        </select>      
+      <p><strong>Alto:</strong>
+        <label for="alto"></label>
+        <input name="alto" type="text" id="alto" size="10" />
+      <p><strong>Largo:</strong> 
+        <label for="largo"></label>
+        <input name="largo" type="text" id="largo" size="10" maxlength="10" />      
+      <p><strong>Ancho:</strong>      
+        <label for="ancho"></label>
+        <input name="ancho" type="text" id="ancho" size="10" />      
+      <p>
+        <input type="submit" name="ingresarposicion" id="ingresarposicion" value="Ingresar posicion" style="float:right" />
+      </form>
+    </div>
+  </div>
+</div>
+</body>
+</html>

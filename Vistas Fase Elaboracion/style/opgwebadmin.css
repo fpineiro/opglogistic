@@ -1,0 +1,147 @@
+@charset "utf-8";
+/* CSS Document */
+
+body{
+	background: url(../imagenes/fondo.png);	
+}
+#apDiv1 {
+	position:absolute;
+	width:20%;
+	height:100%;
+	min-width: 222px;
+	z-index:1;
+	left: 10%;
+	top: 0px;
+}
+#apDiv2 {
+	position:absolute;
+	width:60%;
+	height:100%;
+	z-index:2;
+	left: 30%;
+	top: 0px;
+}
+#apDiv3 {
+	position:absolute;
+	width:100%;
+	height:30%;
+	z-index:2;
+	left: 0px;
+	top: 0px;
+	background: url(../imagenes/opg.png) no-repeat center;
+}
+#apDiv4 {
+	position:absolute;
+	width:100%;
+	height:70%;
+	z-index:3;
+	top: 30%;
+	left: 0px;
+}
+#apDiv5 {
+	position:absolute;
+	width:100%;
+	height:40px;
+	z-index:1;
+	left: 0%;
+	top: 0px;
+	background: url(../imagenes/administrador.png) no-repeat center;
+}
+#apDiv6 {
+	position:relative;
+	width:200px;
+	height:250px;
+	z-index:2;
+	left: 50%;
+	top: 40px;
+	margin-left: -50%;
+}
+#apDiv7 {
+	position:absolute;
+	width:200px;
+	height:35px;
+	z-index:1;
+	left: 0px;
+	top: 0px;
+	background: url(../imagenes/adm-gestionarusuarios.png);
+	background-position: 0px 0px;
+}
+#apDiv8 {
+	position:absolute;
+	width:200px;
+	height:35px;
+	z-index:2;
+	left: 0px;
+	top: 35px;
+	background-image: url(../imagenes/adm-gestionarbodegas.png);
+}
+#apDiv9 {
+	position:absolute;
+	width:200px;
+	height:35px;
+	z-index:3;
+	top: 70px;
+	left: 0px;
+	background-image: url(../imagenes/adm-gestionartiposdemateriales.png);
+}
+#apDiv10 {
+	position:absolute;
+	width:200px;
+	height:35px;
+	z-index:3;
+	left: 0px;
+	top: 105px;
+	background-image: url(../imagenes/adm-gestionarproveedores.png);
+}
+#apDiv11 {
+	position:absolute;
+	width:200px;
+	height:35px;
+	z-index:4;
+	left: 0px;
+	top: 140px;
+	background-image: url(../imagenes/adm-revisarsolicitudesdeembalaje.png);
+}
+#apDiv12 {
+	position:absolute;
+	width:200px;
+	height:35px;
+	z-index:5;
+	left: 0px;
+	top: 175px;
+	background-image: url(../imagenes/adm-revisarordenesdedespacho.png);
+}
+#apDiv13 {
+	position:absolute;
+	width:200px;
+	height:35px;
+	z-index:3;
+	left: 0px;
+	top: 210px;
+	background-image: url(../imagenes/adm-revisarordenesdecompra.png);
+}
+#apDiv15 {
+	position:absolute;
+	width:100%;
+	height:95%;
+	z-index:2;
+	left: 0px;
+	top: 5%;
+	border-left: solid 1px;
+	border-top: solid 1px;
+	text-indent: 10px;
+	overflow: scroll;
+}
+#apDiv16 {
+	position:absolute;
+	width:100%;
+	height:90%;
+	z-index:1;
+	top: 10%;
+	left: 0px;
+}
+#apDiv17 {
+	position:absolute;
+	width:200px;
+	height:115px;
+	z-index:3;
