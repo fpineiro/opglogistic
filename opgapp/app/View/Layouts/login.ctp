@@ -8,13 +8,9 @@
 <title>OPG Logistic</title>
 </head>
 <body>
-<div id="sidenav">
-<?php echo $this->element('menus/sidenav'); ?>  
-</div>
-<div id="header"><?php echo $this->element('menus/header'); ?></div>
-<div id="bigbox">
-<div id="contenido">
-<?php
+<div id="fullcontainer">
+<div id="login">
+<?php   
 	$this->session->flash();   
 	echo $content_for_layout;   
 ?>
