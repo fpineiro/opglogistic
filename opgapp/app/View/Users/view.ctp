@@ -1,6 +1,14 @@
-<h1>
-<?php echo h($user['User']['username']); ?></h1>
+<?php 
 
-<p><small>Created: <?php echo $user['User']['created']; ?></small></p>
+echo $user['User']['username'];
+echo '</big><p> Nombre: ';
+echo $user['User']['name'];
+echo '<p> Apellido: ';
+echo $user['User']['lastname'];
+echo '<p> E-Mail: ';
+echo $user['User']['mail'];
+echo '<p> Creado el: ';
+echo $user['User']['created'];
+echo "<br/>".$this->Html->link("Editar", array('action'=> 'edit',  $user['User']['id']), array( 'class' => 'button'));
 
-<p><?php echo h($user['User']['name']); ?></p>
+?>

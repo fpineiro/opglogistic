@@ -25,7 +25,6 @@ class UsersController extends AppController {
         if (!$id) {
             throw new NotFoundException(__('Invalid USER'));
         }
-
         $user = $this->User->findById($id);
         if (!$user) {
             throw new NotFoundException(__('Invalid USUARIO'));
@@ -81,7 +80,7 @@ class UsersController extends AppController {
 	
 	public function index($filtro){
 		if(isset($filtro)){
-			$this->set('users', $this->User->find('all', array('conditions' => array('User.role' => $filtro))));				
+			$this->set('users', $this->User->find('all', array('conditions' => array('OR' => array('User.role' => $filtro, 'User.name' => $filtro, 'User.lastname' => $filtro)))));				
 		}else{
 	        $this->set('users', $this->User->find('all'));			
 		}

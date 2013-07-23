@@ -3,24 +3,33 @@
 
 <script type="text/javascript">
 	function actualizar(filtro){
-		$.ajax({
-			url: '/cakephp/users/index/'+filtro,
-		    type: 'POST',
-		    success: function (data) {
-		        $('#context').html(data);
-			},
-			error: function(xhr, ajaxOptions, thrownError){
-				alert(xhr.status);
-			}
-		});
+	        $('#context').load('/cakephp/users/index/'+filtro+' #context');
 	}
 </script>
 <?php
 	echo $this->Form->input('filtrorol', array(
-			'options' => array('cliente' => 'Cliente', 'jb' => 'Jefe de Bodega', 'admin' => 'Administrador'), 
-			'label' => 'Tipo de Usuario: ',
-			'onchange' => "actualizar(this.value)"
-		));
+		'options' => array('' => 'Sin Filtro', 'cliente' => 'Cliente', 'jb' => 'Jefe de Bodega', 'admin' => 'Administrador'), 
+		'label' => 'Filtro de Usuarios: ',
+		'onchange' => "actualizar(this.value)",
+		'div' => false,
+		'class' => false
+	));
+	
+	echo ' o ';
+	
+	echo $this->Form->input('inputbusqueda', array(
+		'div' => false, 
+		'class' => false, 
+		'label' => false,
+		'placeholder' => 'Ingrese nombre o apellido',
+		'size' => '25'
+	));
+	
+	echo $this->Form->submit('Buscar', array(
+		'div' => false, 
+		'class' => false, 
+		'onclick' => "actualizar(inputbusqueda.value)",
+	));
 		
 ?>
 <table id="context">

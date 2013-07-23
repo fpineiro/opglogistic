@@ -51,6 +51,7 @@ html{
 }
 #bigbox {
 	position:absolute;
+	width: 800px;
 	z-index:1;
 	left: 0px;
 	top: 0px;
@@ -78,4 +79,7 @@ html{
 	height:115px;
 	z-index:1;
 	margin: auto auto;
+}
+#divx{
+	display: inline-block;	
 }

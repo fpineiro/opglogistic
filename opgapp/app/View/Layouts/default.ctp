@@ -15,7 +15,7 @@
 <div id="bigbox">
 <div id="contenido">
 <?php
-	$this->session->flash();   
+	$this->Session->flash();   
 	echo $content_for_layout;   
 ?>
 </div>
