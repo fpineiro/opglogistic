@@ -1,63 +1,96 @@
 <?php
-/**
- * Static content controller.
- *
- * This file will render views from views/pages/
- *
- * PHP 5
- *
- * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
- * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
- *
- * Licensed under The MIT License
- * For full copyright and license information, please see the LICENSE.txt
- * Redistributions of files must retain the above copyright notice.
- *
- * @copyright     Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
- * @link          http://cakephp.org CakePHP(tm) Project
- * @package       app.Controller
- * @since         CakePHP(tm) v 0.2.9
- * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
- */
 App::uses('AppController', 'Controller');
-
 /**
- * Static content controller
+ * SolicitudEmbalajes Controller
  *
- * Override this controller by placing a copy in controllers directory of an application
- *
- * @package       app.Controller
- * @link http://book.cakephp.org/2.0/en/controllers/pages-controller.html
+ * @property SolicitudEmbalaje $SolicitudEmbalaje
  */
-
 class SolicitudEmbalajesController extends AppController {
 
 /**
- * Controller name
+ * index method
  *
- * @var string
+ * @return void
  */
-	public $name = 'SolicitudEmbalajes';
+	public function index() {
+		$this->SolicitudEmbalaje->recursive = 0;
+		$this->set('solicitudEmbalajes', $this->paginate());
+	}
 
-	public function index($filtro){
-		if(isset($filtro)){
-			$this->set('solicitudes', $this->SolicitudEmbalaje->find('all', array('conditions' => array('SolicitudEmbalaje.id_historial_solicitud_embalaje' => $filtro))));				
-		}else{
-			$this->loadModel('EstadoAutomata');
-			$this->loadModel('HistorialSolicitudEmbalaje');
-			$solicitudes = $this->SolicitudEmbalaje->find('all');
-			$contador = 0;
-			foreach($solicitudes as $solicitud){
-				$historiales[$contador] = $this->HistorialSolicitudEmbalaje->findById($solicitud['SolicitudEmbalaje']['id_historial_solicitud_embalaje']);
-				$contador = $contador + 1;
-			}
-			$contador = 0;
-			foreach($historiales as $historial){
-				$estados[$contador] = $this->EstadoAutomata->findById($historial['HistorialSolicitudEmbalaje']['id_estado_automata']);
-				$contador = $contador + 1;
-			}
-	        $this->set('solicitudes', $solicitudes);
-	        $this->set('estados', $estados);
+/**
+ * view method
+ *
+ * @throws NotFoundException
+ * @param string $id
+ * @return void
+ */
+	public function view($id = null) {
+		if (!$this->SolicitudEmbalaje->exists($id)) {
+			throw new NotFoundException(__('Invalid solicitud embalaje'));
 		}
+		$options = array('conditions' => array('SolicitudEmbalaje.' . $this->SolicitudEmbalaje->primaryKey => $id));
+		$this->set('solicitudEmbalaje', $this->SolicitudEmbalaje->find('first', $options));
+	}
+
+/**
+ * add method
+ *
+ * @return void
+ */
+	public function add() {
+		if ($this->request->is('post')) {
+			$this->SolicitudEmbalaje->create();
+			if ($this->SolicitudEmbalaje->save($this->request->data)) {
+				$this->Session->setFlash(__('The solicitud embalaje has been saved'));
+				$this->redirect(array('action' => 'index'));
+			} else {
+				$this->Session->setFlash(__('The solicitud embalaje could not be saved. Please, try again.'));
+			}
+		}
+	}
+
+/**
+ * edit method
+ *
+ * @throws NotFoundException
+ * @param string $id
+ * @return void
+ */
+	public function edit($id = null) {
+		if (!$this->SolicitudEmbalaje->exists($id)) {
+			throw new NotFoundException(__('Invalid solicitud embalaje'));
+		}
+		if ($this->request->is('post') || $this->request->is('put')) {
+			if ($this->SolicitudEmbalaje->save($this->request->data)) {
+				$this->Session->setFlash(__('The solicitud embalaje has been saved'));
+				$this->redirect(array('action' => 'index'));
+			} else {
+				$this->Session->setFlash(__('The solicitud embalaje could not be saved. Please, try again.'));
+			}
+		} else {
+			$options = array('conditions' => array('SolicitudEmbalaje.' . $this->SolicitudEmbalaje->primaryKey => $id));
+			$this->request->data = $this->SolicitudEmbalaje->find('first', $options);
+		}
+	}
+
+/**
+ * delete method
+ *
+ * @throws NotFoundException
+ * @param string $id
+ * @return void
+ */
+	public function delete($id = null) {
+		$this->SolicitudEmbalaje->id = $id;
+		if (!$this->SolicitudEmbalaje->exists()) {
+			throw new NotFoundException(__('Invalid solicitud embalaje'));
+		}
+		$this->request->onlyAllow('post', 'delete');
+		if ($this->SolicitudEmbalaje->delete()) {
+			$this->Session->setFlash(__('Solicitud embalaje deleted'));
+			$this->redirect(array('action' => 'index'));
+		}
+		$this->Session->setFlash(__('Solicitud embalaje was not deleted'));
+		$this->redirect(array('action' => 'index'));
 	}
 }

@@ -1,27 +1,26 @@
 <div class="users form">
-<?php   
-	echo $this->Html->script('funciones');
-	echo '<fieldset><legend>Ingresar usuario</legend>';
-	
-	echo $this->Form->create('User');
+<?php echo $this->Form->create('User'); ?>
+	<fieldset>
+		<legend><?php echo __('Add User'); ?></legend>
+	<?php
+		echo $this->Form->input('BODEGA_ID');
+		echo $this->Form->input('CLIENTE_ID');
+		echo $this->Form->input('USERNAME');
+		echo $this->Form->input('PASSWORD');
+		echo $this->Form->input('NAME');
+		echo $this->Form->input('LASTNAME');
+		echo $this->Form->input('MAIL');
+		echo $this->Form->input('ROLE');
+		echo $this->Form->input('CREATED');
+		echo $this->Form->input('MODIFIED');
+	?>
+	</fieldset>
+<?php echo $this->Form->end(__('Submit')); ?>
+</div>
+<div class="actions">
+	<h3><?php echo __('Actions'); ?></h3>
+	<ul>
 
-	echo $this->Form->input('role', 
-	array(
-    	'options' => array('admin' => 'Administrador', 'jb' => 'Jefe de Bodega', 'cliente' => 'Cliente'), 
-		'label' => 'Tipo de Usuario: ',
-		'onChange' => 'checkOption()',
-		'id' => 'role'
-    ));
-	echo $this->Form->input('name', array('label' => 'Nombre: '));
-	echo $this->Form->input('lastname', array('label' => 'Apellido: '));
-	echo $this->Form->input('mail', array('label' => 'Correo Electronico: '));
-	echo $this->Form->input('username', array('label' => 'Nombre de usuario: '));
-    echo $this->Form->input('password', array('label' => 'Contraseña: '));
-    echo '<div id="context" style="display: none">'.$this->Form->input('nombre_cliente',array('label'=>'Cliente asociado', 'value' => '')).'</div>';
-	echo '</br>';
-
-	echo $this->Form->end(__('Agregar Usuario')); 
-	echo '</fieldset>';
-?>
-    
+		<li><?php echo $this->Html->link(__('List Users'), array('action' => 'index')); ?></li>
+	</ul>
 </div>

@@ -1,13 +1,23 @@
-<h1>Editar cliente</h1>
+<div class="clientes form">
+<?php echo $this->Form->create('Cliente'); ?>
+	<fieldset>
+		<legend><?php echo __('Edit Cliente'); ?></legend>
+	<?php
+		echo $this->Form->input('CLIENTE_ID');
+		echo $this->Form->input('ID');
+		echo $this->Form->input('NOMBRE_CLIENTE');
+		echo $this->Form->input('DIRECCION_CLIENTE');
+		echo $this->Form->input('TELEFONO_CONTACTO_CLIENTE');
+		echo $this->Form->input('EMAIL_CLIENTE');
+	?>
+	</fieldset>
+<?php echo $this->Form->end(__('Submit')); ?>
+</div>
+<div class="actions">
+	<h3><?php echo __('Actions'); ?></h3>
+	<ul>
 
-<?php
-
-	echo $this->Form->create('Cliente', array('action' => 'edit'));
-	echo $this->Form->input('nombre_cliente', array('label' => 'Nombre Cliente: '));
-    echo $this->Form->input('direccion_cliente', array('label' => 'Dirección: '));
-    echo $this->Form->input('telefono_contacto_cliente', array('label' => 'Teléfono: '));
-    echo $this->Form->input('email_cliente', array('label' => 'Correo Electronico: '));
-
- 	echo $this->Form->end('Guardar cambios');
-
-?>
+		<li><?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $this->Form->value('Cliente.CLIENTE_ID')), null, __('Are you sure you want to delete # %s?', $this->Form->value('Cliente.CLIENTE_ID'))); ?></li>
+		<li><?php echo $this->Html->link(__('List Clientes'), array('action' => 'index')); ?></li>
+	</ul>
+</div>

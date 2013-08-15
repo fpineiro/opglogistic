@@ -1,9 +1,16 @@
 <?php
+App::uses('AppModel', 'Model');
+/**
+ * EstadoAutomata Model
+ *
+ */
+class EstadoAutomata extends AppModel {
 
-    App::uses('AppModel', 'Model');
+/**
+ * Primary key field
+ *
+ * @var string
+ */
+	public $primaryKey = 'ESTADO_AUTOMATA_ID';
 
-    class EstadoAutomata extends AppModel {
-    	
-    }
-
-?>
+}

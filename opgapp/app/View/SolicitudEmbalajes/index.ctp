@@ -1,41 +1,46 @@
-<?php
-	echo $this->Form->input('filtrorol', array(
-			'options' => array('sinfiltro' => 'Escoja un filtro', 'espera' => 'En Espera', 'embalando' => 'Embalando', 'embalado' => 'Embalado'), 
-			'label' => 'Estado: '
-		));
-?>
-
-<h4>Seleccione una solicitud de embalaje para ver su detalle</h4>
-
-<table id="context">
-    <tr>
-        <th>Numero Solicitud</th>
-        <th>Cliente</th>
-        <th>Estado</th>
-    </tr>
-
-    <?php if(isset($solicitudes) && isset($estados)){
-    	for($cnt=0;$cnt<count($solicitudes);$cnt++){ ?>
-		    <tr>
-		        <td>
-				<?php 
-					echo $this->Html->link($solicitudes[$cnt]['SolicitudEmbalaje']['id'], array('action' => 'view', $solicitudes[$cnt]['SolicitudEmbalaje']['id'])); 	
-				?>
-		        </td>
-		        <td>
-				<?php 
-					echo $this->Html->link($solicitudes[$cnt]['SolicitudEmbalaje']['nombre_cliente'], array('action' => 'view', $solicitudes[$cnt]['SolicitudEmbalaje']['id'])); 	
-				?>
-		        </td>
-				<td>
-				<?php
-					echo $this->Html->link($estados[$cnt]['EstadoAutomata']['nombre_estado_automata'], array('action' => 'view', $estados[$cnt]['EstadoAutomata']['id']));
-				?>
-				</td>
-		    </tr>
-		<?php
-		unset($estado);
-		unset($solicitud);
-		}
-	}?>
-</table>
+<div class="solicitudEmbalajes index">
+	<h2><?php echo __('Solicitud Embalajes'); ?></h2>
+	<table cellpadding="0" cellspacing="0">
+	<tr>
+			<th><?php echo $this->Paginator->sort('SOLICITUD_EMBALAJE_ID'); ?></th>
+			<th><?php echo $this->Paginator->sort('ESTADO_AUTOMATA_ID'); ?></th>
+			<th><?php echo $this->Paginator->sort('CLIENTE_ID'); ?></th>
+			<th><?php echo $this->Paginator->sort('FECHA_DETALLE_SOLICITUD_EMBALAJE'); ?></th>
+			<th><?php echo $this->Paginator->sort('CONTIENE_EMBALAJE_SOLICITUD_EMBALAJE'); ?></th>
+			<th class="actions"><?php echo __('Actions'); ?></th>
+	</tr>
+	<?php foreach ($solicitudEmbalajes as $solicitudEmbalaje): ?>
+	<tr>
+		<td><?php echo h($solicitudEmbalaje['SolicitudEmbalaje']['SOLICITUD_EMBALAJE_ID']); ?>&nbsp;</td>
+		<td><?php echo h($solicitudEmbalaje['SolicitudEmbalaje']['ESTADO_AUTOMATA_ID']); ?>&nbsp;</td>
+		<td><?php echo h($solicitudEmbalaje['SolicitudEmbalaje']['CLIENTE_ID']); ?>&nbsp;</td>
+		<td><?php echo h($solicitudEmbalaje['SolicitudEmbalaje']['FECHA_DETALLE_SOLICITUD_EMBALAJE']); ?>&nbsp;</td>
+		<td><?php echo h($solicitudEmbalaje['SolicitudEmbalaje']['CONTIENE_EMBALAJE_SOLICITUD_EMBALAJE']); ?>&nbsp;</td>
+		<td class="actions">
+			<?php echo $this->Html->link(__('View'), array('action' => 'view', $solicitudEmbalaje['SolicitudEmbalaje']['SOLICITUD_EMBALAJE_ID'])); ?>
+			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $solicitudEmbalaje['SolicitudEmbalaje']['SOLICITUD_EMBALAJE_ID'])); ?>
+			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $solicitudEmbalaje['SolicitudEmbalaje']['SOLICITUD_EMBALAJE_ID']), null, __('Are you sure you want to delete # %s?', $solicitudEmbalaje['SolicitudEmbalaje']['SOLICITUD_EMBALAJE_ID'])); ?>
+		</td>
+	</tr>
+<?php endforeach; ?>
+	</table>
+	<p>
+	<?php
+	echo $this->Paginator->counter(array(
+	'format' => __('Page {:page} of {:pages}, showing {:current} records out of {:count} total, starting on record {:start}, ending on {:end}')
+	));
+	?>	</p>
+	<div class="paging">
+	<?php
+		echo $this->Paginator->prev('< ' . __('previous'), array(), null, array('class' => 'prev disabled'));
+		echo $this->Paginator->numbers(array('separator' => ''));
+		echo $this->Paginator->next(__('next') . ' >', array(), null, array('class' => 'next disabled'));
+	?>
+	</div>
+</div>
+<div class="actions">
+	<h3><?php echo __('Actions'); ?></h3>
+	<ul>
+		<li><?php echo $this->Html->link(__('New Solicitud Embalaje'), array('action' => 'add')); ?></li>
+	</ul>
+</div>

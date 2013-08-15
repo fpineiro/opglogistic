@@ -1,20 +1,28 @@
-<h1>Editar usuario</h1>
-<?php
-	echo $this->Html->script('funciones');
+<div class="users form">
+<?php echo $this->Form->create('User'); ?>
+	<fieldset>
+		<legend><?php echo __('Edit User'); ?></legend>
+	<?php
+		echo $this->Form->input('ID');
+		echo $this->Form->input('BODEGA_ID');
+		echo $this->Form->input('CLIENTE_ID');
+		echo $this->Form->input('USERNAME');
+		echo $this->Form->input('PASSWORD');
+		echo $this->Form->input('NAME');
+		echo $this->Form->input('LASTNAME');
+		echo $this->Form->input('MAIL');
+		echo $this->Form->input('ROLE');
+		echo $this->Form->input('CREATED');
+		echo $this->Form->input('MODIFIED');
+	?>
+	</fieldset>
+<?php echo $this->Form->end(__('Submit')); ?>
+</div>
+<div class="actions">
+	<h3><?php echo __('Actions'); ?></h3>
+	<ul>
 
-	echo $this->Form->input('role', 
-	array(
-    	'options' => array('admin' => 'Administrador', 'jb' => 'Jefe de Bodega', 'cliente' => 'Cliente'), 
-		'label' => 'Tipo de Usuario: ',
-		'onChange' => 'checkOption()',
-		'id' => 'role'
-    ));
-    echo $this->Form->create('User', array('action' => 'edit'));
-    echo $this->Form->input('id', array('type' => 'text','disabled' => true,'label'=>'Id: ','size'=>3));
-    echo $this->Form->input('username',array('label'=>'Nombre de usuario'));
-    echo $this->Form->input('name',array('label'=>'Nombre'));
-    echo $this->Form->input('password',array('label'=>'Contraseña'));
-    echo $this->Form->input('mail',array('label'=>'Correo'));
- 	echo '<div id="context" style="display: none">'.$this->Form->input('nombre_cliente',array('label'=>'Cliente asociado')).'</div>';
- 	echo $this->Form->end('Guardar cambios');
-?>
+		<li><?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $this->Form->value('User.ID')), null, __('Are you sure you want to delete # %s?', $this->Form->value('User.ID'))); ?></li>
+		<li><?php echo $this->Html->link(__('List Users'), array('action' => 'index')); ?></li>
+	</ul>
+</div>

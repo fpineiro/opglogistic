@@ -1,62 +1,48 @@
-<script language="JavaScript" type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-<script language="JavaScript" type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js"></script>
-
-<script type="text/javascript">
-	function actualizar(filtro){
-		 $('#context').load('/cakephp/clientes/index/'+filtro+' #context');
-	}
-</script>
-<?php	
-	echo $this->Form->input('inputbusqueda', array(
-		'div' => false, 
-		'class' => false, 
-		'label' => false,
-		'placeholder' => 'Ingrese nombre de cliente',
-		'size' => '25'
+<div class="clientes index">
+	<h2><?php echo __('Clientes'); ?></h2>
+	<table cellpadding="0" cellspacing="0">
+	<tr>
+			<th><?php echo $this->Paginator->sort('CLIENTE_ID'); ?></th>
+			<th><?php echo $this->Paginator->sort('ID'); ?></th>
+			<th><?php echo $this->Paginator->sort('NOMBRE_CLIENTE'); ?></th>
+			<th><?php echo $this->Paginator->sort('DIRECCION_CLIENTE'); ?></th>
+			<th><?php echo $this->Paginator->sort('TELEFONO_CONTACTO_CLIENTE'); ?></th>
+			<th><?php echo $this->Paginator->sort('EMAIL_CLIENTE'); ?></th>
+			<th class="actions"><?php echo __('Actions'); ?></th>
+	</tr>
+	<?php foreach ($clientes as $cliente): ?>
+	<tr>
+		<td><?php echo h($cliente['Cliente']['CLIENTE_ID']); ?>&nbsp;</td>
+		<td><?php echo h($cliente['Cliente']['ID']); ?>&nbsp;</td>
+		<td><?php echo h($cliente['Cliente']['NOMBRE_CLIENTE']); ?>&nbsp;</td>
+		<td><?php echo h($cliente['Cliente']['DIRECCION_CLIENTE']); ?>&nbsp;</td>
+		<td><?php echo h($cliente['Cliente']['TELEFONO_CONTACTO_CLIENTE']); ?>&nbsp;</td>
+		<td><?php echo h($cliente['Cliente']['EMAIL_CLIENTE']); ?>&nbsp;</td>
+		<td class="actions">
+			<?php echo $this->Html->link(__('View'), array('action' => 'view', $cliente['Cliente']['CLIENTE_ID'])); ?>
+			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $cliente['Cliente']['CLIENTE_ID'])); ?>
+			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $cliente['Cliente']['CLIENTE_ID']), null, __('Are you sure you want to delete # %s?', $cliente['Cliente']['CLIENTE_ID'])); ?>
+		</td>
+	</tr>
+<?php endforeach; ?>
+	</table>
+	<p>
+	<?php
+	echo $this->Paginator->counter(array(
+	'format' => __('Page {:page} of {:pages}, showing {:current} records out of {:count} total, starting on record {:start}, ending on {:end}')
 	));
-	
-	echo $this->Form->submit('Buscar', array(
-		'div' => false, 
-		'class' => false, 
-		'onclick' => "actualizar(inputbusqueda.value)",
-	));
-		
-?>
-<table id="context">
-    <tr>
-        <th>Cliente</th>
-        <th>Dirección</th>
-        <th>Teléfono</th>
-        <th>Email</th>
-    </tr>
-
-    <!-- Here is where we loop through our $posts array, printing out post info -->
-
-    <?php foreach ($clientes as $cliente): ?>
-    <tr>
-        <td>
-		<?php 
-			echo $this->Html->link($cliente['Cliente']['nombre_cliente'], array('action' => 'view', $cliente['Cliente']['nombre_cliente'])); 	
-		?>
-        </td>
-        <td>
-		<?php 
-			echo $this->Html->link($cliente['Cliente']['direccion_cliente'], array('action' => 'view', $cliente['Cliente']['nombre_cliente'])); 	
-		?>
-        </td>
-        <td>
-		<?php 
-			echo $this->Html->link($cliente['Cliente']['telefono_contacto_cliente'], array('action' => 'view', $cliente['Cliente']['nombre_cliente'])); 	
-		?>
-        </td>
-        <td>
-		<?php 
-			echo $this->Html->link($cliente['Cliente']['email_cliente'], array('action' => 'view', $cliente['Cliente']['nombre_cliente'])); 	
-		?>
-        </td>
-    </tr>
-    <?php 	
-		endforeach;
-		unset($cliente); 
+	?>	</p>
+	<div class="paging">
+	<?php
+		echo $this->Paginator->prev('< ' . __('previous'), array(), null, array('class' => 'prev disabled'));
+		echo $this->Paginator->numbers(array('separator' => ''));
+		echo $this->Paginator->next(__('next') . ' >', array(), null, array('class' => 'next disabled'));
 	?>
-</table>
+	</div>
+</div>
+<div class="actions">
+	<h3><?php echo __('Actions'); ?></h3>
+	<ul>
+		<li><?php echo $this->Html->link(__('New Cliente'), array('action' => 'add')); ?></li>
+	</ul>
+</div>
