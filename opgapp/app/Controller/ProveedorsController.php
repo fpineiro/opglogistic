@@ -93,4 +93,13 @@ class ProveedorsController extends AppController {
 		$this->Session->setFlash(__('Proveedor was not deleted'));
 		$this->redirect(array('action' => 'index'));
 	}
+
+	public function find($nombre = null) {
+		if(isset($nombre)){
+			$this->set('names', $this->Proveedor->find('all', array(
+				'conditions' => array('Proveedor.NOMBRE_PROVEEDOR LIKE' => '%'.$nombre.'%'),
+				'limit' => '3'
+				)));				
+		}
+	}
 }

@@ -1,19 +1,24 @@
 <div class="bodegas view">
 <h2><?php  echo __('Bodega'); ?></h2>
 	<dl>
-		<dt><?php echo __('BODEGA ID'); ?></dt>
+		<dt><?php echo __('Bodega Id'); ?></dt>
 		<dd>
-			<?php echo h($bodega['Bodega']['BODEGA_ID']); ?>
+			<?php echo h($bodega['Bodega']['bodega_id']); ?>
 			&nbsp;
 		</dd>
-		<dt><?php echo __('ID'); ?></dt>
+		<dt><?php echo __('Id'); ?></dt>
 		<dd>
-			<?php echo h($bodega['Bodega']['ID']); ?>
+			<?php echo h($bodega['Bodega']['id']); ?>
 			&nbsp;
 		</dd>
-		<dt><?php echo __('CATEGORIA BODEGA'); ?></dt>
+		<dt><?php echo __('Cliente Id'); ?></dt>
 		<dd>
-			<?php echo h($bodega['Bodega']['CATEGORIA_BODEGA']); ?>
+			<?php echo h($bodega['Bodega']['cliente_id']); ?>
+			&nbsp;
+		</dd>
+		<dt><?php echo __('Categoria Bodega'); ?></dt>
+		<dd>
+			<?php echo h($bodega['Bodega']['categoria_bodega']); ?>
 			&nbsp;
 		</dd>
 	</dl>

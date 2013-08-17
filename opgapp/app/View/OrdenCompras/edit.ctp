@@ -1,7 +1,7 @@
 <div class="ordenCompras form">
 <?php echo $this->Form->create('OrdenCompra'); ?>
 	<fieldset>
-		<legend><?php echo __('Edit Orden Compra'); ?></legend>
+		<legend><?php echo ('Editar Orden de compra'); ?></legend>
 	<?php
 		echo $this->Form->input('ORDEN_COMPRA_ID');
 		echo $this->Form->input('PROVEEDOR_ID');

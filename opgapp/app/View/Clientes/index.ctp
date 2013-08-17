@@ -1,48 +1,81 @@
+<script language="JavaScript" type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<script language="JavaScript" type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js"></script>
+
+<script type="text/javascript">
+ 
+	function autosugerir(valor){
+			if(document.getElementById('listasugerida').value==''){
+				document.getElementById('listasugerida').style.visibility="hidden";
+			}else{
+				document.getElementById('listasugerida').style.visibility="visible";
+				$('#listasugerida').load('/cakephp/clientes/find/'+valor+' #datos');
+			}
+	}
+</script>
 <div class="clientes index">
-	<h2><?php echo __('Clientes'); ?></h2>
-	<table cellpadding="0" cellspacing="0">
+	<?php 
+	echo $this->Html->script('funciones');
+	echo '<table border="0" class="tablaNav"><tr><td>';
+	echo $this->Form->input('inputbusqueda', array(
+		'div' => false, 
+		'class' => false,
+		'label' => false,
+		'placeholder' => 'Ingrese nombre o apellido',
+		'autocomplete' => 'off',
+		'onkeyup' => 'autosugerir(inputbusqueda.value)',
+		'onfocus' => 'autosugerir(inputbusqueda.value)',
+		'onblur' => 'document.getElementById("listasugerida").style.visibility="hidden"',
+		'style' => 'margin-bottom: 0px;margin-top: -1px; width: 15em'
+	));
+
+	echo '</td></tr><tr><td><div class="listaSuger" id="listasugerida"></div></td>';
+	echo '</tr></table>';
+	echo $this->Form->submit('Buscar', array(
+		'div' => false, 
+		'class' => 'btn', 
+		'onclick' => "actualizar('busca', inputbusqueda.value)",
+		'style' => 'vertical-align: top; margin-bottom: 0px;'
+	));
+
+	echo '<div id="asdf" style="float: right">';
+	echo $this->Html->link('Ingresar cliente', array(
+		'action' => 'add'), array('class' => 'btn'));	
+	echo '</div>';
+
+	echo '<h5>'."Seleccione un cliente para ver su detalle".'</h5>';
+
+	?>
+	<!--<div class="actions">
+	<ul>
+		<li><?php //echo $this->Html->link(__('New Cliente'), array('action' => 'add')); ?></li>
+	</ul>-->
+
+	
+	<div id="context">
+	<table cellpadding="0" cellspacing="0" id="tablaDatos" class="table table-striped table-bordered table-hover table-condensed">
 	<tr>
-			<th><?php echo $this->Paginator->sort('CLIENTE_ID'); ?></th>
-			<th><?php echo $this->Paginator->sort('ID'); ?></th>
-			<th><?php echo $this->Paginator->sort('NOMBRE_CLIENTE'); ?></th>
-			<th><?php echo $this->Paginator->sort('DIRECCION_CLIENTE'); ?></th>
-			<th><?php echo $this->Paginator->sort('TELEFONO_CONTACTO_CLIENTE'); ?></th>
-			<th><?php echo $this->Paginator->sort('EMAIL_CLIENTE'); ?></th>
-			<th class="actions"><?php echo __('Actions'); ?></th>
+			<th><?php echo $this->Paginator->sort('NOMBRE_CLIENTE','Nombre'); ?></th>
+			<th><?php echo $this->Paginator->sort('DIRECCION_CLIENTE','Dirección'); ?></th>
+			<th><?php echo $this->Paginator->sort('TELEFONO_CONTACTO_CLIENTE','Teléfono'); ?></th>
+			<th><?php echo $this->Paginator->sort('EMAIL_CLIENTE','E-Mail'); ?></th>
 	</tr>
 	<?php foreach ($clientes as $cliente): ?>
 	<tr>
-		<td><?php echo h($cliente['Cliente']['CLIENTE_ID']); ?>&nbsp;</td>
-		<td><?php echo h($cliente['Cliente']['ID']); ?>&nbsp;</td>
-		<td><?php echo h($cliente['Cliente']['NOMBRE_CLIENTE']); ?>&nbsp;</td>
-		<td><?php echo h($cliente['Cliente']['DIRECCION_CLIENTE']); ?>&nbsp;</td>
-		<td><?php echo h($cliente['Cliente']['TELEFONO_CONTACTO_CLIENTE']); ?>&nbsp;</td>
-		<td><?php echo h($cliente['Cliente']['EMAIL_CLIENTE']); ?>&nbsp;</td>
-		<td class="actions">
-			<?php echo $this->Html->link(__('View'), array('action' => 'view', $cliente['Cliente']['CLIENTE_ID'])); ?>
-			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $cliente['Cliente']['CLIENTE_ID'])); ?>
-			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $cliente['Cliente']['CLIENTE_ID']), null, __('Are you sure you want to delete # %s?', $cliente['Cliente']['CLIENTE_ID'])); ?>
-		</td>
+		<td><?php echo $this->Html->link(($cliente['Cliente']['NOMBRE_CLIENTE']), array('action' => 'view', $cliente['Cliente']['CLIENTE_ID']));?>&nbsp;</td>
+		<td><?php echo $this->Html->link(($cliente['Cliente']['DIRECCION_CLIENTE']), array('action' => 'view', $cliente['Cliente']['CLIENTE_ID']));?>&nbsp;</td>
+		<td><?php echo $this->Html->link(($cliente['Cliente']['TELEFONO_CONTACTO_CLIENTE']), array('action' => 'view', $cliente['Cliente']['CLIENTE_ID']));?>&nbsp;</td>
+		<td><?php echo $this->Html->link(($cliente['Cliente']['EMAIL_CLIENTE']), array('action' => 'view', $cliente['Cliente']['CLIENTE_ID']));?>&nbsp;</td>
 	</tr>
-<?php endforeach; ?>
+	<?php endforeach; ?>
 	</table>
-	<p>
-	<?php
-	echo $this->Paginator->counter(array(
-	'format' => __('Page {:page} of {:pages}, showing {:current} records out of {:count} total, starting on record {:start}, ending on {:end}')
-	));
-	?>	</p>
+	</div>
 	<div class="paging">
 	<?php
-		echo $this->Paginator->prev('< ' . __('previous'), array(), null, array('class' => 'prev disabled'));
+		/*echo $this->Paginator->prev('< ' . __('previous'), array(), null, array('class' => 'prev disabled'));
 		echo $this->Paginator->numbers(array('separator' => ''));
-		echo $this->Paginator->next(__('next') . ' >', array(), null, array('class' => 'next disabled'));
+		echo $this->Paginator->next(__('next') . ' >', array(), null, array('class' => 'next disabled'));*/
 	?>
 	</div>
 </div>
-<div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
-		<li><?php echo $this->Html->link(__('New Cliente'), array('action' => 'add')); ?></li>
-	</ul>
-</div>
+
+

@@ -1,69 +1,64 @@
-<div class="users view">
-<h2><?php  echo __('User'); ?></h2>
-	<dl>
+<div class="users form">
+<fieldset>
+	<legend><?php  echo __('Detalle de usuario'); ?></legend>
+	<dl class="dl-horizontal">
 		<dt><?php echo __('ID'); ?></dt>
 		<dd>
 			<?php echo h($user['User']['ID']); ?>
 			&nbsp;
 		</dd>
-		<dt><?php echo __('BODEGA ID'); ?></dt>
+		<dt><?php echo __('Bodega'); ?></dt>
 		<dd>
 			<?php echo h($user['User']['BODEGA_ID']); ?>
 			&nbsp;
 		</dd>
-		<dt><?php echo __('CLIENTE ID'); ?></dt>
+		<dt><?php echo __('Cliente'); ?></dt>
 		<dd>
 			<?php echo h($user['User']['CLIENTE_ID']); ?>
 			&nbsp;
 		</dd>
-		<dt><?php echo __('USERNAME'); ?></dt>
+		<dt><?php echo __('Usuario'); ?></dt>
 		<dd>
 			<?php echo h($user['User']['USERNAME']); ?>
 			&nbsp;
 		</dd>
-		<dt><?php echo __('PASSWORD'); ?></dt>
-		<dd>
-			<?php echo h($user['User']['PASSWORD']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('NAME'); ?></dt>
+		<dt><?php echo __('Nombre'); ?></dt>
 		<dd>
 			<?php echo h($user['User']['NAME']); ?>
 			&nbsp;
 		</dd>
-		<dt><?php echo __('LASTNAME'); ?></dt>
+		<dt><?php echo __('Apellido'); ?></dt>
 		<dd>
 			<?php echo h($user['User']['LASTNAME']); ?>
 			&nbsp;
 		</dd>
-		<dt><?php echo __('MAIL'); ?></dt>
+		<dt><?php echo __('E-Mail'); ?></dt>
 		<dd>
 			<?php echo h($user['User']['MAIL']); ?>
 			&nbsp;
 		</dd>
-		<dt><?php echo __('ROLE'); ?></dt>
+		<dt><?php echo __('Rol'); ?></dt>
 		<dd>
 			<?php echo h($user['User']['ROLE']); ?>
 			&nbsp;
 		</dd>
-		<dt><?php echo __('CREATED'); ?></dt>
+		<dt><?php echo __('Creado'); ?></dt>
 		<dd>
 			<?php echo h($user['User']['CREATED']); ?>
 			&nbsp;
 		</dd>
-		<dt><?php echo __('MODIFIED'); ?></dt>
+		<dt><?php echo __('Modificado'); ?></dt>
 		<dd>
 			<?php echo h($user['User']['MODIFIED']); ?>
 			&nbsp;
 		</dd>
 	</dl>
+	
+	</fieldset>
 </div>
 <div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
-		<li><?php echo $this->Html->link(__('Edit User'), array('action' => 'edit', $user['User']['ID'])); ?> </li>
-		<li><?php echo $this->Form->postLink(__('Delete User'), array('action' => 'delete', $user['User']['ID']), null, __('Are you sure you want to delete # %s?', $user['User']['ID'])); ?> </li>
-		<li><?php echo $this->Html->link(__('List Users'), array('action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New User'), array('action' => 'add')); ?> </li>
-	</ul>
+	
+		
+		<div style="float: right"><?php echo $this->Form->postLink(('Eliminar usuario'), array('action' => 'delete', $user['User']['ID'], null, ('Está seguro de eliminar usuario# %s?'), $user['User']['ID']), array('class' => 'btn')); ?></div>
+		<div style="float: right"><?php echo $this->Html->link(__('Editar usuario'), array('action' => 'edit', $user['User']['ID']), array('class' => 'btn')); ?></div>		
 </div>

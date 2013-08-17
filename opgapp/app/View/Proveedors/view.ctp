@@ -1,39 +1,37 @@
 <div class="proveedors view">
-<h2><?php  echo __('Proveedor'); ?></h2>
-	<dl>
-		<dt><?php echo __('PROVEEDOR ID'); ?></dt>
+<fieldset>
+	<legend><?php  echo __('Detalle de proveedor'); ?></legend>
+	<dl class="dl-horizontal">
+		<dt><?php echo __('ID Proveedor'); ?></dt>
 		<dd>
 			<?php echo h($proveedor['Proveedor']['PROVEEDOR_ID']); ?>
 			&nbsp;
 		</dd>
-		<dt><?php echo __('NOMBRE PROVEEDOR'); ?></dt>
+		<dt><?php echo __('Nombre'); ?></dt>
 		<dd>
 			<?php echo h($proveedor['Proveedor']['NOMBRE_PROVEEDOR']); ?>
 			&nbsp;
 		</dd>
-		<dt><?php echo __('DIRECCION PROVEEDOR'); ?></dt>
+		<dt><?php echo __('Direccción'); ?></dt>
 		<dd>
 			<?php echo h($proveedor['Proveedor']['DIRECCION_PROVEEDOR']); ?>
 			&nbsp;
 		</dd>
-		<dt><?php echo __('TELEFONO CONTACTO PROVEEDOR'); ?></dt>
+		<dt><?php echo __('Teléfono'); ?></dt>
 		<dd>
 			<?php echo h($proveedor['Proveedor']['TELEFONO_CONTACTO_PROVEEDOR']); ?>
 			&nbsp;
 		</dd>
-		<dt><?php echo __('EMAIL PROVEEDOR'); ?></dt>
+		<dt><?php echo __('E-Mail'); ?></dt>
 		<dd>
 			<?php echo h($proveedor['Proveedor']['EMAIL_PROVEEDOR']); ?>
 			&nbsp;
 		</dd>
 	</dl>
+	</fieldset>
 </div>
 <div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
-		<li><?php echo $this->Html->link(__('Edit Proveedor'), array('action' => 'edit', $proveedor['Proveedor']['PROVEEDOR_ID'])); ?> </li>
-		<li><?php echo $this->Form->postLink(__('Delete Proveedor'), array('action' => 'delete', $proveedor['Proveedor']['PROVEEDOR_ID']), null, __('Are you sure you want to delete # %s?', $proveedor['Proveedor']['PROVEEDOR_ID'])); ?> </li>
-		<li><?php echo $this->Html->link(__('List Proveedors'), array('action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Proveedor'), array('action' => 'add')); ?> </li>
-	</ul>
+	
+	<div style="float: right"><?php echo $this->Form->postLink(('Eliminar Proveedor'), array('action' => 'delete', $proveedor['Proveedor']['PROVEEDOR_ID'], null, ('Está seguro de eliminar proveedor# %s?'), $proveedor['Proveedor']['PROVEEDOR_ID']), array('class' => 'btn')); ?></div>
+		<div style="float: right"><?php echo $this->Html->link(__('Editar proveedor'), array('action' => 'edit', $proveedor['Proveedor']['PROVEEDOR_ID']), array('class' => 'btn')); ?></div>
 </div>

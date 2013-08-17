@@ -3,9 +3,10 @@
 	<fieldset>
 		<legend><?php echo __('Edit Bodega'); ?></legend>
 	<?php
-		echo $this->Form->input('BODEGA_ID');
-		echo $this->Form->input('ID');
-		echo $this->Form->input('CATEGORIA_BODEGA');
+		echo $this->Form->input('bodega_id');
+		echo $this->Form->input('id');
+		echo $this->Form->input('cliente_id');
+		echo $this->Form->input('categoria_bodega');
 	?>
 	</fieldset>
 <?php echo $this->Form->end(__('Submit')); ?>

@@ -1,18 +1,12 @@
 <div class="bodegas form">
 <?php echo $this->Form->create('Bodega'); ?>
 	<fieldset>
-		<legend><?php echo __('Add Bodega'); ?></legend>
+		<legend><?php echo __('Agregar Bodega'); ?></legend>
 	<?php
-		echo $this->Form->input('ID');
-		echo $this->Form->input('CATEGORIA_BODEGA');
+		echo $this->Form->input('id', array('label' => 'Jefe de Bodega: '));
+		echo $this->Form->input('cliente_id', array('label' => 'Cliente asociado: '));
+		echo $this->Form->input('categoria_bodega', array('label' => 'Categoria de la bodega: '));
 	?>
 	</fieldset>
-<?php echo $this->Form->end(__('Submit')); ?>
-</div>
-<div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
-
-		<li><?php echo $this->Html->link(__('List Bodegas'), array('action' => 'index')); ?></li>
-	</ul>
+<?php echo $this->Form->end(__('Agregar')); ?>
 </div>

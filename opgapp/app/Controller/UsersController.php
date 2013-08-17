@@ -7,14 +7,34 @@ App::uses('AppController', 'Controller');
  */
 class UsersController extends AppController {
 
+var $name = 'Users';
+var $helpers = array('Js');
+var $components = array('RequestHandler');
+
 /**
  * index method
  *
  * @return void
  */
-	public function index() {
-		$this->User->recursive = 0;
-		$this->set('users', $this->paginate());
+	public function index($tipo = null, $filtro = null) {
+		$this->User->recursive = 1;
+		/*$this->set('nombreCliente', $this->User->find('all', array(
+			'conditions' => array('User.CLIENTE_ID LIKE' =>)
+			)))*/
+		if(isset($filtro)){
+			if($tipo == 'filtra'){
+				$this->paginate = array(
+				'conditions' => array('User.ROLE' => $filtro)
+			);
+			}else{
+				$this->paginate = array(
+				'conditions' => array('OR' => array('User.NAME' => $filtro, 'User.LASTNAME' => $filtro))
+	 		);
+			}
+			$this->set('users', $this->paginate());
+		}else{
+	        $this->set('users', $this->paginate());
+		}
 	}
 
 /**
@@ -70,6 +90,7 @@ class UsersController extends AppController {
 		} else {
 			$options = array('conditions' => array('User.' . $this->User->primaryKey => $id));
 			$this->request->data = $this->User->find('first', $options);
+			$this->set('rol', $this->request->data('User.ROLE'));
 		}
 	}
 
@@ -93,4 +114,16 @@ class UsersController extends AppController {
 		$this->Session->setFlash(__('User was not deleted'));
 		$this->redirect(array('action' => 'index'));
 	}
+
+	public function find($nombre = null) {
+		if(isset($nombre)){
+			$this->set('names', $this->User->find('all', array(
+				'conditions' => array('OR' => array('User.NAME LIKE' => '%'.$nombre.'%', 'User.LASTNAME LIKE' => '%'.$nombre.'%')),
+				'limit' => '3'
+				)));				
+		}
+	}
+
 }
+
+?>

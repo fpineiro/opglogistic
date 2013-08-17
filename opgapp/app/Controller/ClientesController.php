@@ -45,7 +45,10 @@ class ClientesController extends AppController {
 				$this->redirect(array('action' => 'index'));
 			} else {
 				$this->Session->setFlash(__('The cliente could not be saved. Please, try again.'));
+				$this->set('usuarios', $this->Cliente->User->find('list', array('conditions' => array('User.ROLE' => 'cliente', 'User.CLIENTE_ID' => ''), 'fields' => array('User.ID', 'User.NAME'))));	
 			}
+		}else{
+			$this->set('usuarios', $this->Cliente->User->find('list', array('conditions' => array('User.ROLE' => 'cliente', 'User.CLIENTE_ID' => ''), 'fields' => array('User.ID', 'User.NAME'))));	
 		}
 	}
 
@@ -93,4 +96,14 @@ class ClientesController extends AppController {
 		$this->Session->setFlash(__('Cliente was not deleted'));
 		$this->redirect(array('action' => 'index'));
 	}
+
+	public function find($nombre = null) {
+		if(isset($nombre)){
+			$this->set('names', $this->Cliente->find('all', array(
+				'conditions' => array('Cliente.NOMBRE_CLIENTE LIKE' => '%'.$nombre.'%'),
+				'limit' => '3'
+				)));				
+		}
+	}
+
 }
