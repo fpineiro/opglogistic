@@ -13,6 +13,13 @@ class DetalleSolicitudEmbalajeMaterialEmbalaje extends AppModel {
  */
 	public $primaryKey = 'SOLICITUD_EMBALAJE_ID';
 
+	public $belongsTo = array(
+		'MaterialDeEmbalaje' => array(
+			'className' => 'MaterialDeEmbalaje',
+			'foreignKey' => 'MATERIAL_DE_EMBALAJE_ID'
+		)
+	);
+
 /**
  * Validation rules
  *

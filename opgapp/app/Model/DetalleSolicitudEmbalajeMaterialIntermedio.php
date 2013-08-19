@@ -13,6 +13,13 @@ class DetalleSolicitudEmbalajeMaterialIntermedio extends AppModel {
  */
 	public $primaryKey = 'SOLICITUD_EMBALAJE_ID';
 
+	public $belongsTo = array(
+		'MaterialIntermedio' => array(
+			'className' => 'MaterialIntermedio',
+			'foreignKey' => 'MATERIAL_INTERMEDIO_ID'
+		)
+	);
+
 /**
  * Validation rules
  *

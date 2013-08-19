@@ -13,6 +13,35 @@ class SolicitudEmbalaje extends AppModel {
  */
 	public $primaryKey = 'SOLICITUD_EMBALAJE_ID';
 
+	public $belongsTo = array(
+		'EstadoAutomata' => array(
+			'className' => 'EstadoAutomata',
+			'foreignKey' => 'ESTADO_AUTOMATA_ID'
+		),
+		'Cliente' => array(
+			'className' => 'Cliente',
+			'foreignKey' => 'CLIENTE_ID'
+		)
+	);
+
+	public $hasMany = array(
+		'DetalleSolicitudEmbalajeMaterialEmbalaje' => array(
+			'className' => 'DetalleSolicitudEmbalajeMaterialEmbalaje',
+			'foreignKey' => 'SOLICITUD_EMBALAJE_ID',
+			'dependent' => 'true'
+		),
+		'DetalleSolicitudEmbalajeMaterialIndividual' => array(
+			'className' => 'DetalleSolicitudEmbalajeMaterialIndividual',
+			'foreignKey' => 'SOLICITUD_EMBALAJE_ID',
+			'dependent' => 'true'
+		),
+		'DetalleSolicitudEmbalajeMaterialIntermedio' => array(
+			'className' => 'DetalleSolicitudEmbalajeMaterialIntermedio',
+			'foreignKey' => 'SOLICITUD_EMBALAJE_ID',
+			'dependent' => 'true'
+		)
+	);
+
 /**
  * Validation rules
  *

@@ -1,33 +1,48 @@
 <div class="solicitudEmbalajes view">
-<h2><?php  echo __('Revisar Estado Solicitud Embalaje'); ?></h2>
-	<table class="table table-striped">
+	<h2><?php  echo __('Detalle Solicitud de Embalaje'); ?></h2>
+	<br />
+	<table class="table table-striped table-hover table-bordered table-condensed">
 		<thead>
 			<tr>
-				<th><?php echo __('SOLICITUD EMBALAJE ID'); ?></th>
-				<th><?php echo __('ESTADO AUTOMATA ID'); ?></th>
-				<th><?php echo __('FECHA DETALLE SOLICITUD EMBALAJE'); ?></th>
-				<th><?php echo __('CONTIENE EMBALAJE SOLICITUD EMBALAJE'); ?></th>
+				<th><p class="text-center"><?php echo __('Identificador'); ?></p></th>
+				<th><p class="text-center"><?php echo __('Estado'); ?></p></th>
+				<th><p class="text-center"><?php echo __('Fecha de Emisión'); ?></p></th>
+				<th><p class="text-center"><?php echo __('¿Solicitud con embalaje personalizado?'); ?></p></th>
 			</tr>
 		</thead>
 		<tbody>
-			<tr>
-				<td>
+			<tr class="info">
+				<td><p class="text-center">
 					<?php echo h($solicitudEmbalaje['SolicitudEmbalaje']['SOLICITUD_EMBALAJE_ID']); ?>
 					&nbsp;
-				</td>
-				<td>
-					<?php echo h($solicitudEmbalaje['SolicitudEmbalaje']['ESTADO_AUTOMATA_ID']); ?>
+				</p></td>
+				<td><p class="text-center">
+					<?php echo h($estados[$solicitudEmbalaje['SolicitudEmbalaje']['ESTADO_AUTOMATA_ID']-1]['EstadoAutomata']['NOMBRE_ESTADO_AUTOMATA']); ?>
 					&nbsp;
-				</td>
-				<td>
-					<?php echo h($solicitudEmbalaje['SolicitudEmbalaje']['FECHA_DETALLE_SOLICITUD_EMBALAJE']); ?>
+				</p></td>
+				<td><p class="text-center">
+					<?php echo h($solicitudEmbalaje['SolicitudEmbalaje']['FECHA_SOLICITUD_EMBALAJE']); ?>
 					&nbsp;
-				</td>
-				<td>
-					<?php echo h($solicitudEmbalaje['SolicitudEmbalaje']['CONTIENE_EMBALAJE_SOLICITUD_EMBALAJE']); ?>
+				</p></td>
+				<td><p class="text-center">
+					<?php if($solicitudEmbalaje['SolicitudEmbalaje']['CONTIENE_EMBALAJE_SOLICITUD_EMBALAJE']==1) echo 'Si';
+						  else echo 'No';
+					?>
 					&nbsp;
-				</td>
+				</p></td>
 			</tr>
 		</tbody>
 	</table>
+	<table class="table table-striped table-hover table-bordered table-condensed">
+		<thead>
+		</thead>
+		<tbody>
+		</tbody>
+	</table>
+	<div class="span3 offset9">
+		<?php echo $this->Html->link(__('Editar'), array('action' => 'edit', $solicitudEmbalaje['SolicitudEmbalaje']['SOLICITUD_EMBALAJE_ID']), array('class' => 'btn')); ?>
+		<?php echo $this->Form->postLink(__('Eliminar'), array('action' => 'delete', $solicitudEmbalaje['SolicitudEmbalaje']['SOLICITUD_EMBALAJE_ID']), array('class' => 'btn'), __('Are you sure you want to delete # %s?', $solicitudEmbalaje['SolicitudEmbalaje']['SOLICITUD_EMBALAJE_ID'])); ?>
+	</div>
 </div>
+
+<p><b><?php print_r(array_keys($solicitudEmbalaje['DetalleSolicitudEmbalajeMaterialIndividual'][0]))?></b></p>
