@@ -40,17 +40,43 @@ class AppController extends Controller {
         'Auth' => array(
             'loginRedirect' => array('controller' => 'users', 'action' => 'index'),
             'logoutRedirect' => array('controller' => 'users', 'action' => 'login'),
-            'authError' => 'Debes estar autenticado para usar esta aplicación.',
-            'loginError' => 'Usuario o contraseña invalidos. Por favor, intente de nuevo.'
+            'authError' => 'You must be logged in to view this page.',
+            'loginError' => 'Invalid Username or Password entered, please try again.'
     ));
  
+    public function estaAutorizado($rol, $controller, $action){
+        $adminAutorizado = array(
+        'users' => array('index', 'add', 'login', 'unauthorized'),
+        'clientes' => array('index', 'add')
+        );
+        $jbAutorizado = array(
+        'cliente' => array('index', 'add'), 
+        'users' => array('unauthorized')
+
+        );
+        $clienteAutorizado = array(
+        'MaterialIntermedio'
+
+        );
+        $controller = strtolower($controller);
+        $action = strtolower($action);
+        if($rol == 'admin'){
+            if(isset($adminAutorizado[$controller]) && in_array($action, $adminAutorizado[$controller])){
+                return true;
+            }else{
+                return false;
+            }
+        }else if($rol == 'jb'){
+ 
+        }else if($rol == 'cliente'){
+            
+        }
+    }
+    
     public function beforeFilter() {
         $this->Auth->allow('login');
-    }
-     
-    public function isAuthorized($user) {
-        // Here is where we should verify the role and give access based on role
-         
-        return true;
+        /*if(!$this->estaAutorizado($this->Auth->user('ROLE'), $this->request['controller'], $this->request['action'])){
+            $this->redirect(array('controller' => 'users', 'action' => 'unauthorized'));
+        }*/
     }
 }
