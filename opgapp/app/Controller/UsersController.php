@@ -16,6 +16,12 @@ var $components = array('RequestHandler');
  *
  * @return void
  */
+
+	public function beforeFilter() {
+        parent::beforeFilter();
+        $this->Auth->allow('login','add');
+    }
+
 	public function index($tipo = null, $filtro = null) {
 		$this->User->recursive = 1;
 		/*$this->set('nombreCliente', $this->User->find('all', array(
@@ -123,6 +129,25 @@ var $components = array('RequestHandler');
 				)));				
 		}
 	}
+
+	public function login(){
+		if($this->Session->check('Auth.User')){
+			$this->set('cacaman','IF-CHECK');
+            $this->redirect(array('action' => 'index'));     
+        }
+        if ($this->request->is('post')){
+            if($this->Auth->login()){
+                $this->Session->setFlash(('Welcome, '. $this->Auth->user('username')));
+                $this->redirect($this->Auth->redirectUrl());
+            }else{
+                $this->Session->setFlash('Usuario o contraseña invalidos');
+            }
+        }
+	}
+
+	public function logout(){
+        $this->redirect($this->Auth->logout());
+    }
 
 }
 

@@ -1,5 +1,5 @@
-<div class="users form">
-<?php echo $this->Session->flash('auth');
+<div class="span12 users form">
+<?php echo $this->Session->flash();
 	$this->layout = 'login';
 	echo $this->Form->create('User');
 	echo $this->Form->input('username');

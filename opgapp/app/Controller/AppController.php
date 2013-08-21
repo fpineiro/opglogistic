@@ -34,4 +34,23 @@ App::uses('Controller', 'Controller');
 class AppController extends Controller {
 	public $helpers = array('Session');
 	public $theme = "Cakestrap";
+
+	public $components = array(
+        'Session',
+        'Auth' => array(
+            'loginRedirect' => array('controller' => 'users', 'action' => 'index'),
+            'logoutRedirect' => array('controller' => 'users', 'action' => 'login'),
+            'authError' => 'Debes estar autenticado para usar esta aplicación.',
+            'loginError' => 'Usuario o contraseña invalidos. Por favor, intente de nuevo.'
+    ));
+ 
+    public function beforeFilter() {
+        $this->Auth->allow('login');
+    }
+     
+    public function isAuthorized($user) {
+        // Here is where we should verify the role and give access based on role
+         
+        return true;
+    }
 }

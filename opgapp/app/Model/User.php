@@ -23,13 +23,27 @@ class User extends AppModel {
             'required' => array(
                 'rule' => array('notEmpty'),
                 'message' => '*Requerido'
-            )
+            ),
+            'unique' => array(
+                'rule' => array('usuarioUnico'),
+                'message' => 'El nombre de usuario ya existe'
+                )
         ),
         'PASSWORD' => array(
             'required' => array(
                 'rule' => array('notEmpty'),
                 'message' => '*Requerido'
             )
+        ),
+        'PASSWORD_CONFIRMA' => array(
+            'required' => array(
+                'rule' => array('notEmpty'),
+                'message' => 'Por favor confirme su contraseña'
+                ),
+            'iguala' => array(
+                'rule' => array('esIgual', 'password'),
+                'message' => 'La contraseña no coincide.'
+                )
         ),
 		'NAME' => array(
             'required' => array(
@@ -62,6 +76,40 @@ class User extends AppModel {
         )
     );
 	
+    function usuarioUnico($check){
+         $user = $this->find(
+            'first',
+            array(
+                'fields' => array(
+                    'User.ID',
+                    'User.USERNAME'
+                ),
+                'conditions' => array(
+                    'User.USERNAME' => $check['USERNAME']
+                )
+            )
+        );
+         if(!empty($user)){
+            if($this->data[$this->alias]['id'] == $user['User']['ID']){
+                return true;
+            }else{
+                return false;
+            }
+         }else{
+            return true;
+         }
+    }
+
+    public function esIgual($check,$campo)
+    {
+        $fname = '';
+        foreach ($check as $key => $value){
+            $fname = $key;
+            break;
+        }
+        return $this->data[$this->name][$campo] === $this->data[$this->name][$fname];
+    } 
+
 	public function beforeSave($options = array()) {
     if (isset($this->data[$this->alias]['PASSWORD'])) {
         $this->data[$this->alias]['PASSWORD'] = AuthComponent::password($this->data[$this->alias]['PASSWORD']);

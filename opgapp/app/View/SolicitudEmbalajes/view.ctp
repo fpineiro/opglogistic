@@ -11,7 +11,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr class="info">
+			<tr>
 				<td><p class="text-center">
 					<?php echo h($solicitudEmbalaje['SolicitudEmbalaje']['SOLICITUD_EMBALAJE_ID']); ?>
 					&nbsp;
@@ -33,16 +33,49 @@
 			</tr>
 		</tbody>
 	</table>
+	<p><b>Detalle de Materiales</b></p>
 	<table class="table table-striped table-hover table-bordered table-condensed">
 		<thead>
+			<th><p class="text-center"><?php echo __('Nombre Material'); ?></p></th>
+			<th><p class="text-center"><?php echo __('Cantidad'); ?></p></th>
+			<th><p class="text-center"><?php echo __('Tipo de Material'); ?></p></th>
 		</thead>
 		<tbody>
+			<?php foreach ($detalleIndividual as $individual): ?>
+				<tr>
+					<td><p class="text-center"><?php echo __($individual['MaterialIndividual']['NOMBRE_MATERIAL_INDIVIDUAL']); ?></p></td>
+					<td><p class="text-center"><?php echo __($individual['DetalleSolicitudEmbalajeMaterialIndividual']['CANTIDAD_DETALLE_SOLICITUD_EMBALAJE_MATERIAL_INDIVIDUAL']); ?></p></td>
+					<td><p class="text-center"><?php echo __('Material Individual'); ?></p></td>
+				</tr>
+			<?php endforeach; ?>
+
+			<?php foreach ($detalleEmbalaje as $embalaje): ?>
+				<tr>
+					<td><p class="text-center"><?php echo __($embalaje['MaterialDeEmbalaje']['NOMBRE_MATERIAL_DE_EMBALAJE']); ?></p></td>
+					<td><p class="text-center"><?php echo __($embalaje['DetalleSolicitudEmbalajeMaterialEmbalaje']['CANTIDAD_DETALLE_SOLICITUD_EMBALAJE_MATERIAL_EMBALAJE']); ?></p></td>
+					<td><p class="text-center"><?php echo __('Material de Embalaje'); ?></p></td>
+				</tr>
+			<?php endforeach; ?>
+
+			<?php foreach ($detalleIntermedio as $intermedio): ?>
+				<tr>
+					<td><p class="text-center"><?php echo __($intermedio['MaterialIntermedio']['NOMBRE_MATERIAL_INTERMEDIO']); ?></p></td>
+					<td><p class="text-center"><?php echo __($intermedio['DetalleSolicitudEmbalajeMaterialIntermedio']['CANTIDAD_MATERIAL_INTERMEDIO_DETALLE_SOLICITUD_EMBALAJE']); ?></p></td>
+					<td><p class="text-center"><?php echo __('Material Intermedio'); ?></p></td>
+				</tr>
+			<?php endforeach; ?>
 		</tbody>
 	</table>
-	<div class="span3 offset9">
-		<?php echo $this->Html->link(__('Editar'), array('action' => 'edit', $solicitudEmbalaje['SolicitudEmbalaje']['SOLICITUD_EMBALAJE_ID']), array('class' => 'btn')); ?>
-		<?php echo $this->Form->postLink(__('Eliminar'), array('action' => 'delete', $solicitudEmbalaje['SolicitudEmbalaje']['SOLICITUD_EMBALAJE_ID']), array('class' => 'btn'), __('Are you sure you want to delete # %s?', $solicitudEmbalaje['SolicitudEmbalaje']['SOLICITUD_EMBALAJE_ID'])); ?>
+	<div class="span2 offset10">
+		<?php echo $this->Html->link(__('Editar Solicitud'), array('action' => 'edit', $solicitudEmbalaje['SolicitudEmbalaje']['SOLICITUD_EMBALAJE_ID']), array('class' => 'btn')); ?>
 	</div>
 </div>
 
-<p><b><?php print_r(array_keys($solicitudEmbalaje['DetalleSolicitudEmbalajeMaterialIndividual'][0]))?></b></p>
+<p><b><?php //print_r(array_keys($detalleIntermedio[0]['DetalleSolicitudEmbalajeMaterialIntermedio']));
+			//echo $detalleIntermedio[0]['MaterialIntermedio']['NOMBRE_MATERIAL_INTERMEDIO']; ?></b></p>
+
+<p><b><?php //print_r(array_keys($detalleEmbalaje[0]['DetalleSolicitudEmbalajeMaterialEmbalaje']));
+			//echo $detalleEmbalaje[0]['MaterialDeEmbalaje']['NOMBRE_MATERIAL_DE_EMBALAJE']; ?></b></p>
+
+<p><b><?php //print_r(array_keys($detalleIndividual[0]['DetalleSolicitudEmbalajeMaterialIndividual']));
+			//echo $detalleIndividual[0]['MaterialIndividual']['NOMBRE_MATERIAL_INDIVIDUAL']; ?></b></p>

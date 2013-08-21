@@ -7,6 +7,7 @@
 	<?php
 		// Lista con bodegas echo $this->Form->input('BODEGA_ID');
 		// Lista con clientes echo $this->Form->input('CLIENTE_ID');
+		echo $this->Form->input('ID');
 		echo $this->Form->input('USERNAME', array('label' => 'Usuario: '));
 		echo $this->Form->input('PASSWORD', array(
 											'type' => 'password', 
@@ -27,5 +28,11 @@
 								)).'</div>';*/
 	?>
 	</fieldset>
-<?php echo $this->Form->end(__('Agregar')); ?>
+<?php 
+	$options = array(
+		'label' => 'Agregar',
+		'class' => 'btn btn-primary'
+	);
+	echo $this->Form->end(($options)); 
+?>
 </div>

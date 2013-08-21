@@ -35,7 +35,13 @@ class SolicitudEmbalajesController extends AppController {
 			throw new NotFoundException(__('Invalid solicitud embalaje'));
 		}
 		$options = array('conditions' => array('SolicitudEmbalaje.' . $this->SolicitudEmbalaje->primaryKey => $id));
+		$options2 = array('conditions' => array('DetalleSolicitudEmbalajeMaterialEmbalaje.' . $this->SolicitudEmbalaje->primaryKey => $id));
+		$options3 = array('conditions' => array('DetalleSolicitudEmbalajeMaterialIndividual.' . $this->SolicitudEmbalaje->primaryKey => $id));
+		$options4 = array('conditions' => array('DetalleSolicitudEmbalajeMaterialIntermedio.' . $this->SolicitudEmbalaje->primaryKey => $id));
 		$this->set('solicitudEmbalaje', $this->SolicitudEmbalaje->find('first', $options));
+		$this->set('detalleEmbalaje', $this->SolicitudEmbalaje->DetalleSolicitudEmbalajeMaterialEmbalaje->find('all', $options2));
+		$this->set('detalleIndividual', $this->SolicitudEmbalaje->DetalleSolicitudEmbalajeMaterialIndividual->find('all', $options3));
+		$this->set('detalleIntermedio', $this->SolicitudEmbalaje->DetalleSolicitudEmbalajeMaterialIntermedio->find('all', $options4));
 		$this->set('estados',$this->SolicitudEmbalaje->EstadoAutomata->find('all'));
 	}
 

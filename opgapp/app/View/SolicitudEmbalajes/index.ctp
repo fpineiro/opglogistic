@@ -1,6 +1,6 @@
 <div class="solicitudEmbalajes index">
 	<h2><?php echo __('Solicitud Embalajes'); ?></h2>
-	<p>Lista de solicitudes de embalaje pendientes</p>
+	<p>Lista de solicitudes de embalaje. Presione en algun elemento de la solicitud para ver su detalle</p>
 	<table cellpadding="0" cellspacing="0" class="table table-striped table-hover table-bordered table-condensed">
 		<thead>
 			<tr>
