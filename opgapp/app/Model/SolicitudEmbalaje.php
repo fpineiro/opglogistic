@@ -27,18 +27,15 @@ class SolicitudEmbalaje extends AppModel {
 	public $hasMany = array(
 		'DetalleSolicitudEmbalajeMaterialEmbalaje' => array(
 			'className' => 'DetalleSolicitudEmbalajeMaterialEmbalaje',
-			'foreignKey' => 'SOLICITUD_EMBALAJE_ID',
-			'dependent' => 'true'
+			'foreignKey' => 'SOLICITUD_EMBALAJE_ID'
 		),
 		'DetalleSolicitudEmbalajeMaterialIndividual' => array(
 			'className' => 'DetalleSolicitudEmbalajeMaterialIndividual',
-			'foreignKey' => 'SOLICITUD_EMBALAJE_ID',
-			'dependent' => 'true'
+			'foreignKey' => 'SOLICITUD_EMBALAJE_ID'
 		),
 		'DetalleSolicitudEmbalajeMaterialIntermedio' => array(
 			'className' => 'DetalleSolicitudEmbalajeMaterialIntermedio',
-			'foreignKey' => 'SOLICITUD_EMBALAJE_ID',
-			'dependent' => 'true'
+			'foreignKey' => 'SOLICITUD_EMBALAJE_ID'
 		)
 	);
 
