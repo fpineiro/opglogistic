@@ -1,49 +1,32 @@
 <div class="posicions view">
-<h2><?php  echo __('Posicion'); ?></h2>
-	<dl>
-		<dt><?php echo __('POSICION ID'); ?></dt>
-		<dd>
-			<?php echo h($posicion['Posicion']['POSICION_ID']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('POS POSICION ID'); ?></dt>
-		<dd>
-			<?php echo h($posicion['Posicion']['POS_POSICION_ID']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('BODEGA ID'); ?></dt>
-		<dd>
-			<?php echo h($posicion['Posicion']['BODEGA_ID']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('NOMBRE POSICION'); ?></dt>
-		<dd>
-			<?php echo h($posicion['Posicion']['NOMBRE_POSICION']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('ALTO POSICION'); ?></dt>
-		<dd>
-			<?php echo h($posicion['Posicion']['ALTO_POSICION']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('LARGO POSICION'); ?></dt>
-		<dd>
-			<?php echo h($posicion['Posicion']['LARGO_POSICION']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('ANCHO POSICION'); ?></dt>
-		<dd>
-			<?php echo h($posicion['Posicion']['ANCHO_POSICION']); ?>
-			&nbsp;
-		</dd>
-	</dl>
+	<h2><?php  echo __('Informacion Detallada de la Posicion'); ?></h2>
+	<br />
+	<table class="table table-bordered table-condensed table-hover table-striped">
+		<thead>
+			<th><p class="text-center"><?php echo __('Identificador'); ?></p></th>
+			<th><p class="text-center"><?php echo __('Nombre'); ?></p></th>
+			<th><p class="text-center"><?php echo __('¿Es sub-posición?'); ?></p></th>
+			<th><p class="text-center"><?php echo __('Bodega asociada');?></p></th>
+			<th><p class="text-center"><?php echo __('Alto'); ?></p></th>
+			<th><p class="text-center"><?php echo __('Largo'); ?></p></th>
+			<th><p class="text-center"><?php echo __('Ancho'); ?></p></th>
+		</thead>
+		<tbody>
+			<?php
+				if($posicion['Posicion']['POS_POSICION_ID']==null) $auxiliar="No";
+				else $auxiliar="Si";
+			?>
+			<td><p class="text-center"><?php echo h($posicion['Posicion']['POSICION_ID']); ?></p></td>
+			<td><p class="text-center"><?php echo h($posicion['Posicion']['NOMBRE_POSICION']); ?></p></td>
+			<td><p class="text-center"><?php echo h($auxiliar); ?></p></td>
+			<td><p class="text-center"><?php echo h($posicion['Bodega']['CATEGORIA_BODEGA']); ?></p></td>
+			<td><p class="text-center"><?php echo h($posicion['Posicion']['ALTO_POSICION']).' [mts]'; ?></p></td>
+			<td><p class="text-center"><?php echo h($posicion['Posicion']['LARGO_POSICION']).' [mts]'; ?></p></td>
+			<td><p class="text-center"><?php echo h($posicion['Posicion']['ANCHO_POSICION']).' [mts]'; ?></p></td>
+		</tbody>
+	</table>
 </div>
-<div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
-		<li><?php echo $this->Html->link(__('Edit Posicion'), array('action' => 'edit', $posicion['Posicion']['POSICION_ID'])); ?> </li>
-		<li><?php echo $this->Form->postLink(__('Delete Posicion'), array('action' => 'delete', $posicion['Posicion']['POSICION_ID']), null, __('Are you sure you want to delete # %s?', $posicion['Posicion']['POSICION_ID'])); ?> </li>
-		<li><?php echo $this->Html->link(__('List Posicions'), array('action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Posicion'), array('action' => 'add')); ?> </li>
-	</ul>
+<div class="actions span4 offset8">
+		<?php echo $this->Html->link('Editar Posicion', array('action' => 'edit', $posicion['Posicion']['POSICION_ID']), array('class' => 'btn')); ?>
+		<?php echo $this->Form->postLink('Borrar Posicion', array('action' => 'delete', $posicion['Posicion']['POSICION_ID']), array('class' => 'btn btn-danger'), __('¿Esta seguro que desea borrar esta posición?')); ?>
 </div>
