@@ -14,6 +14,10 @@ class PosicionsController extends AppController {
  */
 	public function index() {
 		$this->Posicion->recursive = 0;
+		$alerta = $this->Session->read('alerta');
+		$this->set('alerta',$alerta);
+		unset($alerta);
+		$this->Session->delete('alerta');
 		$this->set('posicions', $this->paginate());
 	}
 
@@ -41,10 +45,10 @@ class PosicionsController extends AppController {
 		if ($this->request->is('post')) {
 			$this->Posicion->create();
 			if ($this->Posicion->save($this->request->data)) {
-				$this->Session->setFlash(__('The posicion has been saved'));
+				$this->Session->write('alerta','agregar');
 				$this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__('The posicion could not be saved. Please, try again.'));
+				$this->Session->setFlash('The posicion could not be saved. Please, try again.');
 			}
 		}
 	}
@@ -62,7 +66,7 @@ class PosicionsController extends AppController {
 		}
 		if ($this->request->is('post') || $this->request->is('put')) {
 			if ($this->Posicion->save($this->request->data)) {
-				$this->Session->setFlash(__('The posicion has been saved'));
+				$this->Session->write('alerta','editar');
 				$this->redirect(array('action' => 'index'));
 			} else {
 				$this->Session->setFlash(__('The posicion could not be saved. Please, try again.'));
@@ -83,14 +87,14 @@ class PosicionsController extends AppController {
 	public function delete($id = null) {
 		$this->Posicion->id = $id;
 		if (!$this->Posicion->exists()) {
-			throw new NotFoundException(__('Invalid posicion'));
+			throw new NotFoundException(__('La posición que desea borrar, no existe.'));
 		}
 		$this->request->onlyAllow('post', 'delete');
-		if ($this->Posicion->delete()) {
-			$this->Session->setFlash(__('Posicion deleted'));
+		if ($this->Posicion->delete()){
+			$this->Session->write('alerta','eliminar');
 			$this->redirect(array('action' => 'index'));
 		}
-		$this->Session->setFlash(__('Posicion was not deleted'));
-		$this->redirect(array('action' => 'index'));
+		$this->Session->setFlash('Ha existido un error en la eliminacion. Intentelo nuevamente.');
+		$this->redirect(array('action' => 'view'), $id);
 	}
 }

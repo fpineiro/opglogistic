@@ -1,24 +1,23 @@
 <div class="posicions form">
 <?php echo $this->Form->create('Posicion'); ?>
 	<fieldset>
-		<legend><?php echo __('Edit Posicion'); ?></legend>
+		<legend><?php echo __('Editar Posicion'); ?></legend>
 	<?php
 		echo $this->Form->input('POSICION_ID');
-		echo $this->Form->input('POS_POSICION_ID');
-		echo $this->Form->input('BODEGA_ID');
-		echo $this->Form->input('NOMBRE_POSICION');
-		echo $this->Form->input('ALTO_POSICION');
-		echo $this->Form->input('LARGO_POSICION');
-		echo $this->Form->input('ANCHO_POSICION');
+		echo $this->Form->input('POS_POSICION_ID', array('label' => 'Identificador de la Posicion Padre', 'after' => '  <span class="label label-warning">OJO: Si esta posición no es subposición, deje este campo vacio</span>'));
+		echo $this->Form->input('BODEGA_ID', array('label' => 'Identificador de la bodega asociada'));
+		echo $this->Form->input('NOMBRE_POSICION', array('label' => 'Nombre'));
+		echo $this->Form->input('ALTO_POSICION', array('label' => 'Alto'));
+		echo $this->Form->input('LARGO_POSICION', array('label' => 'Largo'));
+		echo $this->Form->input('ANCHO_POSICION', array('label' => 'Ancho'));
 	?>
 	</fieldset>
-<?php echo $this->Form->end(__('Submit')); ?>
+<?php 
+	$options = array(
+		'label' => 'Editar Posicion',
+		'class' => 'btn btn-primary'
+	);
+	echo $this->Form->end($options); 
+?>
 </div>
-<div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
 
-		<li><?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $this->Form->value('Posicion.POSICION_ID')), null, __('Are you sure you want to delete # %s?', $this->Form->value('Posicion.POSICION_ID'))); ?></li>
-		<li><?php echo $this->Html->link(__('List Posicions'), array('action' => 'index')); ?></li>
-	</ul>
-</div>

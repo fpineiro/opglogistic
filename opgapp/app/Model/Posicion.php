@@ -13,6 +13,32 @@ class Posicion extends AppModel {
  */
 	public $primaryKey = 'POSICION_ID';
 
+	public $belongsTo = array(
+		'Children' => array(
+			'className' => 'Posicion',
+			'foreignKey' => 'POS_POSICION_ID'
+		),
+		'Bodega' => array(
+			'className' => 'Bodega',
+			'foreignKey' => 'BODEGA_ID'
+		)
+	);
+
+	public $hasMany = array(
+		'CajaMaterialIndividual' => array(
+			'className' => 'CajaMaterialIndividual',
+			'foreignKey' => 'POSICION_ID'
+		),
+		'CajaMaterialDeEmbalaje' => array(
+			'className' => 'CajaMaterialDeEmbalaje',
+			'foreignKey' => 'POSICION_ID'
+		),
+		'CajaMaterialEmbalado' => array(
+			'className' => 'CajaMaterialEmbalado',
+			'foreignKey' => 'POSICION_ID'
+		)
+	);
+
 /**
  * Validation rules
  *
