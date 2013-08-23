@@ -1,22 +1,35 @@
+<script language="JavaScript" type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<script language="JavaScript" type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js"></script>
+
 <script type="text/javascript">
-	var intermedio = false;
-	var contador = 0;
-	var id_intermedio = 0;
+
+	var contador = 1;
+	var arreglo = new Array();
+
 	function agregarMaterial(){
-		if(document.getElementById("OrdenDespachoNombreMaterial").value != "" && document.getElementById("OrdenDespachoCantidadMaterial").value > 0){
-			document.getElementById("tabla").innerHTML+='<tr id="'+contador+'"><td><p class="text-center">'+document.getElementById("OrdenDespachoNombreMaterial").value+'</p></td><td><p class="text-center">'+document.getElementById("OrdenDespachoCantidadMaterial").value+'</p></td><td><p class="text-center"><i class="icon-remove" onClick="sacarTD('+contador+')"></i></p></td></tr>';
+		var nombreMaterial = document.getElementById("OrdenDespachoNombreMaterial").value;
+		var cantidadMaterial = document.getElementById("OrdenDespachoCantidadMaterial").value;
+		if(nombreMaterial != "" && cantidadMaterial > 0){
+			document.getElementById("tabla").innerHTML+='<tr id="'+contador+'"><td><p class="text-center">'+nombreMaterial+'</p></td><td><p class="text-center">'+cantidadMaterial+'</p></td><td><p class="text-center"><i class="icon-remove" onClick="sacarTD('+contador+')"></i></p></td></tr>';
+			arreglo.push(contador,nombreMaterial, cantidadMaterial);
 			contador+=1;
 		}
 		document.getElementById("OrdenDespachoNombreMaterial").value="";
 		document.getElementById("OrdenDespachoCantidadMaterial").value="";
 	}
+
 	function sacarTD(id){
-		if(intermedio==true && id==id_intermedio){
-			intermedio=false;
+		for(var i = 0; i < arreglo.length/3; i++){
+
+			if(arreglo[3*(i+1)-3] == id){
+				var fila = document.getElementById(id);
+				fila.parentNode.removeChild(fila);
+				arreglo.splice((3*(i+1)-3),3);
+			}
+			
 		}
-		var fila = document.getElementById(id);
-		fila.parentNode.removeChild(fila);
 	}
+
 </script>
 
 <div class="ordenDespachos form">
