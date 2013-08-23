@@ -12,15 +12,19 @@ class SolicitudEmbalajesController extends AppController {
  *
  * @return void
  */
-	public function index() {// ** RECORDAR QUE SE DEBE PASAR COMO ARGUMENTO EL NOMBRE DEL CLIENTE, SACADO POR EL USUARIO CONECTADO **
+	public function index() {
 		$this->SolicitudEmbalaje->recursive = 0;
 		$this->set('solicitudEmbalajes', $this->paginate());
 		$this->set('estados',$this->SolicitudEmbalaje->EstadoAutomata->find('all'));
-		$this->set('solicitudes', $this->SolicitudEmbalaje->find('all', array(
+		if(AuthComponent::user('ROLE')=="cliente"){
+			$this->set('solicitudes', $this->SolicitudEmbalaje->find('all', array(
 			'conditions' => array(
-				'Cliente.NOMBRE_CLIENTE' => 'FallabellaMan' // ** Esto debe ser generico, no estatico **
+				'Cliente.NOMBRE_CLIENTE' => AuthComponent::user('NAME')
 			)
 		)));
+		}else{
+			$this->set('solicitudes', $this->SolicitudEmbalaje->find('all'));
+		}
 	}
 
 /**
@@ -83,6 +87,7 @@ class SolicitudEmbalajesController extends AppController {
 		} else {
 			$options = array('conditions' => array('SolicitudEmbalaje.' . $this->SolicitudEmbalaje->primaryKey => $id));
 			$this->request->data = $this->SolicitudEmbalaje->find('first', $options);
+			$this->set('estados', $this->SolicitudEmbalaje->EstadoAutomata->find('all'));
 		}
 	}
 

@@ -66,16 +66,8 @@
 			<?php endforeach; ?>
 		</tbody>
 	</table>
-	<div class="span2 offset10">
-		<?php echo $this->Html->link(__('Editar Solicitud'), array('action' => 'edit', $solicitudEmbalaje['SolicitudEmbalaje']['SOLICITUD_EMBALAJE_ID']), array('class' => 'btn')); ?>
-	</div>
 </div>
-
-<p><b><?php //print_r(array_keys($detalleIntermedio[0]['DetalleSolicitudEmbalajeMaterialIntermedio']));
-			//echo $detalleIntermedio[0]['MaterialIntermedio']['NOMBRE_MATERIAL_INTERMEDIO']; ?></b></p>
-
-<p><b><?php //print_r(array_keys($detalleEmbalaje[0]['DetalleSolicitudEmbalajeMaterialEmbalaje']));
-			//echo $detalleEmbalaje[0]['MaterialDeEmbalaje']['NOMBRE_MATERIAL_DE_EMBALAJE']; ?></b></p>
-
-<p><b><?php //print_r(array_keys($detalleIndividual[0]['DetalleSolicitudEmbalajeMaterialIndividual']));
-			//echo $detalleIndividual[0]['MaterialIndividual']['NOMBRE_MATERIAL_INDIVIDUAL']; ?></b></p>
+<div class="actions span4 offset9">
+	<?php echo $this->Html->link('Editar Solicitud', array('action' => 'edit', $solicitudEmbalaje['SolicitudEmbalaje']['SOLICITUD_EMBALAJE_ID']), array('class' => 'btn')); ?>
+	<?php echo $this->Form->postLink('Borrar Solicitud', array('action' => 'delete', $solicitudEmbalaje['SolicitudEmbalaje']['SOLICITUD_EMBALAJE_ID']), array('class' => 'btn btn-danger'), __('¿Esta seguro que desea borrar esta solicitud?')); ?>
+</div>

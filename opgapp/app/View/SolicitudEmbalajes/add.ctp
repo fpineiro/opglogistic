@@ -1,21 +1,39 @@
 <script type="text/javascript">
+	var intermedio = false;
+	var contador = 0;
+	var id_intermedio = 0;
 	function agregarMaterial(){
 		if(document.getElementById("SolicitudEmbalajeNombreMaterial").value != "" && document.getElementById("SolicitudEmbalajeCantidadMaterial").value > 0){
 			if(document.getElementById("SolicitudEmbalajeTipoMaterial").value == "individual"){
-				alert("INDIVIDIVI");
-			}if(document.getElementById("SolicitudEmbalajeTipoMaterial").value == "deEmbalaje"){
-				alert("EMBALAJS");
-			}if(document.getElementById("SolicitudEmbalajeTipoMaterial").value == "intermedio"){
-				alert("INTERMEDI");
+				document.getElementById("tabla").innerHTML+='<tr id="'+contador+'"><td><p class="text-center">'+document.getElementById("SolicitudEmbalajeNombreMaterial").value+'</p></td><td><p class="text-center">'+document.getElementById("SolicitudEmbalajeCantidadMaterial").value+'</p></td><td><p class="text-center">Material Individual</p></td><td><p class="text-center"><i class="icon-remove" onClick="sacarTD('+contador+')"></i></p></td></tr>';
+				contador+=1;
+			}else if(document.getElementById("SolicitudEmbalajeTipoMaterial").value == "deEmbalaje"){
+				document.getElementById("tabla").innerHTML+='<tr id="'+contador+'"><td><p class="text-center">'+document.getElementById("SolicitudEmbalajeNombreMaterial").value+'</p></td><td><p class="text-center">'+document.getElementById("SolicitudEmbalajeCantidadMaterial").value+'</p></td><td><p class="text-center">Material de Embalaje</p></td><td><p class="text-center"><i class="icon-remove" onClick="sacarTD('+contador+')"></i></p></td></tr>';
+				contador+=1;
+			}else if(document.getElementById("SolicitudEmbalajeTipoMaterial").value == "intermedio" && intermedio == false){
+				id_intermedio = contador;
+				document.getElementById("tabla").innerHTML+='<tr id="'+id_intermedio+'"><td><p class="text-center">'+document.getElementById("SolicitudEmbalajeNombreMaterial").value+'</p></td><td><p class="text-center">'+document.getElementById("SolicitudEmbalajeCantidadMaterial").value+'</p></td><td><p class="text-center">Material Intermedio</p></td><td><p class="text-center"><i class="icon-remove" onClick="sacarTD('+id_intermedio+')"></i></p></td></tr>';
+				intermedio = true;
+				contador+=1;
+			}else if(document.getElementById("SolicitudEmbalajeTipoMaterial").value == "intermedio" && intermedio == true){
+				if(document.getElementById('alerta')==null) document.getElementById('fieldset').innerHTML='<div class="alert" id="alerta"><button type="button" class="close" data-dismiss="alert">&times;</button>Solo se puede agregar un material intermedio por solicitud</div>'+document.getElementById('fieldset').innerHTML;
+				else ;
 			}
-		}else{
-			alert("NO TIENE NADITA");
 		}
+		document.getElementById("SolicitudEmbalajeNombreMaterial").value="";
+		document.getElementById("SolicitudEmbalajeCantidadMaterial").value="";
+	}
+	function sacarTD(id){
+		if(intermedio==true && id==id_intermedio){
+			intermedio=false;
+		}
+		var fila = document.getElementById(id);
+		fila.parentNode.removeChild(fila);
 	}
 </script>
 <div class="solicitudEmbalajes form">
 	<?php echo $this->Form->create('SolicitudEmbalaje'); ?>
-		<fieldset>
+		<fieldset id="fieldset">
 			<legend><?php echo __('Enviar Solicitud Embalaje'); ?></legend>
 			<?php
 				echo $this->Form->input('nombreMaterial',array(
@@ -46,27 +64,18 @@
 					'style' => 'margin-bottom: 20px'
 				));
 			?>
-			<table class="table table-striped table-bordered">
+
+			<table class="table table-striped table-bordered table-condensed table-hover">
 				<thead>
-					<?php
-						echo $this->Html->tableHeaders(array(
-								array('Material Individual' => array('class' => 'materialIndividual')),
-								array('Cantidad' => array('class' => 'cantidadIndividual')),
-								array('Material de Embalaje' => array('class' => 'materialDeEmbalaje')),
-								array('Cantidad' => array('class' => 'cantidadDeEmbalaje')),
-								array('Material Intermedio' => array('class' => 'materialIntermedio')),
-								array('Cantidad' => array('class' => 'cantidadIntermedio'))
-							));
-					?>
+					<tr>
+						<th><p class="text-center"><?php echo __('Nombre del Material'); ?></p></th>
+						<th><p class="text-center"><?php echo __('Cantidad'); ?></p></th>
+						<th><p class="text-center"><?php echo __('Tipo de Material'); ?></p></th>
+						<th><p class="text-center"><?php echo __('Eliminar'); ?></p></th>
+					</tr>
 				</thead>
-				<tbody>
-					<?php
-						echo $this->Html->tableCells(array(
-								array('CACAMAN','95','GANTTERMAN','69','BUCAKEMAN','45'),
-								array('TONTOMAN','59','CHAUFETA','96','POWERMAN','54')
-							)
-						);
-					?>
+				<tbody id="tabla">
+					
 				</tbody>
 			</table>
 		</fieldset>
@@ -77,16 +86,4 @@
 		);
 		echo $this->Form->end($options); 
 	?>
-	<div id="modalAgregarMaterial" class="modal hide fade">
-		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-			<h3>No ha seleccionado ninguna sección</h3>
-		</div>
-		<div class="modal-body">
-			<p>Por favor seleccione una sección y vuelva a intentarlo.</p>
-		</div>
-		<div class="modal-footer">
-			<button class="btn" type="button" data-dismiss="modal">Cerrar</button>
-		</div>
-	</div>
 </div>
