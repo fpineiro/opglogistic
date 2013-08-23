@@ -5,7 +5,7 @@ App::uses('AppModel', 'Model');
  *
  */
 class GuiaDespachoEntradaCliente extends AppModel {
-
+	public $hasOne = 'Cliente';
 /**
  * Primary key field
  *

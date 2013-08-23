@@ -46,6 +46,8 @@ class GuiaDespachoEntradaClientesController extends AppController {
 			} else {
 				$this->Session->setFlash(__('The guia despacho entrada cliente could not be saved. Please, try again.'));
 			}
+		}else{
+			$this->set('clientes', $this->GuiaDespachoEntradaCliente->Cliente->find('list', array('fields' => array('Cliente.CLIENTE_ID', 'Cliente.NOMBRE_CLIENTE'))));	
 		}
 	}
 
