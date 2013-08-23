@@ -134,21 +134,17 @@ var $components = array('RequestHandler');
 		if($this->Session->check('Auth.User')){
             $this->redirect(array('action' => 'index'));     
         }
-        if ($this->request->is('post')) {
-            if ($this->Auth->login()) {
-                $this->Session->setFlash(__('Welcome, '. $this->Auth->user('username')));
+        if ($this->request->is('post')){
+            if($this->Auth->login()){
+                $this->Session->setFlash(('Welcome, '. $this->Auth->user('username')));
                 $this->redirect($this->Auth->redirectUrl());
-            } else {
-                $this->Session->setFlash(__('Invalid username or password'));
+            }else{
+                $this->Session->setFlash('Usuario o contraseña invalidos');
             }
-        } 
+        }
 	}
 
-	public function unauthorized(){
-		
-	}
-
-	public function logout() {
+	public function logout(){
         $this->redirect($this->Auth->logout());
     }
 

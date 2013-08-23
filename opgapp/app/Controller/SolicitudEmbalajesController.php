@@ -87,7 +87,9 @@ class SolicitudEmbalajesController extends AppController {
 		} else {
 			$options = array('conditions' => array('SolicitudEmbalaje.' . $this->SolicitudEmbalaje->primaryKey => $id));
 			$this->request->data = $this->SolicitudEmbalaje->find('first', $options);
+			$this->set('solicitud', $this->SolicitudEmbalaje->find('first', $options));
 			$this->set('estados', $this->SolicitudEmbalaje->EstadoAutomata->find('all'));
+			$this->set('clientes', $this->SolicitudEmbalaje->Cliente->find('all'));
 		}
 	}
 
