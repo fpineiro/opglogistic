@@ -1,6 +1,21 @@
 <script type="text/javascript">
+	var intermedio = false;
+	var contador = 0;
+	var id_intermedio = 0;
 	function agregarMaterial(){
-		
+		if(document.getElementById("OrdenDespachoNombreMaterial").value != "" && document.getElementById("OrdenDespachoCantidadMaterial").value > 0){
+			document.getElementById("tabla").innerHTML+='<tr id="'+contador+'"><td><p class="text-center">'+document.getElementById("OrdenDespachoNombreMaterial").value+'</p></td><td><p class="text-center">'+document.getElementById("OrdenDespachoCantidadMaterial").value+'</p></td><td><p class="text-center"><i class="icon-remove" onClick="sacarTD('+contador+')"></i></p></td></tr>';
+			contador+=1;
+		}
+		document.getElementById("OrdenDespachoNombreMaterial").value="";
+		document.getElementById("OrdenDespachoCantidadMaterial").value="";
+	}
+	function sacarTD(id){
+		if(intermedio==true && id==id_intermedio){
+			intermedio=false;
+		}
+		var fila = document.getElementById(id);
+		fila.parentNode.removeChild(fila);
 	}
 </script>
 
@@ -28,23 +43,14 @@
 		?>
 		<table class="table table-striped table-bordered">
 			<thead>
-				<?php
-					echo $this->Html->tableHeaders(array(
-						array('Material Intermedio' => array('class' => 'materialIntermedio')),
-						array('Cantidad' => array('class' => 'cantidadIntermedio'))
-					));
-				?>
+				<tr>
+					<th><p class="text-center"><?php echo __('Nombre del Material Intermedio'); ?></p></th>
+					<th><p class="text-center"><?php echo __('Cantidad'); ?></p></th>
+					<th><p class="text-center"><?php echo __('Eliminar'); ?></p></th>
+				</tr>
 			</thead>
-			<tbody>
-				<?php
-					$contador = 0;
-					$tabla = array();
-					foreach($materiales as $material){
-						$tabla[$contador] = array($material['MaterialIntermedio']['NOMBRE_MATERIAL_INTERMEDIO'],/*La cantidad del material*/'');
-						$contador = $contador + 1;
-					}
-					echo $this->Html->tableCells($tabla);
-				?>
+			<tbody id="tabla">
+					
 			</tbody>
 		</table>
 	</fieldset>

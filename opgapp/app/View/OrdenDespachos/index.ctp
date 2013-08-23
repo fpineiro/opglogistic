@@ -1,13 +1,13 @@
 <div class="ordenDespachos index">
-	<h2><?php echo __('Orden Despachos'); ?></h2>
-	<table class="table table-striped">
+	<?php echo '<h5>'."Seleccione una Orden de Despacho".'</h5>'; ?>
+	<table cellpadding="0" cellspacing="0" id="tablaDatos" class="table table-striped table-bordered table-hover table-condensed">
 	<tr>
-			<th><?php echo $this->Paginator->sort('ORDEN_DESPACHO_ID'); ?></th>
-			<th><?php echo $this->Paginator->sort('GUIA_DESPACHO_SALIDA_ID'); ?></th>
-			<th><?php echo $this->Paginator->sort('ESTADO_AUTOMATA_ID'); ?></th>
-			<th><?php echo $this->Paginator->sort('CLIENTE_ID'); ?></th>
-			<th><?php echo $this->Paginator->sort('FECHA_DETALLE_SOLICITUD_DESPACHO'); ?></th>
-			<th><?php echo $this->Paginator->sort('DESTINO_DETALLE_SOLICITUD_DESPACHO'); ?></th>
+			<th><?php echo $this->Paginator->sort('ORDEN_DESPACHO_ID', 'ID Orden de Despacho'); ?></th>
+			<th><?php echo $this->Paginator->sort('GUIA_DESPACHO_SALIDA_ID', 'ID Guía de Despacho'); ?></th>
+			<th><?php echo $this->Paginator->sort('ESTADO_AUTOMATA_ID', 'ID Estado'); ?></th>
+			<th><?php echo $this->Paginator->sort('CLIENTE_ID', 'ID Cliente'); ?></th>
+			<th><?php echo $this->Paginator->sort('FECHA_DETALLE_SOLICITUD_DESPACHO', 'Detalle Solicitud'); ?></th>
+			<th><?php echo $this->Paginator->sort('DESTINO_DETALLE_SOLICITUD_DESPACHO', 'Destino Despacho'); ?></th>
 	</tr>
 	<?php foreach ($ordenDespachos as $ordenDespacho): ?>
 	<tr>
