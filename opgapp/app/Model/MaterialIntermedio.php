@@ -5,7 +5,6 @@ App::uses('AppModel', 'Model');
  *
  */
 class MaterialIntermedio extends AppModel {
-
 /**
  * Primary key field
  *

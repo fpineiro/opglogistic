@@ -41,8 +41,8 @@ class GuiaDespachoEntradaClientesController extends AppController {
 		if ($this->request->is('post')) {
 			$this->GuiaDespachoEntradaCliente->create();
 			if ($this->GuiaDespachoEntradaCliente->save($this->request->data)) {
-				$this->Session->setFlash(__('The guia despacho entrada cliente has been saved'));
-				$this->redirect(array('action' => 'index'));
+				$id_guia = $this->request->data['GuiaDespachoEntradaCliente']['GUIA_DESPACHO_CLIENTE_ID'];
+				$this->redirect(array('controller' => 'MaterialIndividuals', 'action' => 'add', $id_guia));
 			} else {
 				$this->Session->setFlash(__('The guia despacho entrada cliente could not be saved. Please, try again.'));
 			}

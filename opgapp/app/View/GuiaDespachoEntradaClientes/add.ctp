@@ -3,17 +3,16 @@
 	<fieldset>
 		<legend><?php echo __('Add Guia Despacho Entrada Cliente'); ?></legend>
 	<?php
-		echo $this->Form->input('Numero de Guia de Despacho', array('type' => 'text'));
-		echo $this->Form->input('Clientes', array(
+		echo $this->Form->input('GUIA_DESPACHO_CLIENTE_ID', array('label' => 'Numero Guia de Despacho', 'type' => 'text'));
+		echo $this->Form->input('CLIENTE_ID', array(
 							    	'options' => $clientes, 
 									'label' => 'Cliente: ',
-									'id' => 'aidicliente'
 								));
-		echo $this->Form->input('Fecha de Guia de Despacho', array('type' => 'date'));
-		echo $this->Form->input('CONTIENE_EMBALAJE_GUIA_DESPACHO_ENTRADA_CLIENTES');
+		//echo $this->Form->input('FECHA_GUIA_DESPACHO_ENTRADA_CLIENTE', array('label' => 'Fecha Guia Despacho', 'type' => 'date', 'dateFormat' => 'DM'));
+		echo $this->Form->input('CONTIENE_EMBALAJE_GUIA_DESPACHO_ENTRADA_CLIENTES', array('label' => 'Contiene material de embalaje'));
 	?>
 	</fieldset>
-<?php echo $this->Form->end(__('Submit')); ?>
+<?php echo $this->Form->button('Ingresar', array('class' => 'btn')); ?>
 </div>
 <div class="actions">
 	<h3><?php echo __('Actions'); ?></h3>

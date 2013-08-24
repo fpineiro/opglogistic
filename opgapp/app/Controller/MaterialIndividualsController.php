@@ -37,14 +37,30 @@ class MaterialIndividualsController extends AppController {
  *
  * @return void
  */
-	public function add() {
+	public function add($id_guia = null) {
 		if ($this->request->is('post')) {
 			$this->MaterialIndividual->create();
-			if ($this->MaterialIndividual->save($this->request->data)) {
-				$this->Session->setFlash(__('The material individual has been saved'));
-				$this->redirect(array('action' => 'index'));
-			} else {
-				$this->Session->setFlash(__('The material individual could not be saved. Please, try again.'));
+			if ($this->MaterialIndividual->saveAll($this->request->data)){
+				$count = 1;
+				$detalle = array();
+				$totalMateriales = 0;
+				$this->set('datos2', $this->request->data);
+				foreach($this->request->data as $dato){
+					$multMat = 0;
+					$totalMateriales = 0;
+					foreach($dato['MaterialIndividual']['Formato'] as $formato){
+						$multMat = $formato['cantCajas'] * $formato['cantPorCaja'];
+						$totalMateriales = $totalMateriales + $multMat;
+					}
+					$material_id = $this->MaterialIndividual->find('first', array('conditions' => array('NOMBRE_MATERIAL_INDIVIDUAL' => $dato['MaterialIndividual']['NOMBRE_MATERIAL_INDIVIDUAL'])));
+					$detalle[$count] = array('GUIA_DESPACHO_CLIENTE_ID' => $id_guia, 'MATERIAL_INDIVIDUAL_ID' => $material_id['MaterialIndividual']['MATERIAL_INDIVIDUAL_ID'], 'CANTIDAD_DETALLE_GD_ENTRADA_MATERIAL_INDIVIDUAL_CLIENTE' => $totalMateriales);
+					//array_push($detalle, array('DetalleGuiaDespachoEntradaMaterialIndividualCliente' => $temp));
+					$count++;
+				}
+				$this->set('datos', $detalle);
+				if($this->MaterialIndividual->DetalleGuiaDespachoEntradaMaterialIndividualCliente->saveAll($detalle)){	
+					//$this->redirect(array('controller' => 'CajaMaterialIndividuals', 'action' => 'add'));
+				}
 			}
 		}
 	}
@@ -70,6 +86,15 @@ class MaterialIndividualsController extends AppController {
 		} else {
 			$options = array('conditions' => array('MaterialIndividual.' . $this->MaterialIndividual->primaryKey => $id));
 			$this->request->data = $this->MaterialIndividual->find('first', $options);
+		}
+	}
+
+	public function find($nombre = null) {
+		if(isset($nombre)){
+			$this->set('names', $this->MaterialIndividual->find('all', array(
+				'conditions' => array('OR' => array('MaterialIndividual.NOMBRE_MATERIAL_INDIVIDUAL LIKE' => '%'.$nombre.'%')),
+				'limit' => '3'
+				)));				
 		}
 	}
 

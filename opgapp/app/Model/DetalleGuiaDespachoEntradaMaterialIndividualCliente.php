@@ -5,13 +5,13 @@ App::uses('AppModel', 'Model');
  *
  */
 class DetalleGuiaDespachoEntradaMaterialIndividualCliente extends AppModel {
-
+	public $belongsTo = 'MaterialIndividual';
 /**
  * Primary key field
  *
  * @var string
  */
-	public $primaryKey = 'GUIA_DESPACHO_CLIENTE_ID';
+	public $primaryKey = 'DETALLE_GD_ENTRADA_MI_ID';
 
 /**
  * Validation rules
