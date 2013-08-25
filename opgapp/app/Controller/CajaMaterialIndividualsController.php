@@ -62,8 +62,6 @@ class CajaMaterialIndividualsController extends AppController {
 					}
 				}
 			}else{
-				//$GD = $this->CajaMaterialIndividual->GuiaDespachoEntradaCliente->find('first', array('conditions' => array('GUIA_DESPACHO_CLIENTE_ID' => $id_guia)));
-				//if($GD['GuiaDespachoEntradaCliente']['CONTIENE_EMBALAJE_GUIA_DESPACHO_ENTRADA_CLIENTES']){
 					$this->CajaMaterialIndividual->MaterialIndividual->DetalleGuiaDespachoEntradaMaterialIndividualCliente->recursive = 1;
 					$materialesRelacionados = $this->CajaMaterialIndividual->MaterialIndividual->DetalleGuiaDespachoEntradaMaterialIndividualCliente->find('all', array('conditions' => array('DetalleGuiaDespachoEntradaMaterialIndividualCliente.GUIA_DESPACHO_CLIENTE_ID' => $id_guia)));
 					$materiales = array();
@@ -73,17 +71,6 @@ class CajaMaterialIndividualsController extends AppController {
 					$this->set('materiales', $materiales);
 					$this->CajaMaterialIndividual->Posicion->recursive = 0;
 					$this->set('posiciones', $this->CajaMaterialIndividual->Posicion->find('all'));
-				/*}else{
-					$this->CajaMaterialDeEmbalaje->MaterialDeEmbalaje->DetalleGuiaDespachoEntradaMaterialEmbalajeCliente->recursive = 1;
-					$materialesRelacionados = $this->CajaMaterialDeEmbalaje->MaterialDeEmbalaje->DetalleGuiaDespachoEntradaMaterialEmbalajeCliente->find('all', array('conditions' => array('GUIA_DESPACHO_CLIENTE_ID' => $id_guia)));
-					$materiales = array();
-					foreach($materialesRelacionados as $material){
-						$materiales[$material['MaterialDeEmbalaje']['MATERIAL_DE_EMBALAJE_ID']] = $material['MaterialDeEmbalaje']['NOMBRE_MATERIAL_DE_EMBALAJE'];
-					}
-					$this->set('materiales', $materiales);
-					$this->CajaMaterialDeEmbalaje->Posicion->recursive = 0;
-					$this->set('posiciones', $this->CajaMaterialDeEmbalaje->Posicion->find('all'));
-				}*/
 			}
 	}
 /**

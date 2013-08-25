@@ -39,6 +39,7 @@ class GuiaDespachoEntradaClientesController extends AppController {
  */
 	public function add() {
 		if ($this->request->is('post')) {
+			$this->set('clientes', $this->GuiaDespachoEntradaCliente->Cliente->find('list', array('fields' => array('Cliente.CLIENTE_ID', 'Cliente.NOMBRE_CLIENTE'))));	
 			$this->GuiaDespachoEntradaCliente->create();
 			if ($this->GuiaDespachoEntradaCliente->save($this->request->data)) {
 				$id_guia = $this->request->data['GuiaDespachoEntradaCliente']['GUIA_DESPACHO_CLIENTE_ID'];
