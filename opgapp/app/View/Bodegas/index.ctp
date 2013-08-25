@@ -52,34 +52,19 @@
 	<table cellpadding="0" cellspacing="0" id="tablaDatos" class="table table-striped table-bordered table-hover table-condensed">
 	<tr>
 		<thead>
-			<th><?php echo $this->Paginator->sort('NOMBRE_CLIENTE','Jefe de Bodega'); ?></th>
-			<th><?php echo $this->Paginator->sort('CLIENTE_ID', 'Cliente'); ?></th>
+			<th><?php echo $this->Paginator->sort('NAME','Jefe de Bodega'); ?></th>
+			<th><?php echo $this->Paginator->sort('NOMBRE_CLIENTE', 'Cliente'); ?></th>
 			<th><?php echo $this->Paginator->sort('CATEGORIA_BODEGA', 'Catergoría de la bodega'); ?></th>
 			</thead>	
 	</tr>
 	<?php foreach ($bodegas as $bodega): ?>
 	<tr>
 		</tbody>	
-		<td><?php echo $this->Html->link($bodega['User']['NAME'], array('action' => 'view', $bodega['User']['ID'])); ?></td>
-		<td><?php echo $this->Html->link($bodega['Bodega']['ID'], array('action' => 'view', $bodega['Bodega']['BODEGA_ID'])); ?></td>
+		<td><?php echo $this->Html->link($bodega['User']['NAME'], array('action' => 'view', $bodega['Bodega']['BODEGA_ID'])); ?></td>
+		<td><?php echo $this->Html->link($bodega['Cliente']['NOMBRE_CLIENTE'], array('action' => 'view', $bodega['Bodega']['BODEGA_ID'])); ?></td>
 		<td><?php echo $this->Html->link($bodega['Bodega']['CATEGORIA_BODEGA'], array('action' => 'view', $bodega['Bodega']['BODEGA_ID'])); ?></td>
 		</tbody>
 	</tr>
 <?php endforeach; ?>
 	</table>
-	<p>
-	<?php
-	/*echo $this->Paginator->counter(array(
-	'format' => __('Page {:page} of {:pages}, showing {:current} records out of {:count} total, starting on record {:start}, ending on {:end}')
-	));*/
-	?>	</p>
-	<div class="paging">
-	<?php
-		/*echo $this->Paginator->prev('< ' . __('previous'), array(), null, array('class' => 'prev disabled'));
-		echo $this->Paginator->numbers(array('separator' => ''));
-		echo $this->Paginator->next(__('next') . ' >', array(), null, array('class' => 'next disabled'));*/
-		debug($bodegas);
-	?>
-	</div>
-</div>
 

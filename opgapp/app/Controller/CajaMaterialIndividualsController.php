@@ -50,7 +50,7 @@ class CajaMaterialIndividualsController extends AppController {
 				$this->request->data['CajaMaterialIndividual']['GUIA_DESPACHO_CLIENTE_ID'] = $id_guia;
 				if ($this->CajaMaterialIndividual->save($this->request->data)) {
 					if(isset($this->params->data['Sgte'])){
-						$this->redirect(array('action' => 'add', $id_guia));
+						$this->redirect(array('action' => 'add', $tipo_gd, $id_guia));
 					}else{
 						$this->CajaMaterialIndividual->GuiaDespachoEntradaCliente->recursive = 0;
 						$GD = $this->CajaMaterialIndividual->GuiaDespachoEntradaCliente->find('first', array('conditions' => array('GuiaDespachoEntradaCliente.GUIA_DESPACHO_CLIENTE_ID' => $id_guia)));

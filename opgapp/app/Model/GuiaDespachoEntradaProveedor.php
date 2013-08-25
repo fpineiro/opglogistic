@@ -26,7 +26,7 @@ class GuiaDespachoEntradaProveedor extends AppModel {
 			),
 			'natural' => array(
 				'rule' => array('naturalNumber'),
-				'message' => 'El numero debe ser un entero positivo.'
+				'message' => 'Este campo debe ser un entero positivo.'
 			)
 		),
 	);

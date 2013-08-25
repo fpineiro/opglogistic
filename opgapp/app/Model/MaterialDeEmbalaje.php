@@ -22,4 +22,12 @@ class MaterialDeEmbalaje extends AppModel {
  */
 	public $primaryKey = 'MATERIAL_DE_EMBALAJE_ID';
 
+	public $validate = array(
+		'NOMBRE_MATERIAL_DE_EMBALAJE' => array(
+            'required' => array(
+                'rule' => array('notEmpty'),
+                'message' => 'Debe ingresar al menos un material'
+            ),
+		)
+	);
 }

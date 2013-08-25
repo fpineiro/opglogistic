@@ -38,29 +38,36 @@ class MaterialDeEmbalajesController extends AppController {
  * @return void
  */
 	public function add($tipo_gd = null, $id_guia = null) {
-		if ($this->request->is('post')) {
-			$this->MaterialDeEmbalaje->create();
-			if ($this->MaterialDeEmbalaje->saveAll($this->request->data)){
-				$count = 1;
-				$detalle = array();
-				if($tipo_gd != null && $tipo_gd == 'c'){
-					foreach($this->request->data as $dato){
-						$material_id = $this->MaterialDeEmbalaje->find('first', array('conditions' => array('NOMBRE_MATERIAL_DE_EMBALAJE' => $dato['MaterialDeEmbalaje']['NOMBRE_MATERIAL_DE_EMBALAJE'])));
-						$detalle[$count] = array('GUIA_DESPACHO_CLIENTE_ID' => $id_guia, 'MATERIAL_DE_EMBALAJE_ID' => $material_id['MaterialDeEmbalaje']['MATERIAL_DE_EMBALAJE_ID'], 'CANTIDAD_DETALLE_GUIA_DESPACHO_ENTRADA_MATERIAL_EMBALAJE_CLIENTE' => 0);
-						$count++;
+		if ($this->request->is('post') || $this->request->is('put')) {
+			$this->MaterialDeEmbalaje->create();	
+			$count = 1;
+			$detalle = array();
+			if($tipo_gd != null && $tipo_gd == 'c'){
+				foreach($this->request->data as $dato){
+					$countMaterial = $this->MaterialDeEmbalaje->find('count', array('conditions' => array('NOMBRE_MATERIAL_DE_EMBALAJE' => $dato['MaterialDeEmbalaje']['NOMBRE_MATERIAL_DE_EMBALAJE'])));
+					if ($countMaterial == 0){
+						$this->MaterialDeEmbalaje->save($dato);
 					}
-					if($this->MaterialDeEmbalaje->DetalleGuiaDespachoEntradaMaterialEmbalajeCliente->saveAll($detalle)){
-						$this->redirect(array('controller' => 'CajaMaterialIndividuals', 'action' => 'add', $tipo_gd, $id_guia));
+					$material_id = $this->MaterialDeEmbalaje->find('first', array('conditions' => array('NOMBRE_MATERIAL_DE_EMBALAJE' => $dato['MaterialDeEmbalaje']['NOMBRE_MATERIAL_DE_EMBALAJE'])));
+					$detalle[$count] = array('GUIA_DESPACHO_CLIENTE_ID' => $id_guia, 'MATERIAL_DE_EMBALAJE_ID' => $material_id['MaterialDeEmbalaje']['MATERIAL_DE_EMBALAJE_ID'], 'CANTIDAD_DETALLE_GUIA_DESPACHO_ENTRADA_MATERIAL_EMBALAJE_CLIENTE' => 0);
+					$count++;
+				}
+				if($this->MaterialDeEmbalaje->DetalleGuiaDespachoEntradaMaterialEmbalajeCliente->saveAll($detalle)){
+					$this->redirect(array('controller' => 'CajaMaterialIndividuals', 'action' => 'add', $tipo_gd, $id_guia));
+				}
+			}else if($tipo_gd != null && $tipo_gd == 'p'){
+				foreach($this->request->data as $dato){
+					$countMaterial = $this->MaterialDeEmbalaje->find('count', array('conditions' => array('NOMBRE_MATERIAL_DE_EMBALAJE' => $dato['MaterialDeEmbalaje']['NOMBRE_MATERIAL_DE_EMBALAJE'])));
+					if ($countMaterial == 0){
+						$this->MaterialDeEmbalaje->save($dato);
 					}
-				}else if($tipo_gd != null && $tipo_gd == 'p'){
-					foreach($this->request->data as $dato){
-						$material_id = $this->MaterialDeEmbalaje->find('first', array('conditions' => array('NOMBRE_MATERIAL_DE_EMBALAJE' => $dato['MaterialDeEmbalaje']['NOMBRE_MATERIAL_DE_EMBALAJE'])));
-						$detalle[$count] = array('GUIA_DESPACHO_PROVEEDOR_ID' => $id_guia, 'MATERIAL_DE_EMBALAJE_ID' => $material_id['MaterialDeEmbalaje']['MATERIAL_DE_EMBALAJE_ID'], 'CANTIDAD_DETALLE_GUIA_DESPACHO_ENTRADA_PROVEEDORES' => 0);
-						$count++;
-					}
-					if($this->MaterialDeEmbalaje->DetalleGuiaDespachoEntradaProveedor->saveAll($detalle)){
-						$this->redirect(array('controller' => 'CajaMaterialDeEmbalajes', 'action' => 'add', $tipo_gd, $id_guia));
-					}
+					$material_id = $this->MaterialDeEmbalaje->find('first', array('conditions' => array('NOMBRE_MATERIAL_DE_EMBALAJE' => $dato['MaterialDeEmbalaje']['NOMBRE_MATERIAL_DE_EMBALAJE'])));
+					$detalle[$count] = array('GUIA_DESPACHO_PROVEEDOR_ID' => $id_guia, 'MATERIAL_DE_EMBALAJE_ID' => $material_id['MaterialDeEmbalaje']['MATERIAL_DE_EMBALAJE_ID'], 'CANTIDAD_DETALLE_GUIA_DESPACHO_ENTRADA_PROVEEDORES' => 0);
+					$count++;
+				}
+					$this->set('fuuck2', $detalle);
+				if($this->MaterialDeEmbalaje->DetalleGuiaDespachoEntradaProveedor->saveAll($detalle)){
+					$this->redirect(array('controller' => 'CajaMaterialDeEmbalajes', 'action' => 'add', $tipo_gd, $id_guia));
 				}
 			}
 		}
@@ -87,6 +94,15 @@ class MaterialDeEmbalajesController extends AppController {
 		} else {
 			$options = array('conditions' => array('MaterialDeEmbalaje.' . $this->MaterialDeEmbalaje->primaryKey => $id));
 			$this->request->data = $this->MaterialDeEmbalaje->find('first', $options);
+		}
+	}
+
+	public function find($nombre = null){
+		if(isset($nombre)){
+			$this->set('names', $this->MaterialDeEmbalaje->find('all', array(
+				'conditions' => array('OR' => array('MaterialDeEmbalaje.NOMBRE_MATERIAL_DE_EMBALAJE LIKE' => '%'.$nombre.'%')),
+				'limit' => '3'
+				)));				
 		}
 	}
 

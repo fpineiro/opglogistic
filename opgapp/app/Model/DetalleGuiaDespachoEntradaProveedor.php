@@ -20,7 +20,7 @@ class DetalleGuiaDespachoEntradaProveedor extends AppModel {
  *
  * @var string
  */
-	public $primaryKey = 'GUIA_DESPACHO_PROVEEDOR_ID';
+	public $primaryKey = 'DETALLE_GD_ENTRADA_ME_PR_ID';
 
 /**
  * Validation rules

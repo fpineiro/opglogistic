@@ -5,7 +5,13 @@ App::uses('AppModel', 'Model');
  *
  */
 class Cliente extends AppModel {
-	public $hasOne = 'User';
+	public $hasOne = array(
+        'User' => array(
+            'className' => 'User',
+            ),
+         'Bodega' => array(
+            'className' => 'Bodega',
+            ));
 /**
  * Primary key field
  *

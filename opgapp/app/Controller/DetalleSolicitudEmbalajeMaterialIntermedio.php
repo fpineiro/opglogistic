@@ -1,27 +1,25 @@
 <?php
 App::uses('AppModel', 'Model');
 /**
- * Bodega Model
+ * DetalleSolicitudEmbalajeMaterialIntermedio Model
  *
  */
-class Bodega extends AppModel {
-	public $hasOne = array(
-        'Cliente' => array(
-            'className' => 'Cliente',
-            'foreignKey' => 'CLIENTE_ID'
-        ),
-        'User' => array(
-            'className' => 'User',
-            'foreignKey' => 'ID'
-        )
-    );
-	
+class DetalleSolicitudEmbalajeMaterialIntermedio extends AppModel {
+
 /**
  * Primary key field
-	 *
+ *
  * @var string
  */
-	public $primaryKey = 'BODEGA_ID';
+	public $primaryKey = 'SOLICITUD_EMBALAJE_ID';
+	public $hasMany = 'MaterialIntermedio';
+
+	public $belongsTo = array(
+		'MaterialIntermedio' => array(
+			'className' => 'MaterialIntermedio',
+			'foreignKey' => 'MATERIAL_INTERMEDIO_ID'
+		)
+	);
 
 /**
  * Validation rules
@@ -29,7 +27,7 @@ class Bodega extends AppModel {
  * @var array
  */
 	public $validate = array(
-		'ID' => array(
+		'MATERIAL_INTERMEDIO_ID' => array(
 			'numeric' => array(
 				'rule' => array('numeric'),
 				//'message' => 'Your custom message here',
