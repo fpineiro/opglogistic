@@ -13,6 +13,7 @@ class OrdenDespacho extends AppModel {
  */
 	public $primaryKey = 'ORDEN_DESPACHO_ID';
 	public $hasMany = 'DetalleOrdenDespacho';
+	public $belongsTo = 'Cliente'
 
 /**
  * Validation rules

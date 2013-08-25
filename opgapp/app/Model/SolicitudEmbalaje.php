@@ -12,6 +12,8 @@ class SolicitudEmbalaje extends AppModel {
  * @var string
  */
 	public $primaryKey = 'SOLICITUD_EMBALAJE_ID';
+	public $hasMany = array('DetalleSolicitudEmbalajeMaterialEmbalaje', 'DetalleSolicitudEmbalajeMaterialIndividual');
+	public $hasOne = 'DetalleSolicitudEmbalajeMaterialIntermedio';
 
 	public $belongsTo = array(
 		'EstadoAutomata' => array(

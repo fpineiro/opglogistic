@@ -11,5 +11,6 @@ class MaterialIntermedio extends AppModel {
  * @var string
  */
 	public $primaryKey = 'MATERIAL_INTERMEDIO_ID';
+	public $hasMany = 'CajaMaterialIntermedio';
 
 }

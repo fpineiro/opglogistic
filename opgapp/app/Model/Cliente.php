@@ -6,6 +6,7 @@ App::uses('AppModel', 'Model');
  */
 class Cliente extends AppModel {
 	public $hasOne = 'User';
+    public $hasMany = array('OrdenDespacho', 'SolicitudEmbalaje');
 /**
  * Primary key field
  *
