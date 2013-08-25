@@ -5,7 +5,17 @@ App::uses('AppModel', 'Model');
  *
  */
 class Bodega extends AppModel {
-	public $hasOne = 'User';
+	public $hasOne = array(
+        'Cliente' => array(
+            'className' => 'Cliente',
+            'foreignKey' => 'CLIENTE_ID'
+        ),
+        'User' => array(
+            'className' => 'User',
+            'foreignKey' => 'ID'
+        )
+    );
+	
 /**
  * Primary key field
  *

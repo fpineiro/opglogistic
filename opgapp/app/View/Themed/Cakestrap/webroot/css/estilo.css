@@ -3,7 +3,7 @@ html{
 }
 #sidenav {
 	position:fixed;
-	width:200px;
+	width:270px;
 	height:100%;
 	z-index:3;
 	left: 0px;
@@ -13,17 +13,19 @@ html{
 	color: white;
 	padding-top: 15px;
 	border-left: solid thin gray;
+
 }
 #header {
 	position:fixed;
 	width:100%;
-	height:30px;
+	height:27px;
 	z-index:2;
 	left: 0px;
 	top: 0px;
 	text-align: right;
 	color: white;
-	padding-top: 5px;
+	padding-top: 7px;
+	padding-bottom: 6px;
 	background-color: #232A61;
 	border-right: solid thin gray;
 	border-bottom: solid thin gray;
@@ -33,7 +35,7 @@ html{
 	z-index:1;
 	left: 0px;
 	top: 0px;
-	padding-left: 210px;
+	padding-left: 326px;
 	padding-top: 35px;
 }
 #contenido{
@@ -85,4 +87,10 @@ html{
 	       border-radius: 4px;
 	text-decoration: none;
 
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin:0;/* <-- Apparently some margin are still there even though it's hidden */
 }

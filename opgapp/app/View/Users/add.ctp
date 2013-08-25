@@ -3,35 +3,39 @@
 	echo $this->Html->script('funciones');
 	echo $this->Form->create('User'); ?>
 	<fieldset>
-		<legend><?php echo __('Agregar Usuario'); ?></legend>
+		<legend><h3><?php echo __('Agregar Usuario'); ?></h3></legend>
 	<?php
-		// Lista con bodegas echo $this->Form->input('BODEGA_ID');
-		// Lista con clientes echo $this->Form->input('CLIENTE_ID');
 		echo $this->Form->input('ID');
-		echo $this->Form->input('USERNAME', array('label' => 'Usuario: '));
+		echo $this->Form->input('USERNAME', array('label' => '<h5>Usuario</h5>', 'placeholder' => 'Ingrese nombre de usuario'));
 		echo $this->Form->input('PASSWORD', array(
 											'type' => 'password', 
-											'label' => 'Contraseña: '
+											'label' => '<h5>Contraseña</h5>',
+											'placeholder' => 'Ingrese contraseña'
+											
 											));
-		echo $this->Form->input('NAME', array('label' => 'Nombre: '));
-		echo $this->Form->input('LASTNAME', array('label' => 'Apellido: '));
-		echo $this->Form->input('MAIL', array('label' => 'E-mail: '));
+		echo $this->Form->input('PASSWORD_CONFIRMA', array(
+											'type' => 'password', 
+											'label' => '<h5>Repetir contraseña</h5>',
+											'placeholder' => 'Ingrese contraseña nuevamente',
+											));
+		echo $this->Form->input('NAME', array('label' => '<h5>Nombre</h5>', 'placeholder' => 'Ingrese nombre del trabajador'));
+		echo $this->Form->input('LASTNAME', array('label' => '<h5>Apellido</h5>', 'placeholder' => 'Ingrese apellido del trabajador'));
+		echo $this->Form->input('MAIL', array('label' => '<h5>E-mail</h5>', 'placeholder' => 'Ingresar correo electronico'));
 		echo $this->Form->input('ROLE', array(
 									    	'options' => array('admin' => 'Administrador', 'jb' => 'Jefe de Bodega', 'cliente' => 'Cliente'), 
-											'label' => 'Tipo de Usuario: ',
-											'id' => 'role'
+											'label' => '<h5>Tipo de Usuario</h5> ',
+											'id' => 'role',
+											'class' => 'input-medium'
 									    ));
-		/*echo '<div id="context" style="display: none">'.$this->Form->input('CLIENTE_ID', array(
-									    	'options' => $clientes, 
-											'label' => 'Cliente: ',
-											'id' => 'cliente'
-								)).'</div>';*/
+		
 	?>
 	</fieldset>
+
 <?php 
 	$options = array(
-		'label' => 'Agregar',
-		'class' => 'btn btn-primary'
+		'label' => 'Guardar datos',
+		'class' => 'btn btn-success',
+		'formnovalidate' => true
 	);
 	echo $this->Form->end(($options)); 
 ?>

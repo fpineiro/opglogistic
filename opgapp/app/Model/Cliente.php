@@ -6,7 +6,6 @@ App::uses('AppModel', 'Model');
  */
 class Cliente extends AppModel {
 	public $hasOne = 'User';
-    public $hasMany = array('OrdenDespacho', 'SolicitudEmbalaje');
 /**
  * Primary key field
  *
@@ -31,7 +30,7 @@ class Cliente extends AppModel {
                 'rule' => 'notEmpty',
   				'message' => 'Complete este campo'
             ),
-			'rule2' => array(
+            'rule2' => array(
 				'rule' => 'isUnique',
 				'message' => '*El nombre de cliente ya existe'
 			)
@@ -46,7 +45,11 @@ class Cliente extends AppModel {
             'required' => array(
                 'rule' => array('notEmpty'),
                 'message' => '*Requerido'
-            )
+            ),
+            'positivo' => array(
+                'rule' => array('validaPositivo'),
+                'message' => '*Teléfono inválido'
+                )
         ),
 		'EMAIL_CLIENTE' => array(
             'rule3' => array(
@@ -59,4 +62,13 @@ class Cliente extends AppModel {
 			)
         )
     );
+    
+    public function validaPositivo($num){
+        if(preg_match('/^\d+$/', $num['TELEFONO_CONTACTO_CLIENTE'])==1) return true;
+        else return false;
+    }
+    public function validaTexto($str){
+        if(preg_match("/^[a-zA-Z]+$/",$str['NOMBRE_CLIENTE'])==1) return true; 
+        else return false;
+    }
 }

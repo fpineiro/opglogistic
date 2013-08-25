@@ -61,21 +61,23 @@
 		));
 
 		echo '</td><td>';
-		echo $this->Form->button('+', array('type' => 'button', 'class' => 'btn btn-success', 'onclick' => 'inputMaterialIndividual(\'agregar\')'));
-		echo $this->Form->button('-', array('type' => 'button', 'class' => 'btn btn-danger', 'onclick' => 'inputMaterialIndividual(\'eliminar\')'));
+		echo '&nbsp'.$this->Form->button('+', array('type' => 'button', 'title'=>'Agregar un material', 'class' => 'btn btn-success', 'onclick' => 'inputMaterialIndividual(\'agregar\')')).'&nbsp';
+
+		echo $this->Form->button('-', array('type' => 'button', 'title'=>'Eliminar un material', 'class' => 'btn btn-danger', 'onclick' => 'inputMaterialIndividual(\'eliminar\')'));
 		echo '</td></tr><tr><td><div class="listaSuger" id="listasugerida1"></div></td></tr><tr><td>';
 	?>
 	<?php echo '</td></tr></table>'; ?>
 	<div id="inputsMaterial1">
 	</div>
 	</div>
-<?php echo $this->Form->button('Siguiente', array('type' =>'submit', 'class' => 'btn')); ?>
+	<?php $options = array(
+		'label' => 'Siguiente',
+		'class' => 'btn btn-success',
+		'formnovalidate' => true,
+
+	);
+	echo $this->Form->end(($options)); 
+	?>
 </div>
 </fieldset>
-<?php 
-	debug($dbg);
-?>
-<div class="actions">
-	<h3><?php //echo __('Actions'); ?></h3>
-		<?php //echo $this->Html->link(__('List Material Individuals'), array('action' => 'index')); ?>
-</div>
+ 

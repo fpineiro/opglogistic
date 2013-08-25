@@ -18,16 +18,7 @@
 <?php 
 
 	echo $this->Html->script('funciones');
-
-	echo $this->Form->input('filtrorol', array(
-		'options' => array('' => 'Sin Filtro', 'cliente' => 'Cliente', 'jb' => 'Jefe de Bodega', 'admin' => 'Administrador'), 
-		'label' => '',
-		'onchange' => "actualizar('filtra', this.value)",
-		'div' => false,
-		'class' => 'input-medium select',
-		'style' => 'margin-bottom: 0px;'
-	));
-
+	echo '<legend><h3>Lista de bodegas</h3></legend>';
 	echo '<table border="0" class="tablaNav"><tr><td>';
 
 	echo $this->Form->input('inputbusqueda', array(
@@ -45,7 +36,7 @@
 	echo '</td></tr><tr><td><div class="listaSuger" id="listasugerida"></div></td>';
 
 	echo '</tr></table>';
-
+	echo $this->Html->link('Ingresar bodega', array('action' => 'add'), array('class' => 'btn btn-success', 'style'=> 'float:right')).'</tr></table>';
 	echo $this->Form->submit('Buscar', array(
 		'div' => false, 
 		'class' => 'btn', 
@@ -53,28 +44,26 @@
 		'style' => 'vertical-align: top; margin-bottom: 0px;'
 	));
 
-	echo '<div style="float:right">'.$this->Html->link('Ingresar bodega', array('action' => 'add'),array('class' => 'btn')).'</div>'; 
-	echo '<h5>'."Seleccione una bodega para ver su detalle".'</h5>';
+	
+	echo '<h5>'."Seleccione una bodega para ver su detalle".'</h5><br>';
 	?>
 
 	
 	<table cellpadding="0" cellspacing="0" id="tablaDatos" class="table table-striped table-bordered table-hover table-condensed">
 	<tr>
-			
-			<th><?php echo $this->Paginator->sort('Jefe de Bodega'); ?></th>
-			<th><?php echo $this->Paginator->sort('Cliente'); ?></th>
-			<th><?php echo $this->Paginator->sort('Catergoria'); ?></th>
-			<th class="actions"><?php echo __('Actions'); ?></th>
+		<thead>
+			<th><?php echo $this->Paginator->sort('NOMBRE_CLIENTE','Jefe de Bodega'); ?></th>
+			<th><?php echo $this->Paginator->sort('CLIENTE_ID', 'Cliente'); ?></th>
+			<th><?php echo $this->Paginator->sort('CATEGORIA_BODEGA', 'Catergoría de la bodega'); ?></th>
+			</thead>	
 	</tr>
 	<?php foreach ($bodegas as $bodega): ?>
 	<tr>
-		
-		<td><?php echo h($bodega['Bodega']['ID']); ?>&nbsp;</td>
-		<td><?php echo h($bodega['Bodega']['CLIENTE_ID']); ?>&nbsp;</td>
-		<td><?php echo h($bodega['Bodega']['CATEGORIA_BODEGA']); ?>&nbsp;</td>
-		<td class="actions">
-			<?php echo $this->Html->link(__('View'), array('action' => 'view', $bodega['Bodega']['BODEGA_ID'])); ?>
-		</td>
+		</tbody>	
+		<td><?php echo $this->Html->link($bodega['User']['NAME'], array('action' => 'view', $bodega['User']['ID'])); ?></td>
+		<td><?php echo $this->Html->link($bodega['Bodega']['ID'], array('action' => 'view', $bodega['Bodega']['BODEGA_ID'])); ?></td>
+		<td><?php echo $this->Html->link($bodega['Bodega']['CATEGORIA_BODEGA'], array('action' => 'view', $bodega['Bodega']['BODEGA_ID'])); ?></td>
+		</tbody>
 	</tr>
 <?php endforeach; ?>
 	</table>
@@ -89,6 +78,7 @@
 		/*echo $this->Paginator->prev('< ' . __('previous'), array(), null, array('class' => 'prev disabled'));
 		echo $this->Paginator->numbers(array('separator' => ''));
 		echo $this->Paginator->next(__('next') . ' >', array(), null, array('class' => 'next disabled'));*/
+		debug($bodegas);
 	?>
 	</div>
 </div>

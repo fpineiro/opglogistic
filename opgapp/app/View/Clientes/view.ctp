@@ -1,6 +1,6 @@
 <div class="clientes view">
 <fieldset>
-	<legend><?php  echo __('Detalle de usuario'); ?></legend>
+	<legend><h3><?php  echo __('Detalle de usuario'); ?></h3></legend>
 	<dl class="dl-horizontal">
 		<dt><?php echo __('ID cliente'); ?></dt>
 		<dd>
@@ -36,6 +36,7 @@
 	</fieldset>
 </div>
 <div class="actions">
-	<div style="float: right"><?php echo $this->Form->postLink(__('Delete Cliente'), array('action' => 'delete', $cliente['Cliente']['CLIENTE_ID'], null, ('Are you sure you want to delete # %s?'), $cliente['Cliente']['CLIENTE_ID']), array('class' => 'btn')); ?></div>
-	<div style="float: right"><?php echo $this->Html->link(__('Edit Cliente'), array('action' => 'edit', $cliente['Cliente']['CLIENTE_ID']), array('class' => 'btn')); ?> </div>
+	
+	<div style="float: left"><?php echo $this->Html->link(__('Editar cliente'), array('action' => 'edit', $cliente['Cliente']['CLIENTE_ID']), array('class' => 'btn btn-primary')); ?> &nbsp;</div>
+	<div style="float: left"><?php echo $this->Form->postLink(__('Eliminar cliente'), array('action' => 'delete', $cliente['Cliente']['CLIENTE_ID'], null, ('¿Está seguro de eliminar el cliente? # %s?'), $cliente['Cliente']['CLIENTE_ID']), array('class' => 'btn btn-danger')); ?> </div>
 </div>

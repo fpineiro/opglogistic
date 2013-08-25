@@ -1,6 +1,6 @@
 <div class="users form">
 <fieldset>
-	<legend><?php  echo __('Detalle de usuario'); ?></legend>
+	<legend><h3><?php  echo __('Detalle de usuario'); ?></h3></legend>
 	<dl class="dl-horizontal">
 		<dt><?php echo __('ID'); ?></dt>
 		<dd>
@@ -56,9 +56,7 @@
 	
 	</fieldset>
 </div>
-<div class="actions">
-	
-		
-		<div style="float: right"><?php echo $this->Form->postLink(('Eliminar usuario'), array('action' => 'delete', $user['User']['ID'], null, ('Está seguro de eliminar usuario# %s?'), $user['User']['ID']), array('class' => 'btn')); ?></div>
-		<div style="float: right"><?php echo $this->Html->link(__('Editar usuario'), array('action' => 'edit', $user['User']['ID']), array('class' => 'btn')); ?></div>		
+<div class="actions">		
+		<div style="float: left"><?php echo $this->Html->link(__('Editar usuario'), array('action' => 'edit', $user['User']['ID']), array('class' => 'btn btn-primary')); ?>&nbsp;</div>		
+		<div style="float: left"><?php echo $this->Form->postLink(('Eliminar usuario'), array('action' => 'delete', $user['User']['ID'], null, ('Está seguro de eliminar usuario# %s?'), $user['User']['ID']), array('class' => 'btn btn-danger')); ?></div>
 </div>

@@ -3,22 +3,21 @@
 
 <script type="text/javascript">
 	function actualizar(tipo, filtro){
-	        $('#context').load('/users/index/'+tipo+'/'+filtro+' #tablaDatos');
+	        $('#context').load('/cakephp/users/index/'+tipo+'/'+filtro+' #tablaDatos');
 	}
 	function autosugerir(valor){
 			if(document.getElementById('listasugerida').value==''){
 				document.getElementById('listasugerida').style.visibility="hidden";
 			}else{
 				document.getElementById('listasugerida').style.visibility="visible";
-				$('#listasugerida').load('/users/find/'+valor+' #datos');
+				$('#listasugerida').load('/cakephp/users/find/'+valor+' #datos');
 			}
 	}
 </script>
 <div class="users index">
 	<?php 
-
+	echo '<legend><h3>Lista de usuarios del sistema</h3></legend>';
 	echo $this->Html->script('funciones');
-
 	echo $this->Form->input('filtrorol', array(
 		'options' => array('' => 'Sin Filtro', 'cliente' => 'Cliente', 'jb' => 'Jefe de Bodega', 'admin' => 'Administrador'), 
 		'label' => '',
@@ -27,9 +26,7 @@
 		'class' => 'input-medium select',
 		'style' => 'margin-bottom: 0px;'
 	));
-
 	echo '<table border="0" class="tablaNav"><tr><td>';
-
 	echo $this->Form->input('inputbusqueda', array(
 		'div' => false, 
 		'class' => false,
@@ -41,33 +38,21 @@
 		'onblur' => 'document.getElementById("listasugerida").style.visibility="hidden"',
 		'style' => 'margin-bottom: 0px;margin-top: -1px; width: 15em'
 	));
-
 	echo '</td></tr><tr><td><div class="listaSuger" id="listasugerida"></div></td>';
-
-	echo '</tr></table>';
-
+	echo $this->Html->link('Ingresar usuario', array('action' => 'add'), array('class' => 'btn btn-success', 'style'=> 'float:right')).'</tr></table>';
 	echo $this->Form->submit('Buscar', array(
-		'div' => false, 
 		'class' => 'btn', 
+		'div' => false,
 		'onclick' => "actualizar('busca', inputbusqueda.value)",
-		'style' => 'vertical-align: top; margin-bottom: 0px;'
-	));
-
-	echo '<div id="asdf" style="float: right">';
-
-	echo $this->Html->link('Ingresar usuario', array(
-		'action' => 'add'), array('class' => 'btn'));
-	
-	echo '</div>';
-
-	echo '<h5>'."Seleccione un usuario para ver su detalle".'</h5>';
+		'style' => 'vertical-align: top; margin-top: 1px;'
+	)).'</div>';
+	echo '<h5>'."Seleccione un usuario para ver su detalle".'</h5><br>';
 	?>
 	<!--table table-striped table-bordered table-condensed-->
 	<div id="context">
 	<table cellpadding="0" cellspacing="0" id="tablaDatos" class="table table-striped table-bordered table-hover table-condensed">
 	<thead>
-		<tr>
-				
+		<tr>				
 				<th><?php echo $this->Paginator->sort('USER', 'Usuario'); ?></th>
 				<th><?php echo $this->Paginator->sort('NAME', 'Nombre'); ?></th>
 				<th><?php echo $this->Paginator->sort('LASTNAME', 'Apellido'); ?></th>
@@ -75,7 +60,6 @@
 				<th><?php echo $this->Paginator->sort('ROLE', 'Rol'); ?></th>
 				<th><?php echo $this->Paginator->sort('CLIENTE_ID', 'Cliente'); ?></th>
 				<th><?php echo $this->Paginator->sort('BODEGA_ID', 'Bodega'); ?></th>
-			
 		</tr>
 	</thead>
 

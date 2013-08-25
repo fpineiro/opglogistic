@@ -27,7 +27,7 @@ class User extends AppModel {
             'unique' => array(
                 'rule' => array('usuarioUnico'),
                 'message' => 'El nombre de usuario ya existe'
-                )
+            )
         ),
         'PASSWORD' => array(
             'required' => array(
@@ -49,12 +49,20 @@ class User extends AppModel {
             'required' => array(
                 'rule' => array('notEmpty'),
                 'message' => '*Requerido'
+            ),
+            'texto' => array(
+                'rule' => array('validaNombre', 'NAME'),
+                'message' => '*Nombre inválido'
             )
         ),
 		'LASTNAME' => array(
             'required' => array(
                 'rule' => array('notEmpty'),
                 'message' => '*Requerido'
+            ),
+            'texto' => array(
+                'rule' => array('validaNombre', 'LASTNAME'),
+                'message' => '*Apellido inválido'
             )
         ),
 		'MAIL' => array(
@@ -144,6 +152,12 @@ class User extends AppModel {
     }
     return true;
 	}
+
+    public function validaNombre($str,$campo){
+        if(preg_match("/^[a-zA-Z]+$/",$str[$campo])==1) return true; 
+        else return false;
+    }
+
 
 }
 ?>

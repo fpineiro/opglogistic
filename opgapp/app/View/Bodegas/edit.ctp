@@ -3,19 +3,12 @@
 	<fieldset>
 		<legend><?php echo __('Edit Bodega'); ?></legend>
 	<?php
-		echo $this->Form->input('bodega_id');
-		echo $this->Form->input('id');
-		echo $this->Form->input('cliente_id');
-		echo $this->Form->input('categoria_bodega');
+		echo $this->Form->input('BODEGA_ID',array('visibility' => false));
+		echo $this->Form->input('ID', array('label'=>'<h5>Aministrador</h5>'));
+		echo $this->Form->input('CLIENTE_ID', array('label'=>'<h5>Clientes</h5>'));
+		echo $this->Form->input('CATEGORIA_BODEGA', array('label'=>'<h5>Categoría de la bodega</h5>'));
 	?>
 	</fieldset>
-<?php echo $this->Form->end(__('Submit')); ?>
+<?php echo $this->Form->end(array('label' => 'Guardar datos', 'class' => 'btn btn-success','formnovalidate' => true))?>
 </div>
-<div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
-
-		<li><?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $this->Form->value('Bodega.BODEGA_ID')), null, __('Are you sure you want to delete # %s?', $this->Form->value('Bodega.BODEGA_ID'))); ?></li>
-		<li><?php echo $this->Html->link(__('List Bodegas'), array('action' => 'index')); ?></li>
-	</ul>
-</div>
+ 

@@ -1,34 +1,31 @@
 <div class="bodegas view">
-<h2><?php  echo __('Bodega'); ?></h2>
-	<dl>
-		<dt><?php echo __('Bodega Id'); ?></dt>
+<fieldset>
+<legend><h3><?php  echo __('Detalle bodega'); ?></h3></legend>
+	<dl class="dl-horizontal">
+		<dt><?php echo __('Identificador bodega'); ?></dt>
 		<dd>
-			<?php echo h($bodega['Bodega']['bodega_id']); ?>
+			<?php echo h($bodega['Bodega']['BODEGA_ID']); ?>
 			&nbsp;
 		</dd>
-		<dt><?php echo __('Id'); ?></dt>
+		<dt><?php echo __('Jefe de bodega'); ?></dt>
 		<dd>
-			<?php echo h($bodega['Bodega']['id']); ?>
+			<?php echo h($bodega['User']['NAME']); ?>
 			&nbsp;
 		</dd>
-		<dt><?php echo __('Cliente Id'); ?></dt>
+		<dt><?php echo __('Cliente asociado'); ?></dt>
 		<dd>
-			<?php echo h($bodega['Bodega']['cliente_id']); ?>
+			<?php echo h($bodega['Cliente']['NOMBRE_CLIENTE']); ?>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('Categoria Bodega'); ?></dt>
 		<dd>
-			<?php echo h($bodega['Bodega']['categoria_bodega']); ?>
+			<?php echo h($bodega['Bodega']['CATEGORIA_BODEGA']); ?>
 			&nbsp;
 		</dd>
 	</dl>
+	</fieldset>
 </div>
-<div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
-		<li><?php echo $this->Html->link(__('Edit Bodega'), array('action' => 'edit', $bodega['Bodega']['BODEGA_ID'])); ?> </li>
-		<li><?php echo $this->Form->postLink(__('Delete Bodega'), array('action' => 'delete', $bodega['Bodega']['BODEGA_ID']), null, __('Are you sure you want to delete # %s?', $bodega['Bodega']['BODEGA_ID'])); ?> </li>
-		<li><?php echo $this->Html->link(__('List Bodegas'), array('action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Bodega'), array('action' => 'add')); ?> </li>
-	</ul>
-</div>
+
+		<div style="float: left"><?php echo $this->Html->link(__('Editar bodega'), array('action' => 'edit', $bodega['Bodega']['BODEGA_ID']), array('class' => 'btn btn-primary')); ?>&nbsp;</div>
+
+		<div style="float: left"><?php echo $this->Form->postLink(('Eliminar bodega'), array('action' => 'delete', $bodega['Bodega']['BODEGA_ID']	, null, ('Are you sure you want to delete # %s?'), $bodega['Bodega']['BODEGA_ID']), array('class' => 'btn btn-danger')); ?> </div>
