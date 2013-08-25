@@ -37,15 +37,34 @@ class CajaMaterialIndividualsController extends AppController {
  *
  * @return void
  */
-	public function add() {
+	public function add($id_guia = null) {
 		if ($this->request->is('post')) {
-			$this->CajaMaterialIndividual->create();
-			if ($this->CajaMaterialIndividual->save($this->request->data)) {
-				$this->Session->setFlash(__('The caja material individual has been saved'));
-				$this->redirect(array('action' => 'index'));
-			} else {
-				$this->Session->setFlash(__('The caja material individual could not be saved. Please, try again.'));
+			$this->CajaMaterialIndividual->MaterialIndividual->DetalleGuiaDespachoEntradaMaterialIndividualCliente->recursive = 1;
+			$materialesRelacionados = $this->CajaMaterialIndividual->MaterialIndividual->DetalleGuiaDespachoEntradaMaterialIndividualCliente->find('all', array('conditions' => array('GUIA_DESPACHO_CLIENTE_ID' => $id_guia)));
+			$materiales = array();
+			foreach($materialesRelacionados as $material){
+				$materiales[$material['MaterialIndividual']['MATERIAL_INDIVIDUAL_ID']] = $material['MaterialIndividual']['NOMBRE_MATERIAL_INDIVIDUAL'];
 			}
+			$this->set('materiales', $materiales);
+			$this->CajaMaterialIndividual->create();
+			$this->request->data['CajaMaterialIndividual']['GUIA_DESPACHO_CLIENTE_ID'] = $id_guia;
+			if ($this->CajaMaterialIndividual->save($this->request->data)) {
+				if(isset($this->params->data['Sgte'])){
+					$this->redirect(array('action' => 'add', $id_guia));
+				}else{
+					$this->redirect(array('action' => 'index'));
+				}
+			}
+		}else{
+			$this->CajaMaterialIndividual->MaterialIndividual->DetalleGuiaDespachoEntradaMaterialIndividualCliente->recursive = 1;
+			$materialesRelacionados = $this->CajaMaterialIndividual->MaterialIndividual->DetalleGuiaDespachoEntradaMaterialIndividualCliente->find('all', array('conditions' => array('GUIA_DESPACHO_CLIENTE_ID' => $id_guia)));
+			$materiales = array();
+			foreach($materialesRelacionados as $material){
+				$materiales[$material['MaterialIndividual']['MATERIAL_INDIVIDUAL_ID']] = $material['MaterialIndividual']['NOMBRE_MATERIAL_INDIVIDUAL'];
+			}
+			$this->set('materiales', $materiales);
+			$this->CajaMaterialIndividual->Posicion->recursive = 0;
+			$this->set('posiciones', $this->CajaMaterialIndividual->Posicion->find('all'));
 		}
 	}
 

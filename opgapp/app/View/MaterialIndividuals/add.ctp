@@ -29,7 +29,7 @@
 			var count = $('#inputsMaterialIndividual > div').size();
 			if(accion == 'agregar'){
 				count = count + 1;
-				var input = '<div id="inputsMaterialIndividual'+count+'"><table border="0" class="tablaNav"><tr><td><input name="data['+count+'][MaterialIndividual][NOMBRE_MATERIAL_INDIVIDUAL]" maxlength="40" type="text" id="MaterialIndividual'+count+'NOMBREMATERIALINDIVIDUAL" onblur="document.getElementById(\'listasugerida'+count+'\').style.visibility=\'hidden\'" onfocus="autosugerir(this.value, '+count+')" onkeyup="autosugerir(this.value, '+count+')" placeholder="Ingrese nombre de material" autocomplete="off" style="margin-bottom: 0px"/></td><td><button type="button" class="btn btn-success" onclick="inputMaterial(\'agregar\', '+count+')">+</button><button type="button" class="btn btn-danger" onclick="inputMaterial(\'eliminar\', '+count+')">-</button></td></tr><tr><td><div class="listaSuger" id="listasugerida'+count+'"></div></td></tr></table><div id="inputsMaterial'+count+'"></div>';
+				var input = '<div id="inputsMaterialIndividual'+count+'"><table border="0" class="tablaNav"><tr><td><input name="data['+count+'][MaterialIndividual][NOMBRE_MATERIAL_INDIVIDUAL]" maxlength="40" type="text" id="MaterialIndividual'+count+'NOMBREMATERIALINDIVIDUAL" onblur="document.getElementById(\'listasugerida'+count+'\').style.visibility=\'hidden\'" onfocus="autosugerir(this.value, '+count+')" onkeyup="autosugerir(this.value, '+count+')" placeholder="Ingrese nombre de material" autocomplete="off" style="margin-bottom: 0px"/></td></tr><tr><td><div class="listaSuger" id="listasugerida'+count+'"></div></td></tr></table><div id="inputsMaterial'+count+'"></div>';
 				$('#inputsMaterialIndividual').append(input);
 			}else if(accion == 'eliminar'){
 				if(count != 1){
@@ -61,8 +61,8 @@
 		));
 
 		echo '</td><td>';
-		echo $this->Form->button('+', array('type' => 'button', 'class' => 'btn btn-success', 'onclick' => 'inputMaterial(\'agregar\', 1)'));
-		echo $this->Form->button('-', array('type' => 'button', 'class' => 'btn btn-danger', 'onclick' => 'inputMaterial(\'eliminar\', 1)'));
+		echo $this->Form->button('+', array('type' => 'button', 'class' => 'btn btn-success', 'onclick' => 'inputMaterialIndividual(\'agregar\')'));
+		echo $this->Form->button('-', array('type' => 'button', 'class' => 'btn btn-danger', 'onclick' => 'inputMaterialIndividual(\'eliminar\')'));
 		echo '</td></tr><tr><td><div class="listaSuger" id="listasugerida1"></div></td></tr><tr><td>';
 	?>
 	<?php echo '</td></tr></table>'; ?>
@@ -73,8 +73,8 @@
 </div>
 </fieldset>
 <?php 
-	echo $this->Form->button('+', array('type' => 'button', 'class' => 'btn btn-success', 'onclick' => 'inputMaterialIndividual(\'agregar\')'));
-	echo $this->Form->button('-', array('type' => 'button', 'class' => 'btn btn-danger', 'onclick' => 'inputMaterialIndividual(\'eliminar\')'));
+	//echo $this->Form->button('+', array('type' => 'button', 'class' => 'btn btn-success', 'onclick' => 'inputMaterialIndividual(\'agregar\')'));
+	//echo $this->Form->button('-', array('type' => 'button', 'class' => 'btn btn-danger', 'onclick' => 'inputMaterialIndividual(\'eliminar\')'));
 ?>
 <div class="actions">
 	<h3><?php //echo __('Actions'); ?></h3>

@@ -5,7 +5,7 @@ App::uses('AppModel', 'Model');
  *
  */
 class Bodega extends AppModel {
-
+	public $hasOne = 'User';
 /**
  * Primary key field
  *

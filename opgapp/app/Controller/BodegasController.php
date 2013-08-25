@@ -46,6 +46,9 @@ class BodegasController extends AppController {
 			} else {
 				$this->Session->setFlash(__('The bodega could not be saved. Please, try again.'));
 			}
+		}else{
+			$this->set('jb', $this->Bodega->User->find('list', array('conditions' => array('User.ROLE' => 'jb', 'User.BODEGA_ID' => ''), 'fields' => array('User.ID', 'User.NAME'))));	
+			$this->set('clientes', $this->Bodega->User->find('list', array('conditions' => array('User.ROLE' => 'cliente', 'User.BODEGA_ID' => ''), 'fields' => array('User.ID', 'User.NAME'))));	
 		}
 	}
 

@@ -69,9 +69,9 @@
 	<?php foreach ($bodegas as $bodega): ?>
 	<tr>
 		
-		<td><?php echo h($bodega['Bodega']['id']); ?>&nbsp;</td>
-		<td><?php echo h($bodega['Bodega']['cliente_id']); ?>&nbsp;</td>
-		<td><?php echo h($bodega['Bodega']['categoria_bodega']); ?>&nbsp;</td>
+		<td><?php echo h($bodega['Bodega']['ID']); ?>&nbsp;</td>
+		<td><?php echo h($bodega['Bodega']['CLIENTE_ID']); ?>&nbsp;</td>
+		<td><?php echo h($bodega['Bodega']['CATEGORIA_BODEGA']); ?>&nbsp;</td>
 		<td class="actions">
 			<?php echo $this->Html->link(__('View'), array('action' => 'view', $bodega['Bodega']['BODEGA_ID'])); ?>
 		</td>
