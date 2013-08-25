@@ -5,7 +5,16 @@ App::uses('AppModel', 'Model');
  *
  */
 class DetalleGuiaDespachoEntradaMaterialIndividualCliente extends AppModel {
-	public $belongsTo = 'MaterialIndividual';
+	public $belongsTo = array(
+		'MaterialIndividual' => array(
+			'className' => 'MaterialIndividual',
+			'foreignKey' => 'MATERIAL_INDIVIDUAL_ID'
+		),
+		'GuiaDespachoEntradaCliente' => array(
+			'className' => 'GuiaDespachoEntradaCliente',
+			'foreignKey' => 'GUIA_DESPACHO_CLIENTE_ID'
+		)
+		);
 /**
  * Primary key field
  *

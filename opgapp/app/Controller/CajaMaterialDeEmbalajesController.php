@@ -37,16 +37,35 @@ class CajaMaterialDeEmbalajesController extends AppController {
  *
  * @return void
  */
-	public function add() {
+	public function add($id_guia = null) {
 		if ($this->request->is('post')) {
-			$this->CajaMaterialDeEmbalaje->create();
-			if ($this->CajaMaterialDeEmbalaje->save($this->request->data)) {
-				$this->Session->setFlash(__('The caja material de embalaje has been saved'));
-				$this->redirect(array('action' => 'index'));
-			} else {
-				$this->Session->setFlash(__('The caja material de embalaje could not be saved. Please, try again.'));
+				$this->CajaMaterialDeEmbalaje->MaterialDeEmbalaje->DetalleGuiaDespachoEntradaMaterialEmbalajeCliente->recursive = 1;
+				$materialesRelacionados = $this->CajaMaterialDeEmbalaje->MaterialDeEmbalaje->DetalleGuiaDespachoEntradaMaterialEmbalajeCliente->find('all', array('conditions' => array('DetalleGuiaDespachoEntradaMaterialEmbalajeCliente.GUIA_DESPACHO_CLIENTE_ID' => $id_guia)));
+				$materiales = array();
+				foreach($materialesRelacionados as $material){
+					$materiales[$material['MaterialDeEmbalaje']['MATERIAL_DE_EMBALAJE_ID']] = $material['MaterialDeEmbalaje']['NOMBRE_MATERIAL_DE_EMBALAJE'];
+				}
+				$this->set('materiales', $materiales);
+				$this->CajaMaterialDeEmbalaje->create();
+				$this->request->data['CajaMaterialDeEmbalaje']['GUIA_DESPACHO_CLIENTE_ID'] = $id_guia;
+				if ($this->CajaMaterialDeEmbalaje->save($this->request->data)) {
+					if(isset($this->params->data['Sgte'])){
+						$this->redirect(array('action' => 'add', $id_guia));
+					}else{
+						$this->redirect(array('action' => 'index'));
+					}
+				}
+			}else{
+					$this->CajaMaterialDeEmbalaje->MaterialDeEmbalaje->DetalleGuiaDespachoEntradaMaterialEmbalajeCliente->recursive = 1;
+					$materialesRelacionados = $this->CajaMaterialDeEmbalaje->MaterialDeEmbalaje->DetalleGuiaDespachoEntradaMaterialEmbalajeCliente->find('all', array('conditions' => array('DetalleGuiaDespachoEntradaMaterialEmbalajeCliente.GUIA_DESPACHO_CLIENTE_ID' => $id_guia)));
+					$materiales = array();
+					foreach($materialesRelacionados as $material){
+						$materiales[$material['MaterialDeEmbalaje']['MATERIAL_DE_EMBALAJE_ID']] = $material['MaterialDeEmbalaje']['NOMBRE_MATERIAL_DE_EMBALAJE'];
+					}
+					$this->set('materiales', $materiales);
+					$this->CajaMaterialDeEmbalaje->Posicion->recursive = 0;
+					$this->set('posiciones', $this->CajaMaterialDeEmbalaje->Posicion->find('all'));
 			}
-		}
 	}
 
 /**

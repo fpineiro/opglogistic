@@ -43,14 +43,18 @@ class MaterialIndividualsController extends AppController {
 			if ($this->MaterialIndividual->saveAll($this->request->data)){
 				$count = 1;
 				$detalle = array();
-				//$totalMateriales = 0;
 				foreach($this->request->data as $dato){
 					$material_id = $this->MaterialIndividual->find('first', array('conditions' => array('NOMBRE_MATERIAL_INDIVIDUAL' => $dato['MaterialIndividual']['NOMBRE_MATERIAL_INDIVIDUAL'])));
 					$detalle[$count] = array('GUIA_DESPACHO_CLIENTE_ID' => $id_guia, 'MATERIAL_INDIVIDUAL_ID' => $material_id['MaterialIndividual']['MATERIAL_INDIVIDUAL_ID'], 'CANTIDAD_DETALLE_GD_ENTRADA_MATERIAL_INDIVIDUAL_CLIENTE' => 0);
 					$count++;
 				}
 				if($this->MaterialIndividual->DetalleGuiaDespachoEntradaMaterialIndividualCliente->saveAll($detalle)){
-					$this->redirect(array('controller' => 'CajaMaterialIndividuals', 'action' => 'add', $id_guia));
+					$GD = $this->MaterialIndividual->DetalleGuiaDespachoEntradaMaterialIndividualCliente->GuiaDespachoEntradaCliente->find('first', array('conditions' => array('GUIA_DESPACHO_CLIENTE_ID' => $id_guia)));
+					if($GD['GuiaDespachoEntradaCliente']['CONTIENE_EMBALAJE_GUIA_DESPACHO_ENTRADA_CLIENTES']){
+						$this->redirect(array('controller' => 'MaterialDeEmbalajes', 'action' => 'add', $id_guia));
+					}else{
+						$this->redirect(array('controller' => 'CajaMaterialIndividuals', 'action' => 'add', $id_guia));
+					}
 				}
 			}
 		}

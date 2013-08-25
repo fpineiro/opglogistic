@@ -13,6 +13,10 @@ class CajaMaterialIndividual extends AppModel {
 		'Posicion' => array(
 			'className' => 'Posicion',
 			'foreignKey' => 'POSICION_ID'
+		),
+		'GuiaDespachoEntradaCliente' => array(
+			'className' => 'GuiaDespachoEntradaCliente',
+			'foreignKey' => 'GUIA_DESPACHO_CLIENTE_ID'
 		)
 	);
 /**

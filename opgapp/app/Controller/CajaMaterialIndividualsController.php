@@ -38,36 +38,54 @@ class CajaMaterialIndividualsController extends AppController {
  * @return void
  */
 	public function add($id_guia = null) {
-		if ($this->request->is('post')) {
-			$this->CajaMaterialIndividual->MaterialIndividual->DetalleGuiaDespachoEntradaMaterialIndividualCliente->recursive = 1;
-			$materialesRelacionados = $this->CajaMaterialIndividual->MaterialIndividual->DetalleGuiaDespachoEntradaMaterialIndividualCliente->find('all', array('conditions' => array('GUIA_DESPACHO_CLIENTE_ID' => $id_guia)));
-			$materiales = array();
-			foreach($materialesRelacionados as $material){
-				$materiales[$material['MaterialIndividual']['MATERIAL_INDIVIDUAL_ID']] = $material['MaterialIndividual']['NOMBRE_MATERIAL_INDIVIDUAL'];
-			}
-			$this->set('materiales', $materiales);
-			$this->CajaMaterialIndividual->create();
-			$this->request->data['CajaMaterialIndividual']['GUIA_DESPACHO_CLIENTE_ID'] = $id_guia;
-			if ($this->CajaMaterialIndividual->save($this->request->data)) {
-				if(isset($this->params->data['Sgte'])){
-					$this->redirect(array('action' => 'add', $id_guia));
-				}else{
-					$this->redirect(array('action' => 'index'));
+			if ($this->request->is('post')) {
+				$this->CajaMaterialIndividual->MaterialIndividual->DetalleGuiaDespachoEntradaMaterialIndividualCliente->recursive = 1;
+				$materialesRelacionados = $this->CajaMaterialIndividual->MaterialIndividual->DetalleGuiaDespachoEntradaMaterialIndividualCliente->find('all', array('conditions' => array('DetalleGuiaDespachoEntradaMaterialIndividualCliente.GUIA_DESPACHO_CLIENTE_ID' => $id_guia)));
+				$materiales = array();
+				foreach($materialesRelacionados as $material){
+					$materiales[$material['MaterialIndividual']['MATERIAL_INDIVIDUAL_ID']] = $material['MaterialIndividual']['NOMBRE_MATERIAL_INDIVIDUAL'];
 				}
+				$this->set('materiales', $materiales);
+				$this->CajaMaterialIndividual->create();
+				$this->request->data['CajaMaterialIndividual']['GUIA_DESPACHO_CLIENTE_ID'] = $id_guia;
+				if ($this->CajaMaterialIndividual->save($this->request->data)) {
+					if(isset($this->params->data['Sgte'])){
+						$this->redirect(array('action' => 'add', $id_guia));
+					}else{
+						$this->CajaMaterialIndividual->GuiaDespachoEntradaCliente->recursive = 0;
+						$GD = $this->CajaMaterialIndividual->GuiaDespachoEntradaCliente->find('first', array('conditions' => array('GuiaDespachoEntradaCliente.GUIA_DESPACHO_CLIENTE_ID' => $id_guia)));
+						if($GD['GuiaDespachoEntradaCliente']['CONTIENE_EMBALAJE_GUIA_DESPACHO_ENTRADA_CLIENTES']){
+							$this->redirect(array('controller' => 'CajaMaterialDeEmbalajes','action' => 'add', $id_guia));
+						}else{
+							$this->redirect(array('action' => 'index'));
+						}
+					}
+				}
+			}else{
+				//$GD = $this->CajaMaterialIndividual->GuiaDespachoEntradaCliente->find('first', array('conditions' => array('GUIA_DESPACHO_CLIENTE_ID' => $id_guia)));
+				//if($GD['GuiaDespachoEntradaCliente']['CONTIENE_EMBALAJE_GUIA_DESPACHO_ENTRADA_CLIENTES']){
+					$this->CajaMaterialIndividual->MaterialIndividual->DetalleGuiaDespachoEntradaMaterialIndividualCliente->recursive = 1;
+					$materialesRelacionados = $this->CajaMaterialIndividual->MaterialIndividual->DetalleGuiaDespachoEntradaMaterialIndividualCliente->find('all', array('conditions' => array('DetalleGuiaDespachoEntradaMaterialIndividualCliente.GUIA_DESPACHO_CLIENTE_ID' => $id_guia)));
+					$materiales = array();
+					foreach($materialesRelacionados as $material){
+						$materiales[$material['MaterialIndividual']['MATERIAL_INDIVIDUAL_ID']] = $material['MaterialIndividual']['NOMBRE_MATERIAL_INDIVIDUAL'];
+					}
+					$this->set('materiales', $materiales);
+					$this->CajaMaterialIndividual->Posicion->recursive = 0;
+					$this->set('posiciones', $this->CajaMaterialIndividual->Posicion->find('all'));
+				/*}else{
+					$this->CajaMaterialDeEmbalaje->MaterialDeEmbalaje->DetalleGuiaDespachoEntradaMaterialEmbalajeCliente->recursive = 1;
+					$materialesRelacionados = $this->CajaMaterialDeEmbalaje->MaterialDeEmbalaje->DetalleGuiaDespachoEntradaMaterialEmbalajeCliente->find('all', array('conditions' => array('GUIA_DESPACHO_CLIENTE_ID' => $id_guia)));
+					$materiales = array();
+					foreach($materialesRelacionados as $material){
+						$materiales[$material['MaterialDeEmbalaje']['MATERIAL_DE_EMBALAJE_ID']] = $material['MaterialDeEmbalaje']['NOMBRE_MATERIAL_DE_EMBALAJE'];
+					}
+					$this->set('materiales', $materiales);
+					$this->CajaMaterialDeEmbalaje->Posicion->recursive = 0;
+					$this->set('posiciones', $this->CajaMaterialDeEmbalaje->Posicion->find('all'));
+				}*/
 			}
-		}else{
-			$this->CajaMaterialIndividual->MaterialIndividual->DetalleGuiaDespachoEntradaMaterialIndividualCliente->recursive = 1;
-			$materialesRelacionados = $this->CajaMaterialIndividual->MaterialIndividual->DetalleGuiaDespachoEntradaMaterialIndividualCliente->find('all', array('conditions' => array('GUIA_DESPACHO_CLIENTE_ID' => $id_guia)));
-			$materiales = array();
-			foreach($materialesRelacionados as $material){
-				$materiales[$material['MaterialIndividual']['MATERIAL_INDIVIDUAL_ID']] = $material['MaterialIndividual']['NOMBRE_MATERIAL_INDIVIDUAL'];
-			}
-			$this->set('materiales', $materiales);
-			$this->CajaMaterialIndividual->Posicion->recursive = 0;
-			$this->set('posiciones', $this->CajaMaterialIndividual->Posicion->find('all'));
-		}
 	}
-
 /**
  * edit method
  *

@@ -5,7 +5,13 @@ App::uses('AppModel', 'Model');
  *
  */
 class MaterialIndividual extends AppModel {
-	public $hasMany = 'DetalleGuiaDespachoEntradaMaterialIndividualCliente';
+	public $hasMany = array(
+		'DetalleGuiaDespachoEntradaMaterialIndividualCliente' => array(
+			'className' => 'DetalleGuiaDespachoEntradaMaterialIndividualCliente'
+			),
+		'CajaMaterialIndividual' => array(
+			'className' => 'CajaMaterialIndividual'
+			));
 /**
  * Primary key field
  *
