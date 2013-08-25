@@ -37,7 +37,7 @@ class CajaMaterialIndividualsController extends AppController {
  *
  * @return void
  */
-	public function add($id_guia = null) {
+	public function add($tipo_gd = null, $id_guia = null) {
 			if ($this->request->is('post')) {
 				$this->CajaMaterialIndividual->MaterialIndividual->DetalleGuiaDespachoEntradaMaterialIndividualCliente->recursive = 1;
 				$materialesRelacionados = $this->CajaMaterialIndividual->MaterialIndividual->DetalleGuiaDespachoEntradaMaterialIndividualCliente->find('all', array('conditions' => array('DetalleGuiaDespachoEntradaMaterialIndividualCliente.GUIA_DESPACHO_CLIENTE_ID' => $id_guia)));
@@ -55,7 +55,7 @@ class CajaMaterialIndividualsController extends AppController {
 						$this->CajaMaterialIndividual->GuiaDespachoEntradaCliente->recursive = 0;
 						$GD = $this->CajaMaterialIndividual->GuiaDespachoEntradaCliente->find('first', array('conditions' => array('GuiaDespachoEntradaCliente.GUIA_DESPACHO_CLIENTE_ID' => $id_guia)));
 						if($GD['GuiaDespachoEntradaCliente']['CONTIENE_EMBALAJE_GUIA_DESPACHO_ENTRADA_CLIENTES']){
-							$this->redirect(array('controller' => 'CajaMaterialDeEmbalajes','action' => 'add', $id_guia));
+							$this->redirect(array('controller' => 'CajaMaterialDeEmbalajes','action' => 'add', $tipo_gd, $id_guia));
 						}else{
 							$this->redirect(array('action' => 'index'));
 						}

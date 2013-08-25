@@ -1,7 +1,7 @@
 <div class="cajaMaterialDeEmbalajes form">
 <?php echo $this->Form->create('CajaMaterialDeEmbalaje'); ?>
 	<fieldset>
-		<legend><?php echo __('Agregar Caja de Material Individual'); ?></legend>
+		<legend><?php echo __('Agregar Caja de Material de Embalaje'); ?></legend>
 	<?php
 		echo $this->Form->input('CAJA_MATERIAL_DE_EMBALAJE_ID', array('label' => 'ID Caja', 'type' => 'text'));
 		echo $this->Form->input('MATERIAL_DE_EMBALAJE_ID', array('label' => 'Material', 'options' => $materiales));
@@ -18,13 +18,4 @@
 	echo $this->Form->button('Finalizar', array('class' => 'btn btn-success', 'name' => 'Fin')); 
 	echo $this->Form->end();
 ?>
-</div>
-<div class="actions">
-	<h3><?php 
-	//debug($posiciones);
-	//echo __('Actions'); ?></h3>
-	<ul>
-
-		<li><?php //echo $this->Html->link(__('List Caja Material Individuals'), array('action' => 'index')); ?></li>
-	</ul>
 </div>

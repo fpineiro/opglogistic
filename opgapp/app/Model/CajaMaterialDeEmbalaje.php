@@ -17,6 +17,10 @@ class CajaMaterialDeEmbalaje extends AppModel {
 		'GuiaDespachoEntradaCliente' => array(
 			'className' => 'GuiaDespachoEntradaCliente',
 			'foreignKey' => 'GUIA_DESPACHO_CLIENTE_ID'
+		),
+		'GuiaDespachoEntradaProveedor' => array(
+			'clasName' => 'GuiaDespachoEntradaProveedor',
+			'foreignKey' => 'GUIA_DESPACHO_PROVEEDOR_ID'
 		)
 	);
 /**

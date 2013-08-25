@@ -38,14 +38,17 @@ class GuiaDespachoEntradaProveedorsController extends AppController {
  * @return void
  */
 	public function add() {
-		if ($this->request->is('post')) {
+		if ($this->request->is('post') || $this->request->is('put')) {
+			$this->set('proveedores', $this->GuiaDespachoEntradaProveedor->Proveedor->find('list', array('fields' => array('Proveedor.PROVEEDOR_ID', 'Proveedor.NOMBRE_PROVEEDOR'))));	
 			$this->GuiaDespachoEntradaProveedor->create();
 			if ($this->GuiaDespachoEntradaProveedor->save($this->request->data)) {
-				$this->Session->setFlash(__('The guia despacho entrada proveedor has been saved'));
-				$this->redirect(array('action' => 'index'));
+				$id_guia = $this->request->data['GuiaDespachoEntradaProveedor']['GUIA_DESPACHO_PROVEEDOR_ID'];
+				$this->redirect(array('controller' => 'MaterialDeEmbalajes', 'action' => 'add', 'p', $id_guia));
 			} else {
-				$this->Session->setFlash(__('The guia despacho entrada proveedor could not be saved. Please, try again.'));
+				$this->Session->setFlash(__('The guia despacho entrada cliente could not be saved. Please, try again.'));
 			}
+		}else{
+			$this->set('proveedores', $this->GuiaDespachoEntradaProveedor->Proveedor->find('list', array('fields' => array('Proveedor.PROVEEDOR_ID', 'Proveedor.NOMBRE_PROVEEDOR'))));	
 		}
 	}
 

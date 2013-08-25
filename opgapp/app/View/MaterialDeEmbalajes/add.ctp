@@ -73,10 +73,5 @@
 </div>
 </fieldset>
 <?php 
-	//echo $this->Form->button('+', array('type' => 'button', 'class' => 'btn btn-success', 'onclick' => 'inputMaterialIndividual(\'agregar\')'));
-	//echo $this->Form->button('-', array('type' => 'button', 'class' => 'btn btn-danger', 'onclick' => 'inputMaterialIndividual(\'eliminar\')'));
+	debug($lala);
 ?>
-<div class="actions">
-	<h3><?php //echo __('Actions'); ?></h3>
-		<?php //echo $this->Html->link(__('List Material Individuals'), array('action' => 'index')); ?>
-</div>

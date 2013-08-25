@@ -41,7 +41,7 @@ class User extends AppModel {
                 'message' => 'Por favor confirme su contraseña'
                 ),
             'iguala' => array(
-                'rule' => array('esIgual', 'password'),
+                'rule' => array('esIgual', 'PASSWORD'),
                 'message' => 'La contraseña no coincide.'
                 )
         ),
@@ -58,14 +58,18 @@ class User extends AppModel {
             )
         ),
 		'MAIL' => array(
-            'rule1' => array(
+            'noVacio' => array(
                 'rule' => 'notEmpty',
                 'message' => '*Requerido'
             ),
-			'rule2' => array(
+			'esMail' => array(
 				'rule' => 'email',
 				'message' => '*Ingrese un mail valido'
-			)
+			),
+            'unique' => array(
+                'rule' => array('mailUnico'),
+                'message' => 'El e-mail ya está registrado en el sistema'
+            )
         ),
         'ROLE' => array(
             'valid' => array(
@@ -89,18 +93,42 @@ class User extends AppModel {
                 )
             )
         );
-         if(!empty($user)){
-            if($this->data[$this->alias]['id'] == $user['User']['ID']){
+        if(!empty($user)){
+            if($this->data[$this->alias]['ID'] == $user['User']['ID']){
                 return true;
             }else{
                 return false;
             }
-         }else{
+        }else{
             return true;
-         }
+        }
     }
 
-    public function esIgual($check,$campo)
+    function mailUnico($check){
+         $mail = $this->find(
+            'first',
+            array(
+                'fields' => array(
+                    'User.ID',
+                    'User.MAIL'
+                ),
+                'conditions' => array(
+                    'User.MAIL' => $check['MAIL']
+                )
+            )
+        );
+        if(!empty($mail)){
+            if($this->data[$this->alias]['ID'] == $mail['User']['ID']){
+                return true;
+            }else{
+                return false;
+            }
+        }else{
+            return true;
+        }
+    }
+
+    public function esIgual($check, $campo)
     {
         $fname = '';
         foreach ($check as $key => $value){

@@ -6,6 +6,9 @@ App::uses('AppModel', 'Model');
  */
 class MaterialDeEmbalaje extends AppModel {
 	public $hasMany = array(
+		'DetalleGuiaDespachoEntradaProveedor' => array(
+			'className' => 'DetalleGuiaDespachoEntradaProveedor',
+			),
 		'DetalleGuiaDespachoEntradaMaterialEmbalajeCliente' => array(
 			'className' => 'DetalleGuiaDespachoEntradaMaterialEmbalajeCliente'
 			),

@@ -37,7 +37,7 @@ class MaterialIndividualsController extends AppController {
  *
  * @return void
  */
-	public function add($id_guia = null) {
+	public function add($tipo_gd = null, $id_guia = null) {
 		if ($this->request->is('post')) {
 			$this->MaterialIndividual->create();
 			if ($this->MaterialIndividual->saveAll($this->request->data)){
@@ -50,8 +50,9 @@ class MaterialIndividualsController extends AppController {
 				}
 				if($this->MaterialIndividual->DetalleGuiaDespachoEntradaMaterialIndividualCliente->saveAll($detalle)){
 					$GD = $this->MaterialIndividual->DetalleGuiaDespachoEntradaMaterialIndividualCliente->GuiaDespachoEntradaCliente->find('first', array('conditions' => array('GUIA_DESPACHO_CLIENTE_ID' => $id_guia)));
+					$this->set('dbg', $GD);
 					if($GD['GuiaDespachoEntradaCliente']['CONTIENE_EMBALAJE_GUIA_DESPACHO_ENTRADA_CLIENTES']){
-						$this->redirect(array('controller' => 'MaterialDeEmbalajes', 'action' => 'add', $id_guia));
+						$this->redirect(array('controller' => 'MaterialDeEmbalajes', 'action' => 'add', $tipo_gd, $id_guia));
 					}else{
 						$this->redirect(array('controller' => 'CajaMaterialIndividuals', 'action' => 'add', $id_guia));
 					}

@@ -37,19 +37,30 @@ class MaterialDeEmbalajesController extends AppController {
  *
  * @return void
  */
-	public function add($id_guia = null) {
+	public function add($tipo_gd = null, $id_guia = null) {
 		if ($this->request->is('post')) {
 			$this->MaterialDeEmbalaje->create();
 			if ($this->MaterialDeEmbalaje->saveAll($this->request->data)){
 				$count = 1;
 				$detalle = array();
-				foreach($this->request->data as $dato){
-					$material_id = $this->MaterialDeEmbalaje->find('first', array('conditions' => array('NOMBRE_MATERIAL_DE_EMBALAJE' => $dato['MaterialDeEmbalaje']['NOMBRE_MATERIAL_DE_EMBALAJE'])));
-					$detalle[$count] = array('GUIA_DESPACHO_CLIENTE_ID' => $id_guia, 'MATERIAL_DE_EMBALAJE_ID' => $material_id['MaterialDeEmbalaje']['MATERIAL_DE_EMBALAJE_ID'], 'CANTIDAD_DETALLE_GUIA_DESPACHO_ENTRADA_MATERIAL_EMBALAJE_CLIENTE' => 0);
-					$count++;
-				}
-				if($this->MaterialDeEmbalaje->DetalleGuiaDespachoEntradaMaterialEmbalajeCliente->saveAll($detalle)){
-					$this->redirect(array('controller' => 'CajaMaterialIndividuals', 'action' => 'add', $id_guia));
+				if($tipo_gd != null && $tipo_gd == 'c'){
+					foreach($this->request->data as $dato){
+						$material_id = $this->MaterialDeEmbalaje->find('first', array('conditions' => array('NOMBRE_MATERIAL_DE_EMBALAJE' => $dato['MaterialDeEmbalaje']['NOMBRE_MATERIAL_DE_EMBALAJE'])));
+						$detalle[$count] = array('GUIA_DESPACHO_CLIENTE_ID' => $id_guia, 'MATERIAL_DE_EMBALAJE_ID' => $material_id['MaterialDeEmbalaje']['MATERIAL_DE_EMBALAJE_ID'], 'CANTIDAD_DETALLE_GUIA_DESPACHO_ENTRADA_MATERIAL_EMBALAJE_CLIENTE' => 0);
+						$count++;
+					}
+					if($this->MaterialDeEmbalaje->DetalleGuiaDespachoEntradaMaterialEmbalajeCliente->saveAll($detalle)){
+						$this->redirect(array('controller' => 'CajaMaterialIndividuals', 'action' => 'add', $tipo_gd, $id_guia));
+					}
+				}else if($tipo_gd != null && $tipo_gd == 'p'){
+					foreach($this->request->data as $dato){
+						$material_id = $this->MaterialDeEmbalaje->find('first', array('conditions' => array('NOMBRE_MATERIAL_DE_EMBALAJE' => $dato['MaterialDeEmbalaje']['NOMBRE_MATERIAL_DE_EMBALAJE'])));
+						$detalle[$count] = array('GUIA_DESPACHO_PROVEEDOR_ID' => $id_guia, 'MATERIAL_DE_EMBALAJE_ID' => $material_id['MaterialDeEmbalaje']['MATERIAL_DE_EMBALAJE_ID'], 'CANTIDAD_DETALLE_GUIA_DESPACHO_ENTRADA_PROVEEDORES' => 0);
+						$count++;
+					}
+					if($this->MaterialDeEmbalaje->DetalleGuiaDespachoEntradaProveedor->saveAll($detalle)){
+						$this->redirect(array('controller' => 'CajaMaterialDeEmbalajes', 'action' => 'add', $tipo_gd, $id_guia));
+					}
 				}
 			}
 		}

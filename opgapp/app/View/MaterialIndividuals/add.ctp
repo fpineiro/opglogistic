@@ -73,8 +73,7 @@
 </div>
 </fieldset>
 <?php 
-	//echo $this->Form->button('+', array('type' => 'button', 'class' => 'btn btn-success', 'onclick' => 'inputMaterialIndividual(\'agregar\')'));
-	//echo $this->Form->button('-', array('type' => 'button', 'class' => 'btn btn-danger', 'onclick' => 'inputMaterialIndividual(\'eliminar\')'));
+	debug($dbg);
 ?>
 <div class="actions">
 	<h3><?php //echo __('Actions'); ?></h3>
