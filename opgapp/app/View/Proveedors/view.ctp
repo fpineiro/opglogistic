@@ -1,8 +1,8 @@
 <div class="proveedors view">
 <fieldset>
-	<legend><?php  echo __('Detalle de proveedor'); ?></legend>
+	<legend><h3><?php  echo __('Detalle de proveedor'); ?></h3></legend>
 	<dl class="dl-horizontal">
-		<dt><?php echo __('ID Proveedor'); ?></dt>
+		<dt><?php echo __('Identificador'); ?></dt>
 		<dd>
 			<?php echo h($proveedor['Proveedor']['PROVEEDOR_ID']); ?>
 			&nbsp;
@@ -30,8 +30,6 @@
 	</dl>
 	</fieldset>
 </div>
-<div class="actions">
-	
-	<div style="float: right"><?php echo $this->Form->postLink(('Eliminar Proveedor'), array('action' => 'delete', $proveedor['Proveedor']['PROVEEDOR_ID'], null, ('Está seguro de eliminar proveedor# %s?'), $proveedor['Proveedor']['PROVEEDOR_ID']), array('class' => 'btn')); ?></div>
-		<div style="float: right"><?php echo $this->Html->link(__('Editar proveedor'), array('action' => 'edit', $proveedor['Proveedor']['PROVEEDOR_ID']), array('class' => 'btn')); ?></div>
-</div>
+	<div style="float:left"><?php echo $this->Html->link(__('Editar proveedor'), array('action' => 'edit', $proveedor['Proveedor']['PROVEEDOR_ID']), array('class' => 'btn btn-primary')); ?>&nbsp;</div>
+	<div style="float:left"><?php echo $this->Form->postLink(('Eliminar proveedor'), array('action' => 'delete', $proveedor['Proveedor']['PROVEEDOR_ID'], null, ('Está que desea seguro de eliminar proveedor# %s?'), $proveedor['Proveedor']['PROVEEDOR_ID']), array('class' => 'btn btn-danger')); ?></div>
+

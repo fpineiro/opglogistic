@@ -1,16 +1,14 @@
 <div class="proveedors form">
 <?php echo $this->Form->create('Proveedor'); ?>
 	<fieldset>
-		<legend><?php echo('Editar proveedor'); ?></legend>
+		<legend><h3><?php echo('Editar proveedor'); ?></h3></legend>
 	<?php
 		echo $this->Form->input('PROVEEDOR_ID',array('visibility'=>false));
-		echo $this->Form->input('NOMBRE_PROVEEDOR',array('label'=>'Nombre:'));
-		echo $this->Form->input('DIRECCION_PROVEEDOR',array('label'=>'Dirección:'));
-		echo $this->Form->input('TELEFONO_CONTACTO_PROVEEDOR',array('label'=>'Teléfono:'));
-		echo $this->Form->input('EMAIL_PROVEEDOR',array('label'=>'E-Mail:'));
+		echo $this->Form->input('NOMBRE_PROVEEDOR',array('label'=>'<h5>Nombre</h5>'));
+		echo $this->Form->input('DIRECCION_PROVEEDOR',array('label'=>'<h5>Dirección</h5>'));
+		echo $this->Form->input('TELEFONO_CONTACTO_PROVEEDOR',array('label'=>'<h5>Teléfono</h5>'));
+		echo $this->Form->input('EMAIL_PROVEEDOR',array('label'=>'<h5>E-Mail</h5>'));
 	?>
 	</fieldset>
-<?php echo $this->Form->end(array(
-	'label'=>'Guardar',
-	'class'=>'btn')); ?>
+<?php echo $this->Form->end(array('label' => 'Guardar datos', 'class' => 'btn btn-success','formnovalidate' => true))?>
 </div>

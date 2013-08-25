@@ -14,6 +14,7 @@
 <div class="proveedors index">
 	<?php 
 	echo $this->Html->script('funciones');
+	echo '<legend><h3>Lista de proveedores</h3></legend>';
 	echo '<table border="0" class="tablaNav"><tr><td>';
 	echo $this->Form->input('inputbusqueda', array(
 		'div' => false, 
@@ -37,8 +38,9 @@
 		'onclick' => "actualizar('busca', inputbusqueda.value)",
 		'style' => 'vertical-align: top; margin-bottom: 0px;'
 	));
-	echo '<div style="float: right">'.$this->Html->link('Ingresar Proveedor', array('action' => 'add'), array('class'=>'btn')).'</div>';
-	echo '<h5>'."Seleccione un proveedor para ver su detalle".'</h5>';
+	echo $this->Html->link('Ingresar proveedor', array('action' => 'add'), array('class' => 'btn btn-success', 'style'=>'float:right'));
+	
+	echo '<h5>'."Seleccione un proveedor para ver su detalle".'</h5><br>';
 	?>
 	<!--table table-striped table-bordered table-condensed-->
 	<div id="context">
@@ -61,12 +63,6 @@
 	</tr>
 	<?php endforeach; ?>
 	</table>
-	<div class="paging">
-	<?php
-		/*echo $this->Paginator->prev('< ' . __('previous'), array(), null, array('class' => 'prev disabled'));
-		echo $this->Paginator->numbers(array('separator' => ''));
-		echo $this->Paginator->next(__('next') . ' >', array(), null, array('class' => 'next disabled'));*/
-	?>
 	</div>
 </div>
 

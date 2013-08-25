@@ -1,17 +1,12 @@
 <div class="compatibilidads form">
 <?php echo $this->Form->create('Compatibilidad'); ?>
 	<fieldset>
-		<legend><?php echo __('Add Compatibilidad'); ?></legend>
+		<legend><h3><?php echo ('Agregar compatibilidad'); ?></h3></legend>
 	<?php
-		echo $this->Form->input('MATERIAL_DE_EMBALAJE_ID');
+		echo $this->Form->input('NOMBRE_MATERIAL_INTERMEDIO', array('label'=>'Material intermedio', 'placeholder'=>'Ingrese material intermedio'));
+		echo $this->Form->input('NOMBRE_MATERIAL_DE_EMBALAJE', array('label'=>'Material de embalaje', 'placeholder'=>'Ingrese material de embalaje'));
 	?>
 	</fieldset>
-<?php echo $this->Form->end(__('Submit')); ?>
+<?php echo $this->Form->end(array('label' => 'Guardar datos', 'class' => 'btn btn-success','formnovalidate' => true))?>
 </div>
-<div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
-
-		<li><?php echo $this->Html->link(__('List Compatibilidads'), array('action' => 'index')); ?></li>
-	</ul>
-</div>
+	
