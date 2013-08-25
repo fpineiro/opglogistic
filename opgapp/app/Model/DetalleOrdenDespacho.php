@@ -12,6 +12,7 @@ class DetalleOrdenDespacho extends AppModel {
  * @var string
  */
 	public $primaryKey = 'ORDEN_DESPACHO_ID';
+	public $hasMany = 'MaterialIntermedio';
 
 /**
  * Validation rules

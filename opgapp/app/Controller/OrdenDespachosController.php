@@ -93,4 +93,15 @@ class OrdenDespachosController extends AppController {
 		$this->Session->setFlash(__('Orden despacho was not deleted'));
 		$this->redirect(array('action' => 'index'));
 	}
+
+
+	public function find($nombre = null) {
+		if(isset($nombre)){
+			$this->set('names', $this->OrdenDespacho->DetalleOrdenDespacho->MaterialIntermedio->find('all', array(
+				'conditions' => array('MaterialIntermedio.NOMBRE_MATERIAL_INTERMEDIO LIKE' => '%'.$nombre.'%'),
+				'limit' => '3'
+				))
+			);				
+		}
+	}
 }

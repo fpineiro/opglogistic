@@ -3,14 +3,14 @@
 
 <script type="text/javascript">
 	function actualizar(tipo, filtro){
-	        $('#context').load('/cakephp/users/index/'+tipo+'/'+filtro+' #tablaDatos');
+	        $('#context').load('/users/index/'+tipo+'/'+filtro+' #tablaDatos');
 	}
 	function autosugerir(valor){
 			if(document.getElementById('listasugerida').value==''){
 				document.getElementById('listasugerida').style.visibility="hidden";
 			}else{
 				document.getElementById('listasugerida').style.visibility="visible";
-				$('#listasugerida').load('/cakephp/users/find/'+valor+' #datos');
+				$('#listasugerida').load('/users/find/'+valor+' #datos');
 			}
 	}
 </script>
