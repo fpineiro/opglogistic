@@ -18,6 +18,7 @@ class MaterialIndividual extends AppModel {
  * @var string
  */
 	public $primaryKey = 'MATERIAL_INDIVIDUAL_ID';
+    
 	public $validate = array(
 		'NOMBRE_MATERIAL_INDIVIDUAL'=>array(
 				'required' => array(
