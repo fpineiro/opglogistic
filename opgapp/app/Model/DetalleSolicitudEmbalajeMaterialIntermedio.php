@@ -11,8 +11,7 @@ class DetalleSolicitudEmbalajeMaterialIntermedio extends AppModel {
  *
  * @var string
  */
-	public $primaryKey = 'SOLICITUD_EMBALAJE_ID';
-	public $hasMany = 'MaterialIntermedio';
+	public $primaryKey = 'DETALLE_SOLICITUD_EMBALAJE_MINT_ID';
 
 	public $belongsTo = array(
 		'MaterialIntermedio' => array(

@@ -11,7 +11,7 @@ class DetalleSolicitudEmbalajeMaterialEmbalaje extends AppModel {
  *
  * @var string
  */
-	public $primaryKey = 'SOLICITUD_EMBALAJE_ID';
+	public $primaryKey = 'DETALLE_SOLICITUD_EMBALAJE_ME_ID';
 
 	public $belongsTo = array(
 		'MaterialDeEmbalaje' => array(
