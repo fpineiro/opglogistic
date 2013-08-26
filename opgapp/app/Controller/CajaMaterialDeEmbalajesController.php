@@ -51,7 +51,7 @@ class CajaMaterialDeEmbalajesController extends AppController {
 				$this->request->data['CajaMaterialDeEmbalaje']['GUIA_DESPACHO_CLIENTE_ID'] = $id_guia;
 				if ($this->CajaMaterialDeEmbalaje->save($this->request->data)) {
 					if(isset($this->params->data['Sgte'])){
-						$this->redirect(array('action' => 'add', $tipo_gd, $id_guia));
+						$this->redirect(array('action' => 'add', $id_guia));
 					}else{
 						$this->redirect(array('action' => 'index'));
 					}

@@ -69,7 +69,7 @@
 	<div id="inputsMaterial1">
 	</div>
 	</div>
-<?php echo $this->Form->button('Siguiente', array('type' =>'submit', 'class' => 'btn'));?>
+<?php echo $this->Form->button('Siguiente', array('type' =>'submit', 'class' => 'btn')); ?>
 </div>
 </fieldset>
 <?php 

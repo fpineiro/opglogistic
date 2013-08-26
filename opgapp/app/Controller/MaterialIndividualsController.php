@@ -45,7 +45,7 @@ class MaterialIndividualsController extends AppController {
 			foreach($this->request->data as $dato){
 				$countMaterial = $this->MaterialIndividual->find('count', array('conditions' => array('NOMBRE_MATERIAL_INDIVIDUAL' => $dato['MaterialIndividual']['NOMBRE_MATERIAL_INDIVIDUAL'])));
 				if ($countMaterial == 0){
-					$this->MaterialIndividual->saveAll($dato);
+					$this->MaterialIndividual->save($dato);
 				}
 				$material_id = $this->MaterialIndividual->find('first', array('conditions' => array('NOMBRE_MATERIAL_INDIVIDUAL' => $dato['MaterialIndividual']['NOMBRE_MATERIAL_INDIVIDUAL'])));
 				$detalle[$count] = array('GUIA_DESPACHO_CLIENTE_ID' => $id_guia, 'MATERIAL_INDIVIDUAL_ID' => $material_id['MaterialIndividual']['MATERIAL_INDIVIDUAL_ID'], 'CANTIDAD_DETALLE_GD_ENTRADA_MATERIAL_INDIVIDUAL_CLIENTE' => 0);
