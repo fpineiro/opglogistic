@@ -62,16 +62,31 @@ class SolicitudEmbalajesController extends AppController {
 				$this->request->data['SolicitudEmbalaje']['CONTIENE_EMBALAJE_SOLICITUD_EMBALAJE']=1;
 			}else{
 				$boolEmbalaje = false;
+				$this->request->data['SolicitudEmbalaje']['CONTIENE_EMBALAJE_SOLICITUD_EMBALAJE']=0;
 			}
-			$query = $this->SolicitudEmbalaje->save($this->request->data);
 
-			//Detalle Material Individual
 			$nombre_material_individual = $this->request->data['datos']['materialIndividual']['nombre'];
 			$nombres_id = array();
 			foreach($nombre_material_individual as $nombre){
 				$nombres_db = $this->SolicitudEmbalaje->DetalleSolicitudEmbalajeMaterialIndividual->MaterialIndividual->find('first',array('conditions' => array('MaterialIndividual.NOMBRE_MATERIAL_INDIVIDUAL' => $nombre)));
-				array_push($nombres_id, $nombres_db['MaterialIndividual']['MATERIAL_INDIVIDUAL_ID']);
+				if(isset($nombres_db['MaterialIndividual'])) array_push($nombres_id, $nombres_db['MaterialIndividual']['MATERIAL_INDIVIDUAL_ID']);
+				else $this->redirect(array('action' => 'index'));
 			}
+
+			if($boolEmbalaje){
+				$nombre_material_embalaje = $this->request->data['datos']['materialEmbalaje']['nombre'];
+				$nombres_id = array();
+				foreach($nombre_material_embalaje as $nombre){
+					$nombres_db = $this->SolicitudEmbalaje->DetalleSolicitudEmbalajeMaterialEmbalaje->MaterialDeEmbalaje->find('first',array('conditions' => array('MaterialDeEmbalaje.NOMBRE_MATERIAL_DE_EMBALAJE' => $nombre)));
+					if(isset($nombres_db['MaterialDeEmbalaje'])) array_push($nombres_id, $nombres_db['MaterialDeEmbalaje']['MATERIAL_DE_EMBALAJE_ID']);
+					else $this->redirect(array('action' => 'index'));
+				}
+			}
+
+			$query = $this->SolicitudEmbalaje->save($this->request->data);
+
+			//Detalle Material Individual
+			
 			$cantidad_material_individual = $this->request->data['datos']['materialIndividual']['cantidad'];
 			$cantidades = array();
 			foreach($cantidad_material_individual as $cantidad){
@@ -82,7 +97,7 @@ class SolicitudEmbalajesController extends AppController {
 				$temp = array('DETALLE_SOLICITUD_EMBALAJE_MIND_ID' => '','SOLICITUD_EMBALAJE_ID' => $this->request->data['SolicitudEmbalaje']['SOLICITUD_EMBALAJE_ID'], 'MATERIAL_INDIVIDUAL_ID' => $nombres_id[$i], 'CANTIDAD_DETALLE_SOLICITUD_EMBALAJE_MATERIAL_INDIVIDUAL' => $cantidades[$i]);
 				array_push($saveall, $temp);
 			}
-			$this->SolicitudEmbalaje->DetalleSolicitudEmbalajeMaterialIndividual->saveAll($saveall);
+			if($query) $this->SolicitudEmbalaje->DetalleSolicitudEmbalajeMaterialIndividual->saveAll($saveall);
 
 			//Detalle Material Embalaje
 			if($boolEmbalaje){
@@ -90,7 +105,7 @@ class SolicitudEmbalajesController extends AppController {
 				$nombres_id = array();
 				foreach($nombre_material_embalaje as $nombre){
 					$nombres_db = $this->SolicitudEmbalaje->DetalleSolicitudEmbalajeMaterialEmbalaje->MaterialDeEmbalaje->find('first',array('conditions' => array('MaterialDeEmbalaje.NOMBRE_MATERIAL_DE_EMBALAJE' => $nombre)));
-					array_push($nombres_id, $nombres_db['MaterialDeEmbalaje']['MATERIAL_DE_EMBALAJE_ID']);
+					if(isset($nombres_db['MaterialDeEmbalaje'])) array_push($nombres_id, $nombres_db['MaterialDeEmbalaje']['MATERIAL_DE_EMBALAJE_ID']);
 				}
 				$cantidad_material_embalaje = $this->request->data['datos']['materialEmbalaje']['cantidad'];
 				$cantidades = array();
@@ -102,16 +117,18 @@ class SolicitudEmbalajesController extends AppController {
 					$temp = array('DETALLE_SOLICITUD_EMBALAJE_ME_ID' => '','SOLICITUD_EMBALAJE_ID' => $this->request->data['SolicitudEmbalaje']['SOLICITUD_EMBALAJE_ID'], 'MATERIAL_DE_EMBALAJE_ID' => $nombres_id[$i], 'CANTIDAD_DETALLE_SOLICITUD_EMBALAJE_MATERIAL_EMBALAJE' => $cantidades[$i]);
 					array_push($savealldos, $temp);
 				}
-				$this->SolicitudEmbalaje->DetalleSolicitudEmbalajeMaterialEmbalaje->saveAll($savealldos);
+				if($query) $this->SolicitudEmbalaje->DetalleSolicitudEmbalajeMaterialEmbalaje->saveAll($savealldos);
 			}
 
 			//Detalle Material Intermedio
-			$nombre_material_intermedio = $this->request->data['datos']['materialIntermedio']['nombre'];
+			$nombre_material_intermedio = $this->request->data['datos']['materialIntermedio']['nombre'][0];
 			$nombres_id = array();
-			foreach($nombre_material_intermedio as $nombre){
-				$nombres_db = $this->SolicitudEmbalaje->DetalleSolicitudEmbalajeMaterialIntermedio->MaterialIntermedio->find('first',array('conditions' => array('MaterialIntermedio.NOMBRE_MATERIAL_INTERMEDIO' => $nombre)));
-				array_push($nombres_id, $nombres_db['MaterialIntermedio']['MATERIAL_INTERMEDIO_ID']);
+			if(!$this->SolicitudEmbalaje->DetalleSolicitudEmbalajeMaterialIntermedio->MaterialIntermedio->find('first',array('conditions' => array('MaterialIntermedio.NOMBRE_MATERIAL_INTERMEDIO' => $nombre_material_intermedio)))){
+				$temporal = array('MATERIAL_INTERMEDIO_ID' => '','NOMBRE_MATERIAL_INTERMEDIO' => $nombre_material_intermedio);
+				$this->SolicitudEmbalaje->DetalleSolicitudEmbalajeMaterialIntermedio->MaterialIntermedio->save($temporal);
 			}
+			$nombres_db = $this->SolicitudEmbalaje->DetalleSolicitudEmbalajeMaterialIntermedio->MaterialIntermedio->find('first',array('conditions' => array('MaterialIntermedio.NOMBRE_MATERIAL_INTERMEDIO' => $nombre_material_intermedio)));
+			array_push($nombres_id, $nombres_db['MaterialIntermedio']['MATERIAL_INTERMEDIO_ID']);
 			$cantidad_material_intermedio = $this->request->data['datos']['materialIntermedio']['cantidad'];
 			$cantidades = array();
 			foreach($cantidad_material_intermedio as $cantidad){
@@ -122,9 +139,9 @@ class SolicitudEmbalajesController extends AppController {
 				$temp = array('DETALLE_SOLICITUD_EMBALAJE_MINT_ID' => '','SOLICITUD_EMBALAJE_ID' => $this->request->data['SolicitudEmbalaje']['SOLICITUD_EMBALAJE_ID'], 'MATERIAL_INTERMEDIO_ID' => $nombres_id[$i], 'CANTIDAD_MATERIAL_INTERMEDIO_DETALLE_SOLICITUD_EMBALAJE' => $cantidades[$i]);
 				array_push($savealltres, $temp);
 			}
-			$this->SolicitudEmbalaje->DetalleSolicitudEmbalajeMaterialIntermedio->saveAll($savealltres);
+			if($query) $this->SolicitudEmbalaje->DetalleSolicitudEmbalajeMaterialIntermedio->saveAll($savealltres);
 
-			if ($query){
+			if(!$query){
 				$this->redirect(array('action' => 'index'));
 			}
 		}else{
