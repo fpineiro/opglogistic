@@ -3,6 +3,6 @@
  echo '<b>Bienvenido: '.AuthComponent::user('NAME').'</b>';
  echo '&nbsp;';
  echo '&nbsp;';
- echo $this->html->link('Salir', '/Users/logout', array('class'=>'btn btn-danger btn-small'));
+ echo $this->html->link('Salir', '/Users/logout', array('style' => 'padding-bottom: 3px', 'class'=>'btn btn-danger btn-small'));
  echo '&nbsp;';
 ?> 

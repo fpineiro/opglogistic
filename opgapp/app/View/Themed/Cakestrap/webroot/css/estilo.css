@@ -3,7 +3,7 @@ html{
 }
 #sidenav {
 	position:fixed;
-	width:270px;
+	width:210px;
 	height:100%;
 	z-index:3;
 	left: 0px;
@@ -18,14 +18,14 @@ html{
 #header {
 	position:fixed;
 	width:100%;
-	height:27px;
+	height:23px;
 	z-index:2;
 	left: 0px;
 	top: 0px;
 	text-align: right;
 	color: white;
-	padding-top: 7px;
-	padding-bottom: 6px;
+	padding-top: 3px;
+	padding-bottom: 7px;
 	background-color: #232A61;
 	border-right: solid thin gray;
 	border-bottom: solid thin gray;
@@ -35,7 +35,7 @@ html{
 	z-index:1;
 	left: 0px;
 	top: 0px;
-	padding-left: 326px;
+	padding-left: 220px;
 	padding-top: 35px;
 }
 #contenido{
