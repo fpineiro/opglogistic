@@ -46,7 +46,7 @@ class AppController extends Controller {
  
     public function estaAutorizado($rol, $controller, $action){
         $adminAutorizado = array(
-            'users' => array('index', 'add', 'edit', 'view', 'login', 'unauthorized'),
+            'users' => array('index', 'add', 'edit', 'view', 'login', 'unauthorized', 'logout', 'find'),
             'clientes' => array('index', 'add'),
             'bodegas' => array('index', 'add', 'edit', 'view'),
             'proveedors' => array('index', 'add', 'edit', 'view'),
@@ -57,17 +57,21 @@ class AppController extends Controller {
 
         );
         $jbAutorizado = array(
-            'users' => array('unauthorized', 'login'),
+            'users' => array('unauthorized', 'login', 'logout', 'find'),
             'clientes' => array('index', 'add'),
-            'materialindividuals' => array('index'),
+            'materialindividuals' => array('index', 'find'),
             'materialdeembalajes' => array('index'),
             'materialintermedios' => array('index'),
             'guiadespachoentradaclientes' => array('index', 'add', 'edit', 'view'),
+            'guiadespachoentradaproveedors' => array('index', 'add', 'edit', 'view'),
             'posicions' => array('index', 'view', 'add', 'edit'),
-            'solicitudembalajes' => array('index', 'view')
+            'solicitudembalajes' => array('index', 'view'),
+            'ordencompras' => array('index', 'view', 'add', 'edit'),
+            'ordeninternas' => array('index', 'view', 'add', 'edit'),
+            'compatibilidads' => array('index', 'view', 'add', 'edit')
         );
         $clienteAutorizado = array(
-            'users' => array('unauthorized', 'login'),
+            'users' => array('unauthorized', 'login', 'logout'),
             'solicitudembalajes' => array('add', 'view', 'index'),
             'ordendespachos' => array('add', 'view', 'index')
         );
@@ -96,7 +100,7 @@ class AppController extends Controller {
     
     public function beforeFilter() {
         $this->Auth->allow('login');
-        if(!$this->request['controller'] == 'users' && !$this->request['action'] == 'login'){
+        if(!($this->request['controller'] == 'users' && $this->request['action'] == 'login')){
             if(!$this->estaAutorizado($this->Auth->user('ROLE'), $this->request['controller'], $this->request['action'])){
                 $this->redirect(array('controller' => 'users', 'action' => 'unauthorized'));
             }

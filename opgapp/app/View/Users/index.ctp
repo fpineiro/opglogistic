@@ -58,8 +58,6 @@
 				<th><?php echo $this->Paginator->sort('LASTNAME', 'Apellido'); ?></th>
 				<th><?php echo $this->Paginator->sort('MAIL', 'E-Mail'); ?></th>
 				<th><?php echo $this->Paginator->sort('ROLE', 'Rol'); ?></th>
-				<th><?php echo $this->Paginator->sort('CLIENTE_ID', 'Cliente'); ?></th>
-				<th><?php echo $this->Paginator->sort('BODEGA_ID', 'Bodega'); ?></th>
 		</tr>
 	</thead>
 
@@ -71,8 +69,6 @@
 		<td><?php echo $this->Html->link(($user['User']['LASTNAME']), array('action' => 'view', $user['User']['ID']));?>&nbsp;</td>
 		<td><?php echo $this->Html->link(($user['User']['MAIL']), array('action' => 'view', $user['User']['ID']));?>&nbsp;</td>
 		<td><?php echo $this->Html->link(($user['User']['ROLE']), array('action' => 'view', $user['User']['ID']));?>&nbsp;</td>
-		<td><?php echo $this->Html->link(($user['Cliente']['NOMBRE_CLIENTE']), array('action' => 'view', $user['User']['ID']));?>&nbsp;</td>
-		<td><?php echo $this->Html->link(($user['User']['BODEGA_ID']), array('action' => 'view', $user['User']['ID']));?>&nbsp;</td>
 		
 
 	</tr>

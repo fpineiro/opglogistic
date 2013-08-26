@@ -113,9 +113,13 @@ var $components = array('RequestHandler');
 			throw new NotFoundException(__('Invalid user'));
 		}
 		$this->request->onlyAllow('post', 'delete');
-		if ($this->User->delete()) {
-			$this->Session->setFlash(__('User deleted'));
-			$this->redirect(array('action' => 'index'));
+		$user = $this->User->find('first', array('conditions' => array('User.ID' => $id)));
+		$this->set('user', $user['User']['USERNAME']);
+		if(!($user['User']['USERNAME'] == 'root')){
+			if ($this->User->delete()) {
+				$this->Session->setFlash(__('User deleted'));
+				$this->redirect(array('action' => 'index'));
+			}
 		}
 		$this->Session->setFlash(__('User was not deleted'));
 		$this->redirect(array('action' => 'index'));
@@ -148,8 +152,7 @@ var $components = array('RequestHandler');
         $this->redirect($this->Auth->logout());
     }
 
-    public function unauthorized(){
-    	
+    public function unauthorized(){    	
     }
 
 }

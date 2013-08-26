@@ -44,10 +44,9 @@
 	<div id="context">
 	<table cellpadding="0" cellspacing="0" class="table table-striped table-bordered table-hover table-condensed">
 	<tr>
-		<thead>
-			<th><?php echo $this->Paginator->sort('MATERIAL_INDIVIDUAL_ID','Identificador del material individual' ); ?></th>
+		<thead>			<th><?php echo $this->Paginator->sort('MATERIAL_INDIVIDUAL_ID','Identificador del material individual' ); ?></th>
 			<th><?php echo $this->Paginator->sort('NOMBRE_MATERIAL_INDIVIDUAL','Nombre del material individual'); ?></th>
-		</theaa>	
+		</thead>	
 	</tr>
 	<?php foreach ($materialIndividuals as $materialIndividual): ?>
 	<tr>

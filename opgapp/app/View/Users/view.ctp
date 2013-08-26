@@ -42,21 +42,14 @@
 			<?php echo h($user['User']['ROLE']); ?>
 			&nbsp;
 		</dd>
-		<dt><?php echo __('Creado'); ?></dt>
-		<dd>
-			<?php echo h($user['User']['CREATED']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Modificado'); ?></dt>
-		<dd>
-			<?php echo h($user['User']['MODIFIED']); ?>
-			&nbsp;
-		</dd>
 	</dl>
 	
 	</fieldset>
 </div>
 <div class="actions">		
-		<div style="float: left"><?php echo $this->Html->link(__('Editar usuario'), array('action' => 'edit', $user['User']['ID']), array('class' => 'btn btn-primary')); ?>&nbsp;</div>		
-		<div style="float: left"><?php echo $this->Form->postLink(('Eliminar usuario'), array('action' => 'delete', $user['User']['ID'], null, ('Está seguro de eliminar usuario# %s?'), $user['User']['ID']), array('class' => 'btn btn-danger')); ?></div>
+		<div style="float: right"><?php if(!($user['User']['USERNAME'] == 'root')){
+											echo $this->Form->postLink(('Eliminar usuario'), array('action' => 'delete', $user['User']['ID'], null, ('Está seguro de eliminar usuario# %s?'), $user['User']['ID']), array('class' => 'btn btn-danger'));
+											echo $this->Html->link(__('Editar usuario'), array('action' => 'edit', $user['User']['ID']), array('class' => 'btn btn-primary'));
+										} ?></div>
+		<div style="float: right"></div>&nbsp;		
 </div>
