@@ -46,7 +46,7 @@ class MaterialDeEmbalajesController extends AppController {
 				foreach($this->request->data as $dato){
 					$countMaterial = $this->MaterialDeEmbalaje->find('count', array('conditions' => array('NOMBRE_MATERIAL_DE_EMBALAJE' => $dato['MaterialDeEmbalaje']['NOMBRE_MATERIAL_DE_EMBALAJE'])));
 					if ($countMaterial == 0){
-						$this->MaterialDeEmbalaje->saveAll($dato);
+						$this->MaterialDeEmbalaje->save($dato);
 					}
 					$material_id = $this->MaterialDeEmbalaje->find('first', array('conditions' => array('NOMBRE_MATERIAL_DE_EMBALAJE' => $dato['MaterialDeEmbalaje']['NOMBRE_MATERIAL_DE_EMBALAJE'])));
 					$detalle[$count] = array('GUIA_DESPACHO_CLIENTE_ID' => $id_guia, 'MATERIAL_DE_EMBALAJE_ID' => $material_id['MaterialDeEmbalaje']['MATERIAL_DE_EMBALAJE_ID'], 'CANTIDAD_DETALLE_GUIA_DESPACHO_ENTRADA_MATERIAL_EMBALAJE_CLIENTE' => 0);
@@ -59,12 +59,13 @@ class MaterialDeEmbalajesController extends AppController {
 				foreach($this->request->data as $dato){
 					$countMaterial = $this->MaterialDeEmbalaje->find('count', array('conditions' => array('NOMBRE_MATERIAL_DE_EMBALAJE' => $dato['MaterialDeEmbalaje']['NOMBRE_MATERIAL_DE_EMBALAJE'])));
 					if ($countMaterial == 0){
-						$this->MaterialDeEmbalaje->saveAll($dato);
+						$this->MaterialDeEmbalaje->save($dato);
 					}
 					$material_id = $this->MaterialDeEmbalaje->find('first', array('conditions' => array('NOMBRE_MATERIAL_DE_EMBALAJE' => $dato['MaterialDeEmbalaje']['NOMBRE_MATERIAL_DE_EMBALAJE'])));
 					$detalle[$count] = array('GUIA_DESPACHO_PROVEEDOR_ID' => $id_guia, 'MATERIAL_DE_EMBALAJE_ID' => $material_id['MaterialDeEmbalaje']['MATERIAL_DE_EMBALAJE_ID'], 'CANTIDAD_DETALLE_GUIA_DESPACHO_ENTRADA_PROVEEDORES' => 0);
 					$count++;
 				}
+					$this->set('fuuck2', $detalle);
 				if($this->MaterialDeEmbalaje->DetalleGuiaDespachoEntradaProveedor->saveAll($detalle)){
 					$this->redirect(array('controller' => 'CajaMaterialDeEmbalajes', 'action' => 'add', $tipo_gd, $id_guia));
 				}
