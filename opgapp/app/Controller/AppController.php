@@ -40,23 +40,36 @@ class AppController extends Controller {
         'Auth' => array(
             'loginRedirect' => array('controller' => 'users', 'action' => 'index'),
             'logoutRedirect' => array('controller' => 'users', 'action' => 'login'),
-            'authError' => 'You must be logged in to view this page.',
-            'loginError' => 'Invalid Username or Password entered, please try again.'
+            'authError' => 'Debes estar logueado para ver esta pagina.',
+            'loginError' => 'Nombre de usuario o contraseña invalidos..'
     ));
  
     public function estaAutorizado($rol, $controller, $action){
         $adminAutorizado = array(
-        'users' => array('index', 'add', 'login', 'unauthorized'),
-        'clientes' => array('index', 'add')
+            'users' => array('index', 'add', 'edit', 'view', 'login', 'unauthorized'),
+            'clientes' => array('index', 'add'),
+            'bodegas' => array('index', 'add', 'edit', 'view'),
+            'proveedors' => array('index', 'add', 'edit', 'view'),
+            'solicitudembalajes' => array('index', 'view'),
+            'ordencompras' => array('index', 'view'),
+            'ordendespachos' => array('index', 'view', 'add'),
+            'compatibilidads' => array('index'),
+
         );
         $jbAutorizado = array(
-        'cliente' => array('index', 'add'), 
-        'users' => array('unauthorized')
-
+            'users' => array('unauthorized', 'login'),
+            'clientes' => array('index', 'add'),
+            'materialindividuals' => array('index'),
+            'materialdeembalajes' => array('index'),
+            'materialintermedios' => array('index'),
+            'guiadespachoentradaclientes' => array('index', 'add', 'edit', 'view'),
+            'posicions' => array('index', 'view', 'add', 'edit'),
+            'solicitudembalajes' => array('index', 'view')
         );
         $clienteAutorizado = array(
-        'MaterialIntermedio'
-
+            'users' => array('unauthorized', 'login'),
+            'solicitudembalajes' => array('add', 'view', 'index'),
+            'ordendespachos' => array('add', 'view', 'index')
         );
         $controller = strtolower($controller);
         $action = strtolower($action);
@@ -67,16 +80,26 @@ class AppController extends Controller {
                 return false;
             }
         }else if($rol == 'jb'){
- 
+            if(isset($jbAutorizado[$controller]) && in_array($action, $jbAutorizado[$controller])){
+                return true;
+            }else{
+                return false;
+            }
         }else if($rol == 'cliente'){
-            
+            if(isset($clienteAutorizado[$controller]) && in_array($action, $clienteAutorizado[$controller])){
+                return true;
+            }else{
+                return false;
+            }
         }
     }
     
     public function beforeFilter() {
         $this->Auth->allow('login');
-        /*if(!$this->estaAutorizado($this->Auth->user('ROLE'), $this->request['controller'], $this->request['action'])){
-            $this->redirect(array('controller' => 'users', 'action' => 'unauthorized'));
-        }*/
+        if(!$this->request['controller'] == 'users' && !$this->request['action'] == 'login'){
+            if(!$this->estaAutorizado($this->Auth->user('ROLE'), $this->request['controller'], $this->request['action'])){
+                $this->redirect(array('controller' => 'users', 'action' => 'unauthorized'));
+            }
+        }
     }
 }

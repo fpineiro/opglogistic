@@ -9,10 +9,9 @@ class SolicitudEmbalaje extends AppModel {
 /**
  * Primary key field
  *
- * @var string
- */
+ * @var string 
+*/
 	public $primaryKey = 'SOLICITUD_EMBALAJE_ID';
-	public $hasMany = array('DetalleSolicitudEmbalajeMaterialEmbalaje', 'DetalleSolicitudEmbalajeMaterialIndividual');
 	public $hasOne = 'DetalleSolicitudEmbalajeMaterialIntermedio';
 
 	public $belongsTo = array(

@@ -148,6 +148,10 @@ var $components = array('RequestHandler');
         $this->redirect($this->Auth->logout());
     }
 
+    public function unauthorized(){
+    	
+    }
+
 }
 
 ?>
